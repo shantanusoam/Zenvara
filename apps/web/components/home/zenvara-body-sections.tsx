@@ -13,9 +13,10 @@ import {
 import { EASE_PREMIUM, revealHidden, revealVisible, staggerContainer } from "@/lib/motion-presets"
 import { Reveal } from "./reveal"
 
-const aboutImage =
-  "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=1200&q=80"
 
+const aboutImage = "/assets/about_us.png";
+const missionImage = "/assets/mission.png";
+const visionImage = "/assets/vision.png";
 const productBg = [
   "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=70",
   "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=70",
@@ -69,14 +70,26 @@ export function ZenvaraBodySections() {
           </Reveal>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-[1440px] gap-6 px-5 md:grid-cols-2 md:px-10 lg:grid-cols-[1fr_217px] lg:items-start">
+        <div className="mx-auto bg-white py-16 grid max-w-[1440px] gap-6 px-5 md:grid-cols-2 md:px-10 lg:grid-cols-[1fr_217px] lg:items-start">
           <div className="grid gap-6 md:grid-cols-2">
             <Reveal className="rounded-2xl bg-[#0b1f2a] p-8 text-white">
-              <p className="text-2xl font-medium">{MISSION_VISION.mission.title}</p>
+              <Image
+                src={missionImage}
+                alt="Mission"
+                width={50}
+                height={50}
+              />
+              <p className="text-2xl font-medium mt-4">{MISSION_VISION.mission.title}</p>
               <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.mission.body}</p>
             </Reveal>
             <Reveal className="rounded-2xl bg-[var(--zen-accent)] p-8 text-[#0a0a0a]">
-              <p className="text-2xl font-medium">{MISSION_VISION.vision.title}</p>
+              <Image
+                src={visionImage}
+                alt="Vision"
+                width={50}
+                height={50}
+              />
+              <p className="text-2xl font-medium mt-4">{MISSION_VISION.vision.title}</p>
               <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.vision.body}</p>
             </Reveal>
           </div>
@@ -90,10 +103,13 @@ export function ZenvaraBodySections() {
           </Reveal>
         </div>
 
-        <div className="mx-auto mt-20 max-w-[1440px] px-5 md:px-10">
+        <div className="mx-auto bg-white py-4 max-w-[1440px] px-5 md:px-10">
           <Reveal>
             <h2 className="max-w-4xl text-balance text-4xl font-medium text-[#0a0a0a] md:text-[56px] md:leading-[1.15]">
               {STAT_STRIP.headline}
+            </h2>
+            <h2 className="max-w-4xl text-balance text-4xl font-medium text-[var(--zen-accent)] md:text-[56px] md:leading-[1.15]">
+              {STAT_STRIP.headline2}
             </h2>
           </Reveal>
           {reduce ? (
@@ -103,7 +119,7 @@ export function ZenvaraBodySections() {
                   <p className="text-5xl font-bold text-[#959595] md:text-[78px] md:leading-none">
                     {s.value}
                   </p>
-                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]">{s.caption}</p>
+                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]" dangerouslySetInnerHTML={{ __html: s.caption }}/>
                 </div>
               ))}
             </div>
@@ -126,7 +142,7 @@ export function ZenvaraBodySections() {
                   <p className="text-5xl font-bold text-[#959595] md:text-[78px] md:leading-none">
                     {s.value}
                   </p>
-                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]">{s.caption}</p>
+                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]" dangerouslySetInnerHTML={{ __html: s.caption }}/>
                 </motion.div>
               ))}
             </motion.div>

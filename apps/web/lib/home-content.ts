@@ -41,16 +41,17 @@ export const MISSION_VISION = {
 } as const
 
 export const STAT_STRIP = {
-  headline: "Performance That Outlasts. Efficiency That Delivers.",
+  headline: "Performance That Outlasts.",
+  headline2: 'Efficiency That Delivers.',
   stats: [
-    { value: ">3000", caption: "Charge cycles delivered reliably across applications" },
+    { value: ">3000", caption: "<b>Charge cycles</b> delivered reliably across applications" },
     {
       value: ">3 times",
-      caption: "Longer lifespan compared to conventional lead-acid batteries",
+      caption: "<b>Longer lifespan</b> compared to conventional lead-acid batteries",
     },
     {
       value: ">50%",
-      caption: "Weight reduction for improved efficiency and performance",
+      caption: "<b>Weight reduction</b> for improved efficiency and performance",
     },
   ],
   sidebar: [

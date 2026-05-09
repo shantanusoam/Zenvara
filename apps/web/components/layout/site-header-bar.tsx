@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { ChevronDown } from "lucide-react"
 import { NAV, SITE } from "@/lib/home-content"
 import { PillButton } from "./pill-button"
 
@@ -23,13 +24,14 @@ export function SiteHeaderBar({ active, ctaLabel, ctaHref }: SiteHeaderBarProps)
           <Link
             key={item.label}
             href={item.href}
-            className={
+            className={`flex items-center gap-1.5 ${
               item.label === active
                 ? "text-[var(--zen-accent)]"
                 : "text-white/90 hover:text-[var(--zen-accent)]"
-            }
+            }`}
           >
             {item.label}
+            {item.label !== "Home" && <ChevronDown className="h-5 w-5 opacity-80" />}
           </Link>
         ))}
       </nav>
