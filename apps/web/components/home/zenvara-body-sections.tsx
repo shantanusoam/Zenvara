@@ -147,29 +147,41 @@ export function ZenvaraBodySections() {
 </SectionLayout>
 <SectionLayout id="why-zenvara" bgClass="bg-[#efefef]" >
 
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <Reveal>
-            <p className="text-lg font-medium text-[#0a0a0a]">{WHY_ZENVARA.eyebrow}</p>
-          </Reveal>
-          <Reveal>
-            <h2 className="max-w-3xl text-balance text-right text-4xl font-medium text-[#0b1f2a] lg:text-[56px] lg:leading-[1.15]">
-              {WHY_ZENVARA.title}
-            </h2>
-          </Reveal>
-        </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {WHY_ZENVARA.features.map((f, i) => (
-            <Reveal key={f.title} delay={i * 0.05}>
-              <motion.article
-                whileHover={reduce ? undefined : { y: -6, scale: 1.01 }}
-                transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                className={`flex min-h-[280px] flex-col justify-end rounded-[20px] p-6 ${featureCardClass[f.variant]}`}
-              >
-                <h3 className="text-2xl font-semibold leading-snug">{f.title}</h3>
-                <p className="mt-3 text-lg leading-relaxed opacity-95">{f.body}</p>
-              </motion.article>
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-16">
+          <div className="lg:w-56 shrink-0">
+            <Reveal>
+              <p className="text-lg font-medium text-[#0a0a0a] lg:pt-3">{WHY_ZENVARA.eyebrow}</p>
             </Reveal>
-          ))}
+          </div>
+          <div className="flex-1 max-w-5xl">
+            <Reveal>
+              <h2 className="text-balance text-left text-4xl font-medium text-[#0b1f2a] lg:text-[56px] lg:leading-[1.15]">
+                Engineered Energy Solutions<br className="hidden lg:block" /> for <span className="text-[var(--zen-accent)]">Every Application</span>
+              </h2>
+            </Reveal>
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {WHY_ZENVARA.features.map((f, i) => (
+                <Reveal key={f.title} delay={i * 0.05}>
+                  <motion.article
+                    whileHover={reduce ? undefined : { y: -6, scale: 1.01 }}
+                    transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                    className={`flex min-h-[280px] flex-col justify-between rounded-[20px] p-6 ${featureCardClass[f.variant]}`}
+                  >
+                    <Image
+                      src={f.icon}
+                      alt={f.title}
+                      width={50}
+                      height={50}
+                    />  
+                    <div>
+                      <h3 className="text-2xl font-semibold leading-snug">{f.title}</h3>
+                      <p className="mt-3 text-lg leading-relaxed opacity-95">{f.body}</p>
+                    </div>
+                  </motion.article>
+                </Reveal>
+              ))}
+            </div>
+          </div>
         </div>
       </SectionLayout>
 

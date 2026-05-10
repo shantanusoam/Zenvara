@@ -68,31 +68,37 @@ export const WHY_ZENVARA = {
     {
       title: "LFP-First Chemistry",
       body: "We build exclusively with lithium iron phosphate cells ",
+      icon:"/assets/lfp.svg",
       variant: "outline" as const,
     },
     {
       title: "3,000+ Cycle Life",
       body: "Our packs are rated for over 3,000 charge-",
+      icon:"/assets/3000+cycle.svg",
       variant: "dark" as const,
     },
     {
       title: "Precision-Assembled in India",
       body: "Every battery is assembled, tested, and quality-",
+      icon:"/assets/precision.svg",
       variant: "accent" as const,
     },
     {
       title: "Intelligent BMS Integration",
       body: "Each pack ships with an advanced battery ",
+      icon:"/assets/intelligent.png",
       variant: "accent" as const,
     },
     {
       title: "Scalable for Business",
       body: "From a single prototype pack to 1,000 units a ",
+      icon:"/assets/scalable.png",
       variant: "light" as const,
     },
     {
       title: "OEM & Channel Ready",
       body: "Whether you’re an EV manufacturer, an inverter ",
+      icon:"/assets/oem.png",
       variant: "dark" as const,
     },
   ],
