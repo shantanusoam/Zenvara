@@ -6,6 +6,7 @@ import { useState } from "react"
 import { CTA, IMPACT, TESTIMONIAL } from "@/lib/home-content"
 import { EASE_PREMIUM } from "@/lib/motion-presets"
 import { Reveal } from "./reveal"
+import { MoveUpRight } from "lucide-react"
 
 const testimonialImage =
   "/assets/testimonials.png"
@@ -18,39 +19,53 @@ export function MarketingImpact() {
 
   return (
     <section className="relative overflow-hidden bg-[#0b1f2a] py-20 text-white md:py-28">
-      <div className="mx-auto grid max-w-[1440px] gap-12 px-5 md:grid-cols-2 md:px-10 lg:grid-cols-[1fr_1fr_minmax(280px,400px)] lg:gap-16">
+      <div className="mx-auto grid max-w-[1440px] gap-12 px-5 md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_2fr_minmax(350px,450px)] md:px-10 lg:gap-16">
+        {/* Column 1: Eyebrow */}
         <Reveal>
           <p className="text-lg font-medium text-[var(--zen-accent)]">{IMPACT.eyebrow}</p>
-          <h2 className="mt-4 max-w-md text-3xl font-semibold md:text-[32px]">{IMPACT.leftTitle}</h2>
-          <ul className="mt-10 space-y-4 border-t border-white/20 pt-6">
-            {IMPACT.words.map((w, i) => (
-              <li key={w}>
-                <button
-                  type="button"
-                  onClick={() => setActiveImpact(i)}
-                  className={`text-left text-4xl font-semibold transition-colors md:text-[56px] md:leading-tight ${
-                    activeImpact === i ? "text-[var(--zen-accent)]" : "text-white/90"
-                  }`}
-                >
-                  {w}
-                </button>
-              </li>
-            ))}
-          </ul>
         </Reveal>
-        <div className="hidden lg:block" aria-hidden />
-        <Reveal className="relative min-h-[320px] lg:min-h-[420px]">
-          <Image
-            src={impactImage}
-            alt=""
-            fill
-            className="rounded-2xl object-cover"
-            sizes="(min-width: 1024px) 33vw, 100vw"
-          />
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/70 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            <p className="text-2xl font-semibold">{IMPACT.right.title}</p>
-            <p className="mt-3 text-lg leading-relaxed text-white/95">{IMPACT.right.body}</p>
+
+        {/* Column 2: Title and Words */}
+        <div className="flex flex-col">
+          <Reveal>
+            <h2 className="max-w-md text-3xl font-semibold md:text-[32px] lg:text-[40px] leading-tight">
+              {IMPACT.leftTitle}
+            </h2>
+          </Reveal>
+          
+          <Reveal className="mt-16 lg:mt-32">
+            <ul className="space-y-4">
+              {IMPACT.words.map((w, i) => (
+                <li key={w} className="border-b border-white/20 pb-4">
+                  <button
+                    type="button"
+                    onClick={() => setActiveImpact(i)}
+                    className={`text-left text-4xl font-semibold transition-colors md:text-[56px] md:leading-tight ${
+                      activeImpact === i ? "text-[var(--zen-accent)]" : "text-white/90"
+                    }`}
+                  >
+                    {w}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+
+        {/* Column 3: Image and Text Card */}
+        <Reveal className="flex flex-col">
+          <div className="relative h-[280px] lg:h-[350px] w-full shrink-0">
+            <Image
+              src={impactImage}
+              alt=""
+              fill
+              className="rounded-2xl object-cover"
+              sizes="(min-width: 1024px) 33vw, 100vw"
+            />
+          </div>
+          <div className="pt-8">
+            <h3 className="text-2xl font-semibold text-white">{IMPACT.right.title}</h3>
+            <p className="mt-3 text-lg leading-relaxed text-white/80">{IMPACT.right.body}</p>
           </div>
         </Reveal>
       </div>
@@ -124,7 +139,9 @@ export function MarketingCtaStrip() {
             transition={{ type: "spring", stiffness: 350, damping: 22 }}
           >
             {CTA.button}
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--zen-accent)]" />
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--zen-accent)] text-[#0b1f2a]" >
+              <MoveUpRight/>
+            </span>
           </motion.a>
         </Reveal>
       </div>
