@@ -42,7 +42,7 @@ export function ZenvaraBodySections() {
   return (
     <>
       <section id="about" className="bg-[#efefef] py-16 md:py-24">
-        <div className="mx-auto grid max-w-[1440px] gap-12 px-5 md:grid-cols-2 md:gap-16 md:px-10">
+        <div className="mx-auto grid max-w-[1440px] gap-12 p-5 md:grid-cols-2 md:gap-16 md:px-10">
           <Reveal>
             <p className="text-lg text-[#0a0a0a]">{WHO_WE_ARE.eyebrow}</p>
             <h2 className="mt-2 text-balance text-4xl font-semibold text-[#0a0a0a] md:text-[56px] md:leading-[1.12]">
@@ -70,7 +70,7 @@ export function ZenvaraBodySections() {
           </Reveal>
         </div>
 
-        <div className="mx-auto bg-white py-16 grid max-w-[1440px] gap-6 px-5 md:grid-cols-2 md:px-10 lg:grid-cols-[1fr_217px] lg:items-start">
+        <div className="mx-auto bg-white py-16 max-w-[1440px] px-5 md:px-10">
           <div className="grid gap-6 md:grid-cols-2">
             <Reveal className="rounded-2xl bg-[#0b1f2a] p-8 text-white">
               <Image
@@ -93,14 +93,14 @@ export function ZenvaraBodySections() {
               <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.vision.body}</p>
             </Reveal>
           </div>
-          <Reveal className="rounded-2xl bg-gradient-to-b from-[#0b1f2a] to-[#266a90] p-6 text-center text-white">
+          {/* <Reveal className="rounded-2xl bg-gradient-to-b from-[#0b1f2a] to-[#266a90] p-6 text-center text-white">
             {STAT_STRIP.sidebar.map((s) => (
               <div key={s.label} className="py-4">
                 <p className="text-5xl font-bold">{s.big}</p>
                 <p className="mt-2 text-lg">{s.label}</p>
               </div>
             ))}
-          </Reveal>
+          </Reveal> */}
         </div>
 
         <div className="mx-auto bg-white py-4 max-w-[1440px] px-5 md:px-10">
