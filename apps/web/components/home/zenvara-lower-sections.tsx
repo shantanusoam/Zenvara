@@ -6,6 +6,7 @@ import { BLOG, SUSTAINABILITY } from "@/lib/home-content"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { MarketingCtaStrip, MarketingImpact, MarketingTestimonial } from "./marketing-blocks"
 import { Reveal } from "./reveal"
+import { SectionLayout } from "@/components/layout/section-layout"
 
 const sustainabilityBg =
   "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1600&q=80"
@@ -46,32 +47,30 @@ export function ZenvaraLowerSections() {
 
       <MarketingCtaStrip />
 
-      <section id="blog" className="bg-white py-16 md:py-24">
-        <div className="mx-auto max-w-[1440px] px-5 text-center md:px-10">
-          <Reveal>
-            <p className="text-lg font-medium text-[var(--zen-accent)]">{BLOG.eyebrow}</p>
-            <h2 className="mt-4 text-balance text-4xl font-semibold text-[#0a0a0a] md:text-[56px] md:leading-tight">
-              {BLOG.title}
-            </h2>
-          </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {BLOG.posts.map((post) => (
-              <Reveal key={post.title}>
-                <article className="flex h-full flex-col overflow-hidden rounded-[20px] bg-[#0b1f2a] text-left text-white">
-                  <div className="aspect-[380/254] bg-[#16394a]" />
-                  <div className="flex flex-1 flex-col p-6">
-                    <h3 className="text-2xl font-semibold">{post.category}</h3>
-                    <p className="mt-2 flex-1 text-lg leading-relaxed">{post.title}</p>
-                    <Link href="#" className="mt-4 text-lg text-[var(--zen-accent)]">
-                      Read More
-                    </Link>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+      <SectionLayout id="blog" bgClass="bg-white" containerClass="text-center">
+        <Reveal>
+          <p className="text-lg font-medium text-[var(--zen-accent)]">{BLOG.eyebrow}</p>
+          <h2 className="mt-4 text-balance text-4xl font-semibold text-[#0a0a0a] md:text-[56px] md:leading-tight">
+            {BLOG.title}
+          </h2>
+        </Reveal>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {BLOG.posts.map((post) => (
+            <Reveal key={post.title}>
+              <article className="flex h-full flex-col overflow-hidden rounded-[20px] bg-[#0b1f2a] text-left text-white">
+                <div className="aspect-[380/254] bg-[#16394a]" />
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-2xl font-semibold">{post.category}</h3>
+                  <p className="mt-2 flex-1 text-lg leading-relaxed">{post.title}</p>
+                  <Link href="#" className="mt-4 text-lg text-[var(--zen-accent)]">
+                    Read More
+                  </Link>
+                </div>
+              </article>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </SectionLayout>
 
       <SiteFooter />
     </>

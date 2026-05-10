@@ -12,6 +12,7 @@ import {
 } from "@/lib/home-content"
 import { EASE_PREMIUM, revealHidden, revealVisible, staggerContainer } from "@/lib/motion-presets"
 import { Reveal } from "./reveal"
+import { SectionLayout } from "@/components/layout/section-layout"
 
 
 const aboutImage = "/assets/about_us.png";
@@ -41,8 +42,8 @@ export function ZenvaraBodySections() {
 
   return (
     <>
-      <section id="about" className="bg-[#efefef] py-16 md:py-24">
-        <div className="mx-auto grid max-w-[1440px] gap-12 p-5 md:grid-cols-2 md:gap-16 md:px-10">
+      <SectionLayout id="about" bgClass="bg-[#efefef]" containerClass="flex flex-col gap-16 md:gap-24">
+        <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <Reveal>
             <p className="text-lg text-[#0a0a0a]">{WHO_WE_ARE.eyebrow}</p>
             <h2 className="mt-2 text-balance text-4xl font-semibold text-[#0a0a0a] md:text-[56px] md:leading-[1.12]">
@@ -69,41 +70,36 @@ export function ZenvaraBodySections() {
             />
           </Reveal>
         </div>
-
-        <div className="mx-auto bg-white py-16 max-w-[1440px] px-5 md:px-10">
-          <div className="grid gap-6 md:grid-cols-2">
-            <Reveal className="rounded-2xl bg-[#0b1f2a] p-8 text-white">
-              <Image
-                src={missionImage}
-                alt="Mission"
-                width={50}
-                height={50}
-              />
-              <p className="text-2xl font-medium mt-4">{MISSION_VISION.mission.title}</p>
-              <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.mission.body}</p>
-            </Reveal>
-            <Reveal className="rounded-2xl bg-[var(--zen-accent)] p-8 text-[#0a0a0a]">
-              <Image
-                src={visionImage}
-                alt="Vision"
-                width={50}
-                height={50}
-              />
-              <p className="text-2xl font-medium mt-4">{MISSION_VISION.vision.title}</p>
-              <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.vision.body}</p>
-            </Reveal>
-          </div>
-          {/* <Reveal className="rounded-2xl bg-gradient-to-b from-[#0b1f2a] to-[#266a90] p-6 text-center text-white">
-            {STAT_STRIP.sidebar.map((s) => (
-              <div key={s.label} className="py-4">
-                <p className="text-5xl font-bold">{s.big}</p>
-                <p className="mt-2 text-lg">{s.label}</p>
-              </div>
-            ))}
-          </Reveal> */}
+</SectionLayout>
+<SectionLayout>
+  
+        <div className="grid gap-6 md:grid-cols-2">
+          <Reveal className="rounded-2xl bg-[#0b1f2a] p-8 text-white">
+            <Image
+              src={missionImage}
+              alt="Mission"
+              width={50}
+              height={50}
+            />
+            <p className="text-2xl font-medium mt-4">{MISSION_VISION.mission.title}</p>
+            <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.mission.body}</p>
+          </Reveal>
+          <Reveal className="rounded-2xl bg-[var(--zen-accent)] p-8 text-[#0a0a0a]">
+            <Image
+              src={visionImage}
+              alt="Vision"
+              width={50}
+              height={50}
+            />
+            <p className="text-2xl font-medium mt-4">{MISSION_VISION.vision.title}</p>
+            <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.vision.body}</p>
+          </Reveal>
         </div>
 
-        <div className="mx-auto bg-white py-4 max-w-[1440px] px-5 md:px-10">
+</SectionLayout>
+<SectionLayout>
+
+        <div>
           <Reveal>
             <h2 className="max-w-4xl text-balance text-4xl font-medium text-[#0a0a0a] md:text-[56px] md:leading-[1.15]">
               {STAT_STRIP.headline}
@@ -148,39 +144,37 @@ export function ZenvaraBodySections() {
             </motion.div>
           )}
         </div>
-      </section>
+</SectionLayout>
+<SectionLayout id="why-zenvara" bgClass="bg-[#efefef]" >
 
-      <section className="bg-[#efefef] py-16 md:py-24">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <Reveal>
-              <p className="text-lg font-medium text-[#0a0a0a]">{WHY_ZENVARA.eyebrow}</p>
-            </Reveal>
-            <Reveal>
-              <h2 className="max-w-3xl text-balance text-right text-4xl font-medium text-[#0b1f2a] lg:text-[56px] lg:leading-[1.15]">
-                {WHY_ZENVARA.title}
-              </h2>
-            </Reveal>
-          </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {WHY_ZENVARA.features.map((f, i) => (
-              <Reveal key={f.title} delay={i * 0.05}>
-                <motion.article
-                  whileHover={reduce ? undefined : { y: -6, scale: 1.01 }}
-                  transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                  className={`flex min-h-[280px] flex-col justify-end rounded-[20px] p-6 ${featureCardClass[f.variant]}`}
-                >
-                  <h3 className="text-2xl font-semibold leading-snug">{f.title}</h3>
-                  <p className="mt-3 text-lg leading-relaxed opacity-95">{f.body}</p>
-                </motion.article>
-              </Reveal>
-            ))}
-          </div>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <Reveal>
+            <p className="text-lg font-medium text-[#0a0a0a]">{WHY_ZENVARA.eyebrow}</p>
+          </Reveal>
+          <Reveal>
+            <h2 className="max-w-3xl text-balance text-right text-4xl font-medium text-[#0b1f2a] lg:text-[56px] lg:leading-[1.15]">
+              {WHY_ZENVARA.title}
+            </h2>
+          </Reveal>
         </div>
-      </section>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {WHY_ZENVARA.features.map((f, i) => (
+            <Reveal key={f.title} delay={i * 0.05}>
+              <motion.article
+                whileHover={reduce ? undefined : { y: -6, scale: 1.01 }}
+                transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                className={`flex min-h-[280px] flex-col justify-end rounded-[20px] p-6 ${featureCardClass[f.variant]}`}
+              >
+                <h3 className="text-2xl font-semibold leading-snug">{f.title}</h3>
+                <p className="mt-3 text-lg leading-relaxed opacity-95">{f.body}</p>
+              </motion.article>
+            </Reveal>
+          ))}
+        </div>
+      </SectionLayout>
 
-      <section id="products" className="bg-[#efefef] pb-20 pt-4">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-10">
+      <section id="products" className=" pb-20 pt-4">
+        <div className="mx-auto max-w-[1440px] px-5 md:px-10 lg:px-20">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <Reveal>
               <p className="text-lg font-medium text-[#0b1f2a]">{PRODUCTS.eyebrow}</p>
@@ -192,7 +186,7 @@ export function ZenvaraBodySections() {
             </Reveal>
           </div>
         </div>
-        <div className="mt-10 flex gap-5 overflow-x-auto pb-4 pl-5 pr-5 pt-2 [scrollbar-width:thin] md:pl-10">
+        <div className="mt-10 flex gap-5 overflow-x-auto pb-4 pl-5 pr-5 pt-2 [scrollbar-width:thin] md:pl-10 lg:pl-20 lg:pr-20">
           {PRODUCTS.cards.map((c, idx) => (
             <Reveal key={c.title} className="min-w-[min(100%,346px)] shrink-0">
               <motion.article
