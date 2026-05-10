@@ -158,11 +158,11 @@ export const SUSTAINABILITY = {
   eyebrow: "Powered By Zenvara",
   title: "Sustainable Energy",
   pillars: [
-    { title: "Reduced Emissions", body: "Supports electric mobility and clean energy with lower carbon impact." },
-    { title: "Future-Ready Systems", body: "Built to support solar, EVs, and next-gen energy infrastructure." },
-    { title: "Long Lifecycle", body: "3,000+ charge cycles reduce waste and replacement frequency." },
-    { title: "Responsible Manufacturing", body: "Made in India with reduced logistics impact and controlled production." },
-    { title: "Cleaner Energy Storage", body: "Efficient lithium storage supports renewable integration and reduces grid dependence." },
+    { title: "Reduced Emissions", body: "Supports electric mobility and clean energy with lower carbon impact.", icon: "/assets/Reduced.svg" },
+    { title: "Future-Ready Systems", body: "Built to support solar, EVs, and next-gen energy infrastructure.", icon: "/assets/Future ready.svg" },
+    { title: "Long Lifecycle", body: "3,000+ charge cycles reduce waste and replacement frequency.", icon: "/assets/Long life.svg" },
+    { title: "Responsible Manufacturing", body: "Made in India with reduced logistics impact and controlled production.", icon: "/assets/Responsible.svg" },
+    { title: "Cleaner Energy Storage", body: "Efficient lithium storage supports renewable integration and reduces grid dependence.", icon: "/assets/Cleaner energy.svg" },
   ],
 } as const
 
