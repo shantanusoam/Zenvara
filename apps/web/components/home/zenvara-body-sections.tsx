@@ -13,6 +13,9 @@ import {
 import { EASE_PREMIUM, revealHidden, revealVisible, staggerContainer } from "@/lib/motion-presets"
 import { Reveal } from "./reveal"
 import { SectionLayout } from "@/components/layout/section-layout"
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
 
 const aboutImage = "/assets/about_us.png";
@@ -198,32 +201,62 @@ export function ZenvaraBodySections() {
             </Reveal>
           </div>
         </div>
-        <div className="mt-10 flex gap-5 overflow-x-auto pb-4 pl-5 pr-5 pt-2 [scrollbar-width:thin] md:pl-10 lg:pl-20 lg:pr-20">
-          {PRODUCTS.cards.map((c, idx) => (
-            <Reveal key={c.title} className="min-w-[min(100%,346px)] shrink-0">
-              <motion.article
-                className="relative flex h-[398px] w-[min(100%,346px)] flex-col justify-end overflow-hidden rounded-2xl bg-[#0b1f2a] p-6 text-white shadow-lg"
-                whileHover={reduce ? undefined : { scale: 1.01 }}
-                transition={{ duration: 0.35, ease: EASE_PREMIUM }}
-              >
-                <div
-                  className="absolute inset-0 opacity-90"
-                  style={{
-                    backgroundImage: `linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.95) 100%), url(${productBg[idx % productBg.length]})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
-                />
-                <div className="relative z-10">
-                  <span className="mb-4 inline-flex h-[78px] w-[78px] items-center justify-center rounded-full bg-[#0b1f2a] text-sm font-medium text-[var(--zen-accent)]">
-                    {idx + 1}
-                  </span>
-                  <h3 className="text-2xl font-medium">{c.title}</h3>
-                  <p className="mt-2 text-lg leading-relaxed text-white/95">{c.body}</p>
-                </div>
-              </motion.article>
-            </Reveal>
-          ))}
+        <div className="mt-10 pb-12 pl-5 pr-5 pt-2 md:pl-10 lg:pl-20 lg:pr-20">
+          <Slider
+            dots={true}
+            infinite={true}
+            speed={500}
+            slidesToShow={3.5}
+            slidesToScroll={1}
+            swipeToSlide={true}
+            arrows={false}
+            responsive={[
+              {
+                breakpoint: 1280,
+                settings: { slidesToShow: 3, slidesToScroll: 1 },
+              },
+              {
+                breakpoint: 1024,
+                settings: { slidesToShow: 2.2, slidesToScroll: 1 },
+              },
+              {
+                breakpoint: 768,
+                settings: { slidesToShow: 1.5, slidesToScroll: 1 },
+              },
+              {
+                breakpoint: 640,
+                settings: { slidesToShow: 1.1, slidesToScroll: 1 },
+              },
+            ]}
+          >
+            {PRODUCTS.cards.map((c, idx) => (
+              <div key={c.title} className="px-3">
+                <Reveal>
+                  <motion.article
+                    className="relative flex h-[398px] w-full flex-col justify-end overflow-hidden rounded-2xl bg-[#0b1f2a] p-6 text-white shadow-lg"
+                    whileHover={reduce ? undefined : { scale: 1.01 }}
+                    transition={{ duration: 0.35, ease: EASE_PREMIUM }}
+                  >
+                    <div
+                      className="absolute inset-0 opacity-90"
+                      style={{
+                        backgroundImage: `linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.95) 100%), url(${productBg[idx % productBg.length]})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    />
+                    <div className="relative z-10">
+                      <span className="mb-4 inline-flex h-[78px] w-[78px] items-center justify-center rounded-full bg-[#0b1f2a] text-sm font-medium text-[var(--zen-accent)]">
+                        {idx + 1}
+                      </span>
+                      <h3 className="text-2xl font-medium">{c.title}</h3>
+                      <p className="mt-2 text-lg leading-relaxed text-white/95">{c.body}</p>
+                    </div>
+                  </motion.article>
+                </Reveal>
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
     </>

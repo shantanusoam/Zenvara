@@ -8,7 +8,7 @@ import { EASE_PREMIUM } from "@/lib/motion-presets"
 import { Reveal } from "./reveal"
 
 const testimonialImage =
-  "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=80"
+  "/assets/testimonials.png"
 
 const impactImage =
   "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=900&q=80"

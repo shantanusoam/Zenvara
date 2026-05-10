@@ -14,9 +14,7 @@ const sustainabilityBg =
 export function ZenvaraLowerSections() {
   return (
     <>
-      <MarketingImpact />
       <MarketingTestimonial />
-
       <section className="relative overflow-hidden py-16 md:py-24">
         <div className="absolute inset-0">
           <Image src={sustainabilityBg} alt="" fill className="object-cover" sizes="100vw" />
@@ -44,6 +42,8 @@ export function ZenvaraLowerSections() {
           </div>
         </div>
       </section>
+      <MarketingImpact />
+
 
       <MarketingCtaStrip />
 
