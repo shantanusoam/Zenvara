@@ -27,6 +27,27 @@ pnpm --filter web cms:seed
 
 The embedded Studio is available at `/studio` after Sanity is configured. If the project ID is missing, `/studio` shows the required environment variables instead of attempting to connect to a placeholder Sanity project. The CMS models include global site settings, home page content, about page content, blog posts, and reusable SEO fields used by Next.js `generateMetadata()`.
 
+## Deploy to DigitalOcean
+
+Run from the monorepo root:
+
+```bash
+./scripts/deploy-digitalocean.sh
+```
+
+The script deploys `apps/web` to `root@168.144.92.215` by default, installs a supported Node runtime on the droplet, builds the `web` workspace with `pnpm`, starts it with `systemd`, and publishes it through Nginx on port `8004`.
+
+Pass Sanity values inline when deploying:
+
+```bash
+SANITY_PROJECT_ID=your-project-id \
+SANITY_DATASET=production \
+SANITY_API_VERSION=2026-05-09 \
+./scripts/deploy-digitalocean.sh
+```
+
+If `SANITY_PROJECT_ID` is omitted, the script preserves an existing `apps/web/.env.production` on the server. On a first deploy without that value, it writes a placeholder env file and exits so you can populate it before rerunning.
+
 ## Adding components
 
 To add components to your app, run the following command at the root of your `web` app:

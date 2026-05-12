@@ -1,6 +1,6 @@
 import { Geist, Geist_Mono, Inter, Open_Sans } from "next/font/google"
 
-import "@workspace/ui/globals.css"
+import "@workspace/ui/styles/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@workspace/ui/lib/utils"
 

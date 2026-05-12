@@ -36,6 +36,7 @@ export const homePageQuery = groq`
     },
     statStrip{
       headline,
+      headline2,
       stats[]{value, caption},
       sidebar[]{big, label}
     },

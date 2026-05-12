@@ -64,6 +64,7 @@ export type HomePageContent = {
   missionVision: MissionVisionContent
   statStrip: {
     headline: string
+    headline2: string
     stats: StatItem[]
     sidebar: {
       big: string
@@ -109,6 +110,7 @@ export type HomePageContent = {
     pillars: {
       title: string
       body: string
+      icon?: string
     }[]
   }
   cta: {

@@ -17,7 +17,7 @@ export const HERO = {
   primaryCta: "Explore More",
   secondaryCta: "Get in Touch",
   videoNote:
-    "Hero section will be a video, please develop accordingly",
+    "Hero section will be a video",
 } as const
 
 export const WHO_WE_ARE = {
@@ -165,6 +165,11 @@ export const SUSTAINABILITY = {
     { title: "Cleaner Energy Storage", body: "Efficient lithium storage supports renewable integration and reduces grid dependence.", icon: "/assets/Cleaner energy.svg" },
   ],
 } as const
+
+/** Icon paths by pillar index for radial layout when CMS content has no `icon`. */
+export const SUSTAINABILITY_PILLAR_ICONS_FALLBACK = [
+  ...SUSTAINABILITY.pillars.map((pillar) => pillar.icon),
+] as [string, string, string, string, string]
 
 export const CTA = {
   title: "Let’s Build India’s Energy Future Together.",

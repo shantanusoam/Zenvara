@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { ChevronDown } from "lucide-react"
 import { DEFAULT_SITE_SETTINGS } from "@/lib/default-content"
 import type { SiteSettingsContent } from "@/lib/content-types"
 import { PillButton } from "./pill-button"

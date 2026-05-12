@@ -243,6 +243,11 @@ const homePage = defineType({
       fields: [
         defineField({ name: "headline", type: "string" }),
         defineField({
+          name: "headline2",
+          title: "Accent headline",
+          type: "string",
+        }),
+        defineField({
           name: "stats",
           type: "array",
           of: [defineArrayMember({ type: "statItem" })],

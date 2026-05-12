@@ -2,6 +2,7 @@
 
 ## Completed
 
+- **2026-05-12** — Home build and JSX fixes: `zenvara-lower-sections` blog `</section>` / `sustainability` props / duplicate eyebrow; sustainability radial icons (`SUSTAINABILITY_PILLAR_ICONS_FALLBACK`, optional `icon` on pillars); `zenvara-body-sections` drop missing `react-slick` imports, `statStrip.headline2`, `SectionLayout` indentation; `statStrip.headline2` in types, GROQ, Sanity schema; `ChevronDown` import in `site-header-bar`.
 - **2026-05-09** — Add minimal Sanity CMS architecture for editable Zenvara marketing content and SEO, with local TypeScript content fallback, embedded Studio route, seed command, and setup docs.
 - **2026-05-09** — Guard the embedded Sanity Studio route so missing CMS environment variables show setup instructions instead of calling the placeholder Sanity API.
 - **2026-05-06** — Bind the local project to `https://github.com/shantanusoam/Zenvara.git` and push the current code.
