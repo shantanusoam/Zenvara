@@ -12,10 +12,15 @@ import {
 } from "@/lib/home-content"
 import { EASE_PREMIUM, revealHidden, revealVisible, staggerContainer } from "@/lib/motion-presets"
 import { Reveal } from "./reveal"
+import { SectionLayout } from "@/components/layout/section-layout"
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
-const aboutImage =
-  "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=1200&q=80"
 
+const aboutImage = "/assets/about_us.png";
+const missionImage = "/assets/mission.png";
+const visionImage = "/assets/vision.png";
 const productBg = [
   "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=70",
   "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=70",
@@ -40,8 +45,8 @@ export function ZenvaraBodySections() {
 
   return (
     <>
-      <section id="about" className="bg-[#efefef] py-16 md:py-24">
-        <div className="mx-auto grid max-w-[1440px] gap-12 px-5 md:grid-cols-2 md:gap-16 md:px-10">
+      <SectionLayout id="about" bgClass="bg-[#efefef]" containerClass="flex flex-col gap-16 md:gap-24">
+        <div className="grid gap-12 md:grid-cols-2 md:gap-16">
           <Reveal>
             <p className="text-lg text-[#0a0a0a]">{WHO_WE_ARE.eyebrow}</p>
             <h2 className="mt-2 text-balance text-4xl font-semibold text-[#0a0a0a] md:text-[56px] md:leading-[1.12]">
@@ -68,32 +73,42 @@ export function ZenvaraBodySections() {
             />
           </Reveal>
         </div>
-
-        <div className="mx-auto mt-16 grid max-w-[1440px] gap-6 px-5 md:grid-cols-2 md:px-10 lg:grid-cols-[1fr_217px] lg:items-start">
-          <div className="grid gap-6 md:grid-cols-2">
-            <Reveal className="rounded-2xl bg-[#0b1f2a] p-8 text-white">
-              <p className="text-2xl font-medium">{MISSION_VISION.mission.title}</p>
-              <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.mission.body}</p>
-            </Reveal>
-            <Reveal className="rounded-2xl bg-[var(--zen-accent)] p-8 text-[#0a0a0a]">
-              <p className="text-2xl font-medium">{MISSION_VISION.vision.title}</p>
-              <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.vision.body}</p>
-            </Reveal>
-          </div>
-          <Reveal className="rounded-2xl bg-gradient-to-b from-[#0b1f2a] to-[#266a90] p-6 text-center text-white">
-            {STAT_STRIP.sidebar.map((s) => (
-              <div key={s.label} className="py-4">
-                <p className="text-5xl font-bold">{s.big}</p>
-                <p className="mt-2 text-lg">{s.label}</p>
-              </div>
-            ))}
+</SectionLayout>
+<SectionLayout>
+  
+        <div className="grid gap-6 md:grid-cols-2">
+          <Reveal className="rounded-2xl bg-[#0b1f2a] p-8 text-white">
+            <Image
+              src={missionImage}
+              alt="Mission"
+              width={50}
+              height={50}
+            />
+            <p className="text-2xl font-medium mt-4">{MISSION_VISION.mission.title}</p>
+            <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.mission.body}</p>
+          </Reveal>
+          <Reveal className="rounded-2xl bg-[var(--zen-accent)] p-8 text-[#0a0a0a]">
+            <Image
+              src={visionImage}
+              alt="Vision"
+              width={50}
+              height={50}
+            />
+            <p className="text-2xl font-medium mt-4">{MISSION_VISION.vision.title}</p>
+            <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.vision.body}</p>
           </Reveal>
         </div>
 
-        <div className="mx-auto mt-20 max-w-[1440px] px-5 md:px-10">
+</SectionLayout>
+<SectionLayout>
+
+        <div>
           <Reveal>
             <h2 className="max-w-4xl text-balance text-4xl font-medium text-[#0a0a0a] md:text-[56px] md:leading-[1.15]">
               {STAT_STRIP.headline}
+            </h2>
+            <h2 className="max-w-4xl text-balance text-4xl font-medium text-[var(--zen-accent)] md:text-[56px] md:leading-[1.15]">
+              {STAT_STRIP.headline2}
             </h2>
           </Reveal>
           {reduce ? (
@@ -103,7 +118,7 @@ export function ZenvaraBodySections() {
                   <p className="text-5xl font-bold text-[#959595] md:text-[78px] md:leading-none">
                     {s.value}
                   </p>
-                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]">{s.caption}</p>
+                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]" dangerouslySetInnerHTML={{ __html: s.caption }}/>
                 </div>
               ))}
             </div>
@@ -126,45 +141,55 @@ export function ZenvaraBodySections() {
                   <p className="text-5xl font-bold text-[#959595] md:text-[78px] md:leading-none">
                     {s.value}
                   </p>
-                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]">{s.caption}</p>
+                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]" dangerouslySetInnerHTML={{ __html: s.caption }}/>
                 </motion.div>
               ))}
             </motion.div>
           )}
         </div>
-      </section>
+</SectionLayout>
+<SectionLayout id="why-zenvara" bgClass="bg-[#efefef]" >
 
-      <section className="bg-[#efefef] py-16 md:py-24">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-16">
+          <div className="lg:w-56 shrink-0">
             <Reveal>
-              <p className="text-lg font-medium text-[#0a0a0a]">{WHY_ZENVARA.eyebrow}</p>
+              <p className="text-lg font-medium text-[#0a0a0a] lg:pt-3">{WHY_ZENVARA.eyebrow}</p>
             </Reveal>
+          </div>
+          <div className="flex-1 max-w-5xl">
             <Reveal>
-              <h2 className="max-w-3xl text-balance text-right text-4xl font-medium text-[#0b1f2a] lg:text-[56px] lg:leading-[1.15]">
-                {WHY_ZENVARA.title}
+              <h2 className="text-balance text-left text-4xl font-medium text-[#0b1f2a] lg:text-[56px] lg:leading-[1.15]">
+                Engineered Energy Solutions<br className="hidden lg:block" /> for <span className="text-[var(--zen-accent)]">Every Application</span>
               </h2>
             </Reveal>
-          </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {WHY_ZENVARA.features.map((f, i) => (
-              <Reveal key={f.title} delay={i * 0.05}>
-                <motion.article
-                  whileHover={reduce ? undefined : { y: -6, scale: 1.01 }}
-                  transition={{ type: "spring", stiffness: 280, damping: 22 }}
-                  className={`flex min-h-[280px] flex-col justify-end rounded-[20px] p-6 ${featureCardClass[f.variant]}`}
-                >
-                  <h3 className="text-2xl font-semibold leading-snug">{f.title}</h3>
-                  <p className="mt-3 text-lg leading-relaxed opacity-95">{f.body}</p>
-                </motion.article>
-              </Reveal>
-            ))}
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {WHY_ZENVARA.features.map((f, i) => (
+                <Reveal key={f.title} delay={i * 0.05}>
+                  <motion.article
+                    whileHover={reduce ? undefined : { y: -6, scale: 1.01 }}
+                    transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                    className={`flex min-h-[280px] flex-col justify-between rounded-[20px] p-6 ${featureCardClass[f.variant]}`}
+                  >
+                    <Image
+                      src={f.icon}
+                      alt={f.title}
+                      width={50}
+                      height={50}
+                    />  
+                    <div>
+                      <h3 className="text-2xl font-semibold leading-snug">{f.title}</h3>
+                      <p className="mt-3 text-lg leading-relaxed opacity-95">{f.body}</p>
+                    </div>
+                  </motion.article>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+      </SectionLayout>
 
-      <section id="products" className="bg-[#efefef] pb-20 pt-4">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-10">
+      <section id="products" className=" pb-20 pt-4">
+        <div className="mx-auto max-w-[1440px] px-5 md:px-10 lg:px-20">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <Reveal>
               <p className="text-lg font-medium text-[#0b1f2a]">{PRODUCTS.eyebrow}</p>
@@ -176,32 +201,62 @@ export function ZenvaraBodySections() {
             </Reveal>
           </div>
         </div>
-        <div className="mt-10 flex gap-5 overflow-x-auto pb-4 pl-5 pr-5 pt-2 [scrollbar-width:thin] md:pl-10">
-          {PRODUCTS.cards.map((c, idx) => (
-            <Reveal key={c.title} className="min-w-[min(100%,346px)] shrink-0">
-              <motion.article
-                className="relative flex h-[398px] w-[min(100%,346px)] flex-col justify-end overflow-hidden rounded-2xl bg-[#0b1f2a] p-6 text-white shadow-lg"
-                whileHover={reduce ? undefined : { scale: 1.01 }}
-                transition={{ duration: 0.35, ease: EASE_PREMIUM }}
-              >
-                <div
-                  className="absolute inset-0 opacity-90"
-                  style={{
-                    backgroundImage: `linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.95) 100%), url(${productBg[idx % productBg.length]})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
-                />
-                <div className="relative z-10">
-                  <span className="mb-4 inline-flex h-[78px] w-[78px] items-center justify-center rounded-full bg-[#0b1f2a] text-sm font-medium text-[var(--zen-accent)]">
-                    {idx + 1}
-                  </span>
-                  <h3 className="text-2xl font-medium">{c.title}</h3>
-                  <p className="mt-2 text-lg leading-relaxed text-white/95">{c.body}</p>
-                </div>
-              </motion.article>
-            </Reveal>
-          ))}
+        <div className="mt-10 pb-12 pl-5 pr-5 pt-2 md:pl-10 lg:pl-20 lg:pr-20">
+          <Slider
+            dots={true}
+            infinite={true}
+            speed={500}
+            slidesToShow={3.5}
+            slidesToScroll={1}
+            swipeToSlide={true}
+            arrows={false}
+            responsive={[
+              {
+                breakpoint: 1280,
+                settings: { slidesToShow: 3, slidesToScroll: 1 },
+              },
+              {
+                breakpoint: 1024,
+                settings: { slidesToShow: 2.2, slidesToScroll: 1 },
+              },
+              {
+                breakpoint: 768,
+                settings: { slidesToShow: 1.5, slidesToScroll: 1 },
+              },
+              {
+                breakpoint: 640,
+                settings: { slidesToShow: 1.1, slidesToScroll: 1 },
+              },
+            ]}
+          >
+            {PRODUCTS.cards.map((c, idx) => (
+              <div key={c.title} className="px-3">
+                <Reveal>
+                  <motion.article
+                    className="relative flex h-[398px] w-full flex-col justify-end overflow-hidden rounded-2xl bg-[#0b1f2a] p-6 text-white shadow-lg"
+                    whileHover={reduce ? undefined : { scale: 1.01 }}
+                    transition={{ duration: 0.35, ease: EASE_PREMIUM }}
+                  >
+                    <div
+                      className="absolute inset-0 opacity-90"
+                      style={{
+                        backgroundImage: `linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.95) 100%), url(${productBg[idx % productBg.length]})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    />
+                    <div className="relative z-10">
+                      <span className="mb-4 inline-flex h-[78px] w-[78px] items-center justify-center rounded-full bg-[#0b1f2a] text-sm font-medium text-[var(--zen-accent)]">
+                        {idx + 1}
+                      </span>
+                      <h3 className="text-2xl font-medium">{c.title}</h3>
+                      <p className="mt-2 text-lg leading-relaxed text-white/95">{c.body}</p>
+                    </div>
+                  </motion.article>
+                </Reveal>
+              </div>
+            ))}
+          </Slider>
         </div>
       </section>
     </>

@@ -41,16 +41,17 @@ export const MISSION_VISION = {
 } as const
 
 export const STAT_STRIP = {
-  headline: "Performance That Outlasts. Efficiency That Delivers.",
+  headline: "Performance That Outlasts.",
+  headline2: 'Efficiency That Delivers.',
   stats: [
-    { value: ">3000", caption: "Charge cycles delivered reliably across applications" },
+    { value: ">3000", caption: "<b>Charge cycles</b> delivered reliably across applications" },
     {
       value: ">3 times",
-      caption: "Longer lifespan compared to conventional lead-acid batteries",
+      caption: "<b>Longer lifespan</b> compared to conventional lead-acid batteries",
     },
     {
       value: ">50%",
-      caption: "Weight reduction for improved efficiency and performance",
+      caption: "<b>Weight reduction</b> for improved efficiency and performance",
     },
   ],
   sidebar: [
@@ -67,31 +68,37 @@ export const WHY_ZENVARA = {
     {
       title: "LFP-First Chemistry",
       body: "We build exclusively with lithium iron phosphate cells ",
+      icon:"/assets/lfp.svg",
       variant: "outline" as const,
     },
     {
       title: "3,000+ Cycle Life",
       body: "Our packs are rated for over 3,000 charge-",
+      icon:"/assets/3000+cycle.svg",
       variant: "dark" as const,
     },
     {
       title: "Precision-Assembled in India",
       body: "Every battery is assembled, tested, and quality-",
+      icon:"/assets/precision.svg",
       variant: "accent" as const,
     },
     {
       title: "Intelligent BMS Integration",
       body: "Each pack ships with an advanced battery ",
+      icon:"/assets/intelligent.png",
       variant: "accent" as const,
     },
     {
       title: "Scalable for Business",
       body: "From a single prototype pack to 1,000 units a ",
+      icon:"/assets/scalable.png",
       variant: "light" as const,
     },
     {
       title: "OEM & Channel Ready",
       body: "Whether you’re an EV manufacturer, an inverter ",
+      icon:"/assets/oem.png",
       variant: "dark" as const,
     },
   ],
@@ -151,11 +158,11 @@ export const SUSTAINABILITY = {
   eyebrow: "Powered By Zenvara",
   title: "Sustainable Energy",
   pillars: [
-    { title: "Reduced Emissions", body: "Supports electric mobility and clean energy with lower carbon impact." },
-    { title: "Future-Ready Systems", body: "Built to support solar, EVs, and next-gen energy infrastructure." },
-    { title: "Long Lifecycle", body: "3,000+ charge cycles reduce waste and replacement frequency." },
-    { title: "Responsible Manufacturing", body: "Made in India with reduced logistics impact and controlled production." },
-    { title: "Cleaner Energy Storage", body: "Efficient lithium storage supports renewable integration and reduces grid dependence." },
+    { title: "Reduced Emissions", body: "Supports electric mobility and clean energy with lower carbon impact.", icon: "/assets/Reduced.svg" },
+    { title: "Future-Ready Systems", body: "Built to support solar, EVs, and next-gen energy infrastructure.", icon: "/assets/Future ready.svg" },
+    { title: "Long Lifecycle", body: "3,000+ charge cycles reduce waste and replacement frequency.", icon: "/assets/Long life.svg" },
+    { title: "Responsible Manufacturing", body: "Made in India with reduced logistics impact and controlled production.", icon: "/assets/Responsible.svg" },
+    { title: "Cleaner Energy Storage", body: "Efficient lithium storage supports renewable integration and reduces grid dependence.", icon: "/assets/Cleaner energy.svg" },
   ],
 } as const
 

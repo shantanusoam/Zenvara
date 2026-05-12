@@ -1,5 +1,6 @@
 "use client"
 
+import { MoveUpRight } from "lucide-react"
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react"
 import { useRef } from "react"
 
@@ -49,7 +50,10 @@ export function PillButton({ children, href, variant = "primary" }: PillButtonPr
         whileTap={{ scale: 0.98 }}
       >
         {children}
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--zen-accent)]" />
+        
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--zen-accent)] text-[#0b1f2a]" >
+          <MoveUpRight className="w-6 h-6"/>  
+        </span>
       </motion.a>
     )
   }
@@ -66,7 +70,9 @@ export function PillButton({ children, href, variant = "primary" }: PillButtonPr
       whileTap={{ scale: 0.98 }}
     >
       {children}
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--zen-accent)]" />
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--zen-accent)]" >
+        <MoveUpRight className="w-6 h-6 text-[#0b1f2a]"/>  
+      </span> 
     </motion.a>
   )
 }
