@@ -4,7 +4,8 @@ import { motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
 import { Reveal } from "@/components/home/reveal"
-import { TEAM, type TeamSocialKind } from "@/lib/about-content"
+import { DEFAULT_ABOUT_PAGE } from "@/lib/default-content"
+import type { AboutPageContent, TeamSocialKind } from "@/lib/content-types"
 import { EASE_PREMIUM } from "@/lib/motion-presets"
 
 /** Figma target: node 35:2535 (Meet our team). MCP read timed out; structure mirrors About frame team cards: ~402×428 portrait, name, role, social row. */
@@ -51,21 +52,29 @@ function SocialIcon({ kind }: { kind: TeamSocialKind }) {
   )
 }
 
-export function MeetOurTeamSection() {
+type MeetOurTeamSectionProps = {
+  team?: AboutPageContent["team"]
+}
+
+export function MeetOurTeamSection({
+  team = DEFAULT_ABOUT_PAGE.team,
+}: MeetOurTeamSectionProps) {
   const reduce = useReducedMotion()
 
   return (
     <section className="bg-[#efefef] py-16 md:py-24">
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
         <Reveal>
-          <p className="text-lg font-medium text-[var(--zen-accent)]">{TEAM.eyebrow}</p>
-          <h2 className="mt-3 max-w-3xl text-balance text-4xl font-medium text-[#0a0a0a] md:text-[56px] md:leading-[1.12]">
-            {TEAM.title}
+          <p className="text-lg font-medium text-[var(--zen-accent)]">
+            {team.eyebrow}
+          </p>
+          <h2 className="mt-3 max-w-3xl text-4xl font-medium text-balance text-[#0a0a0a] md:text-[56px] md:leading-[1.12]">
+            {team.title}
           </h2>
         </Reveal>
 
         <div className="mt-12 grid gap-8 sm:grid-cols-2 sm:justify-items-center lg:mx-auto lg:max-w-[880px] lg:justify-items-stretch">
-          {TEAM.members.map((member, i) => (
+          {team.members.map((member, i) => (
             <Reveal key={member.name} delay={i * 0.06}>
               <motion.article
                 className="relative mx-auto w-full max-w-[402px] overflow-hidden rounded-2xl bg-white shadow-[0_12px_40px_rgba(11,31,42,0.08)] ring-1 ring-black/10"
@@ -94,9 +103,13 @@ export function MeetOurTeamSection() {
                     ))}
                   </div>
                 </div>
-                <div className="px-5 pb-6 pt-5">
-                  <p className="text-xl font-medium text-[#0a0a0a]">{member.name}</p>
-                  <p className="mt-1 text-lg font-medium text-[var(--zen-accent)]">{member.role}</p>
+                <div className="px-5 pt-5 pb-6">
+                  <p className="text-xl font-medium text-[#0a0a0a]">
+                    {member.name}
+                  </p>
+                  <p className="mt-1 text-lg font-medium text-[var(--zen-accent)]">
+                    {member.role}
+                  </p>
                 </div>
               </motion.article>
             </Reveal>
