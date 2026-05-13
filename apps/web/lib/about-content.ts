@@ -53,7 +53,7 @@ export const TEAM = {
     {
       name: "Adhyayan Gupta",
       role: "Founder & CEO",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=80",
+      image: "/assets/expert1.jpg",
       socials: [
         { kind: "instagram", href: "#" },
         { kind: "twitter", href: "#" },
@@ -64,7 +64,7 @@ export const TEAM = {
     {
       name: "Shivansh Gupta",
       role: "Founder & CEO",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=900&q=80",
+      image: "/assets/expert2.jpg",
       socials: [
         { kind: "instagram", href: "#" },
         { kind: "twitter", href: "#" },
