@@ -2,6 +2,7 @@
 
 ## Completed
 
+- **2026-05-13** — Fix `/studio` Internal Server Error in production: avoid SSR of Sanity (`window is not defined`) by rendering Studio only in the client (`next/dynamic` + `ssr: false`), using `NextStudio` from `next-sanity/studio/client-component`, and `force-dynamic` on the studio page.
 - **2026-05-13** — DigitalOcean deploy: copy `apps/web/public` into `.next/standalone/apps/web/public` after unpack so `next/image` and `/_next/image` resolve local assets; add `sharp` for production image optimization on Linux.
 - **2026-05-12** — Home build and JSX fixes: `zenvara-lower-sections` blog `</section>` / `sustainability` props / duplicate eyebrow; sustainability radial icons (`SUSTAINABILITY_PILLAR_ICONS_FALLBACK`, optional `icon` on pillars); `zenvara-body-sections` drop missing `react-slick` imports, `statStrip.headline2`, `SectionLayout` indentation; `statStrip.headline2` in types, GROQ, Sanity schema; `ChevronDown` import in `site-header-bar`.
 - **2026-05-09** — Add minimal Sanity CMS architecture for editable Zenvara marketing content and SEO, with local TypeScript content fallback, embedded Studio route, seed command, and setup docs.

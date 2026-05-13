@@ -5,15 +5,17 @@
  *
  * You can learn more about the next-sanity package here:
  * https://github.com/sanity-io/next-sanity
+ *
+ * Studio must render only inside a Client Component: importing `sanity.config` in a Server
+ * Component runs Sanity/Vite code during SSR and throws `ReferenceError: window is not defined`.
  */
 
-import { NextStudio } from 'next-sanity/studio'
-import config from '../../../sanity.config'
+import { StudioClient } from "./studio-client"
 
-export const dynamic = 'force-static'
+export const dynamic = "force-dynamic"
 
-export { metadata, viewport } from 'next-sanity/studio'
+export { metadata, viewport } from "next-sanity/studio"
 
 export default function StudioPage() {
-  return <NextStudio config={config} />
+  return <StudioClient />
 }
