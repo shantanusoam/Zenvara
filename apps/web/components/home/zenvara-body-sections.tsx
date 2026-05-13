@@ -4,9 +4,7 @@ import { motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
 import {
-  MISSION_VISION,
   PRODUCTS,
-  STAT_STRIP,
   WHY_ZENVARA,
   WHO_WE_ARE,
 } from "@/lib/home-content"
@@ -16,11 +14,11 @@ import { SectionLayout } from "@/components/layout/section-layout"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import PerformanceOutlast from "../common/PerformanceOutlast"
+import MissionVision from "../common/MissionVision"
 
 
 const aboutImage = "/assets/about_us.png";
-const missionImage = "/assets/mission.png";
-const visionImage = "/assets/vision.png";
 const productBg = [
   "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=70",
   "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=70",
@@ -74,80 +72,9 @@ export function ZenvaraBodySections() {
           </Reveal>
         </div>
 </SectionLayout>
-<SectionLayout>
-  
-        <div className="grid gap-6 md:grid-cols-2">
-          <Reveal className="rounded-2xl bg-[#0b1f2a] p-8 text-white">
-            <Image
-              src={missionImage}
-              alt="Mission"
-              width={50}
-              height={50}
-            />
-            <p className="text-2xl font-medium mt-4">{MISSION_VISION.mission.title}</p>
-            <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.mission.body}</p>
-          </Reveal>
-          <Reveal className="rounded-2xl bg-[var(--zen-accent)] p-8 text-[#0a0a0a]">
-            <Image
-              src={visionImage}
-              alt="Vision"
-              width={50}
-              height={50}
-            />
-            <p className="text-2xl font-medium mt-4">{MISSION_VISION.vision.title}</p>
-            <p className="mt-4 text-lg leading-relaxed">{MISSION_VISION.vision.body}</p>
-          </Reveal>
-        </div>
 
-</SectionLayout>
-<SectionLayout>
-
-        <div>
-          <Reveal>
-            <h2 className="max-w-4xl text-balance text-4xl font-medium text-[#0a0a0a] md:text-[56px] md:leading-[1.15]">
-              {STAT_STRIP.headline}
-            </h2>
-            <h2 className="max-w-4xl text-balance text-4xl font-medium text-[var(--zen-accent)] md:text-[56px] md:leading-[1.15]">
-              {STAT_STRIP.headline2}
-            </h2>
-          </Reveal>
-          {reduce ? (
-            <div className="mt-10 grid gap-8 md:grid-cols-3">
-              {STAT_STRIP.stats.map((s) => (
-                <div key={s.value}>
-                  <p className="text-5xl font-bold text-[#959595] md:text-[78px] md:leading-none">
-                    {s.value}
-                  </p>
-                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]" dangerouslySetInnerHTML={{ __html: s.caption }}/>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <motion.div
-              className="mt-10 grid gap-8 md:grid-cols-3"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
-              variants={staggerContainer(0.12)}
-            >
-              {STAT_STRIP.stats.map((s) => (
-                <motion.div
-                  key={s.value}
-                  variants={{
-                    hidden: revealHidden,
-                    visible: revealVisible(0.7),
-                  }}
-                >
-                  <p className="text-5xl font-bold text-[#959595] md:text-[78px] md:leading-none">
-                    {s.value}
-                  </p>
-                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]" dangerouslySetInnerHTML={{ __html: s.caption }}/>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-        </div>
-</SectionLayout>
+<MissionVision />
+<PerformanceOutlast  />
 <SectionLayout id="why-zenvara" bgClass="bg-[#efefef]" >
 
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-16">

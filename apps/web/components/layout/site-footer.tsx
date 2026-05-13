@@ -41,7 +41,7 @@ export function SiteFooter() {
         <hr className="my-12 border-[#bbbbbb]/20" />
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[2fr_1.5fr_1.5fr_2fr]">
           <div className="flex flex-col">
-            <Image src="/assets/badge.png" alt="Zenvara Energy" width={180} height={40} className="mb-6" />
+            <Image src="/assets/zenvara-logo.svg" alt="Zenvara Energy" width={180} height={40} className="mb-6" />
             <p className="max-w-xs text-base leading-relaxed text-white/90">{FOOTER.blurb}</p>
             <div className="mt-8 flex items-center gap-4">
               <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">

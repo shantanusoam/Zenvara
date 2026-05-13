@@ -6,7 +6,9 @@ export const ABOUT_HERO = {
 
 export const ABOUT_INTRO = {
   eyebrow: "About Zenvara",
-  title: "Powering India’s Energy Transition",
+  title: "Powering India’s",
+  title2: "Energy ",
+  title3: "Transition",
   body: `Zenvara Energy is a Delhi-NCR based lithium-ion battery company built to power India’s clean energy transition.
 
 We design, assemble, and supply high-cycle-life LFP battery packs for electric mobility, backup power, telecom infrastructure, and large-scale energy storage — engineered for safety, reliability, and consistent real-world performance.`,
@@ -17,7 +19,7 @@ export const ABOUT_WIDE_IMAGE =
   "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=1920&q=80" as const
 
 export const ABOUT_SIDE_IMAGE =
-  "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=1000&q=80" as const
+  "/assets/about_us.png" as const
 
 export const ABOUT_STATS = {
   headline: "Performance That Outlasts. Efficiency That Delivers.",
