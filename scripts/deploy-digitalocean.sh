@@ -142,6 +142,13 @@ $SUDO find "$APP_DIR" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
 echo "Unpacking runtime bundle"
 $SUDO tar --no-same-owner -xzf "$REMOTE_ARCHIVE" -C "$APP_DIR"
 
+# Next standalone runs from .../standalone/apps/web with cwd there; `public` must
+# live beside server.js or local `/_next/image` and other public files 404.
+STANDALONE_WEB="$APP_DIR/apps/web/.next/standalone/apps/web"
+echo "Copying public/ into standalone runtime: $STANDALONE_WEB/public"
+$SUDO rm -rf "$STANDALONE_WEB/public"
+$SUDO cp -a "$APP_DIR/apps/web/public" "$STANDALONE_WEB/public"
+
 echo "Writing systemd service"
 $SUDO tee "/etc/systemd/system/${SERVICE_NAME}.service" >/dev/null <<EOF
 [Unit]
