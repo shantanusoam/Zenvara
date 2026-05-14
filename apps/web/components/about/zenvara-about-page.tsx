@@ -13,27 +13,19 @@ import { SiteFooter } from "@/components/layout/site-footer"
 import { SiteHeaderBar } from "@/components/layout/site-header-bar"
 import { PillButton } from "@/components/layout/pill-button"
 import {
-  DEFAULT_ABOUT_PAGE,
-  DEFAULT_HOME_PAGE,
-  DEFAULT_SITE_SETTINGS,
-} from "@/lib/default-content"
-import type {
-  AboutPageContent,
-  HomePageContent,
-  SiteSettingsContent,
-} from "@/lib/content-types"
-import {
-  EASE_PREMIUM,
-  revealHidden,
-  revealVisible,
-  staggerContainer,
-} from "@/lib/motion-presets"
+  ABOUT_HERO,
+  ABOUT_INTRO,
+  ABOUT_SIDE_IMAGE,
+  ABOUT_STATS,
+  ABOUT_WIDE_IMAGE,
+} from "@/lib/about-content"
+import { HERO, MISSION_VISION } from "@/lib/home-content"
+import { EASE_PREMIUM, revealHidden, revealVisible, staggerContainer } from "@/lib/motion-presets"
+import PerformanceOutlast from "../common/PerformanceOutlast"
+import MissionVision from "../common/MissionVision"
 
-type ZenvaraAboutPageProps = {
-  content?: AboutPageContent
-  sharedMarketingContent?: HomePageContent
-  siteSettings?: SiteSettingsContent
-}
+const aboutHeroBg =
+    '/assets/about-us-banner.jpg'
 
 export function ZenvaraAboutPage({
   content = DEFAULT_ABOUT_PAGE,
@@ -63,7 +55,9 @@ export function ZenvaraAboutPage({
             className="object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black/75" />
+          {/* Radial gradient vignette to keep the center bright but edges dark for contrast */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.8)_100%)]" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/60 to-transparent" />
         </div>
         <div className="relative z-10 mx-auto flex min-h-[min(55svh,520px)] max-w-[1440px] flex-col px-5 pt-6 pb-16 md:min-h-[480px] md:px-10">
           <SiteHeaderBar
@@ -103,8 +97,14 @@ export function ZenvaraAboutPage({
             <h2 className="mt-2 text-4xl font-medium text-balance text-[#0b1f2a] md:text-[56px] md:leading-[1.12]">
               {intro.title}
             </h2>
-            <p className="mt-6 text-lg leading-relaxed whitespace-pre-line text-[#0b1f2a]">
-              {intro.body}
+            <h2 className="mt-2 font-medium text-balance text-[var(--zen-accent)] md:text-[56px] md:leading-[1.12]">
+              {ABOUT_INTRO.title2}
+              <span className="mt-2 font-medium text-balance text-[#0a0a0a] md:text-[56px] md:leading-[1.12]">
+                {ABOUT_INTRO.title3}
+              </span>
+            </h2>
+            <p className="mt-6 whitespace-pre-line text-lg leading-relaxed text-[#0b1f2a]">
+              {ABOUT_INTRO.body}
             </p>
             <div className="mt-8">
               <PillButton href="/#products">{intro.cta}</PillButton>
@@ -113,84 +113,13 @@ export function ZenvaraAboutPage({
         </div>
       </section>
 
-      <div className="relative aspect-[1440/630] max-h-[70vh] min-h-[200px] w-full">
-        <Image
-          src={images.wideImage}
-          alt=""
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority={false}
-        />
-      </div>
+      {/* <div className="relative aspect-[1440/630] w-full max-h-[70vh] min-h-[200px]">
+        <Image src={ABOUT_WIDE_IMAGE} alt="" fill className="object-cover" sizes="100vw" priority={false} />
+      </div> */}
 
-      <section className="bg-[#efefef] py-16 md:py-24">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <Reveal>
-            <h2 className="max-w-4xl text-4xl font-medium text-balance text-[#0a0a0a] md:text-[56px] md:leading-[1.15]">
-              {stats.headline}
-            </h2>
-          </Reveal>
-          {reduce ? (
-            <div className="mt-10 grid gap-8 md:grid-cols-3">
-              {stats.stats.map((s) => (
-                <div key={s.value}>
-                  <p className="text-5xl font-bold text-[#959595] md:text-[78px] md:leading-none">
-                    {s.value}
-                  </p>
-                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]">
-                    {s.caption}
-                  </p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <motion.div
-              className="mt-10 grid gap-8 md:grid-cols-3"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-40px" }}
-              variants={staggerContainer(0.12)}
-            >
-              {stats.stats.map((s) => (
-                <motion.div
-                  key={s.value}
-                  variants={{
-                    hidden: revealHidden,
-                    visible: revealVisible(0.7),
-                  }}
-                >
-                  <p className="text-5xl font-bold text-[#959595] md:text-[78px] md:leading-none">
-                    {s.value}
-                  </p>
-                  <p className="mt-4 text-xl leading-relaxed text-[#0a0a0a]">
-                    {s.caption}
-                  </p>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-        </div>
-      </section>
+     <PerformanceOutlast bgClass="bg-[#efefef]"/>
 
-      <section className="bg-[#efefef] pt-4 pb-20">
-        <div className="mx-auto grid max-w-[1440px] gap-6 px-5 md:grid-cols-2 md:px-10">
-          <Reveal className="rounded-2xl bg-[#0b1f2a] p-8 text-white">
-            <p className="text-2xl font-medium">
-              {missionVision.mission.title}
-            </p>
-            <p className="mt-4 text-lg leading-relaxed">
-              {missionVision.mission.body}
-            </p>
-          </Reveal>
-          <Reveal className="rounded-2xl bg-[var(--zen-accent)] p-8 text-[#0a0a0a]">
-            <p className="text-2xl font-medium">{missionVision.vision.title}</p>
-            <p className="mt-4 text-lg leading-relaxed">
-              {missionVision.vision.body}
-            </p>
-          </Reveal>
-        </div>
-      </section>
+     <MissionVision />
 
       <MeetOurTeamSection team={team} />
 

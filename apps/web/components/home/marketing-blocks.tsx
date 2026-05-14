@@ -139,9 +139,17 @@ export function MarketingCtaStrip({
   const reduce = useReducedMotion()
 
   return (
-    <section className="relative py-20 text-white md:py-28">
-      <div className="absolute inset-0 bg-[#0b1f2a]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_0%,rgba(27,221,206,0.12),transparent_50%)]" />
+    <section className="relative overflow-hidden py-20 text-white md:py-28">
+      <div className="absolute inset-0">
+        <Image
+          src="/assets/energy-storage.jpg"
+          alt="Energy Storage System"
+          fill
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
       <div className="relative mx-auto max-w-[1440px] px-5 md:px-10">
         <Reveal>
           <h2 className="max-w-3xl text-balance text-4xl font-semibold md:text-[56px] md:leading-tight">

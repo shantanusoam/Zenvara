@@ -62,40 +62,45 @@ export function MeetOurTeamSection({
   const reduce = useReducedMotion()
 
   return (
-    <section className="bg-[#efefef] py-16 md:py-24">
-      <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-        <Reveal>
-          <p className="text-lg font-medium text-[var(--zen-accent)]">
-            {team.eyebrow}
-          </p>
-          <h2 className="mt-3 max-w-3xl text-4xl font-medium text-balance text-[#0a0a0a] md:text-[56px] md:leading-[1.12]">
-            {team.title}
+    <section className="overflow-hidden bg-[#efefef] py-16 md:py-24">
+      <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-12 px-5 md:px-10 lg:flex-row lg:items-center lg:justify-between">
+        
+        {/* Left Side: Titles */}
+        <Reveal className="w-full shrink-0 lg:w-[380px]">
+          <p className="text-[17px] font-medium text-[var(--zen-accent)]">{TEAM.eyebrow}</p>
+          <h2 className="mt-4 text-balance text-5xl font-medium tracking-tight text-[#0a0a0a] lg:text-[64px] lg:leading-[1.12]">
+            {TEAM.title}
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 sm:justify-items-center lg:mx-auto lg:max-w-[880px] lg:justify-items-stretch">
-          {team.members.map((member, i) => (
-            <Reveal key={member.name} delay={i * 0.06}>
+        {/* Right Side: Team Cards */}
+        <div className="flex w-full flex-1 flex-col gap-8 sm:flex-row sm:justify-center lg:justify-end">
+          {TEAM.members.map((member, i) => (
+            <Reveal key={member.name} delay={i * 0.06} className="w-full sm:w-[calc(50%-16px)] max-w-[420px]">
               <motion.article
-                className="relative mx-auto w-full max-w-[402px] overflow-hidden rounded-2xl bg-white shadow-[0_12px_40px_rgba(11,31,42,0.08)] ring-1 ring-black/10"
-                whileHover={reduce ? undefined : { y: -6, scale: 1.01 }}
+                className="relative w-full"
+                whileHover={reduce ? undefined : { y: -6 }}
                 transition={{ duration: 0.45, ease: EASE_PREMIUM }}
               >
-                <div className="relative aspect-[402/428] w-full bg-[#d9d9d9]">
+                {/* Main Image Container */}
+                <div className="relative aspect-[402/428] w-full overflow-hidden rounded-[2.5rem]">
                   <Image
                     src={member.image}
-                    alt=""
+                    alt={member.name}
                     fill
-                    className="object-cover object-top"
-                    sizes="(min-width: 1280px) 402px, (min-width: 640px) 45vw, 100vw"
+                    className="object-cover"
+                    sizes="(min-width: 1280px) 420px, (min-width: 640px) 45vw, 100vw"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-                  <div className="absolute bottom-4 left-4 flex gap-2">
+                </div>
+                  
+                {/* Top Left Cutout (Solid gray box matching section background) */}
+                <div className="absolute left-0 top-0 rounded-br-[2.5rem] bg-[#efefef] pb-4 pr-4">
+                  <div className="flex flex-col gap-3">
                     {member.socials.map((s) => (
                       <Link
                         key={`${member.name}-${s.kind}`}
                         href={s.href}
-                        className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-[#0b1f2a] text-white shadow-sm ring-1 ring-white/10 transition-colors hover:bg-[#102a38]"
+                        className="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-[#0b1f2a] text-[var(--zen-accent)] transition-transform hover:scale-110"
                         aria-label={`${member.name} on ${s.kind}`}
                       >
                         <SocialIcon kind={s.kind} />
@@ -103,13 +108,13 @@ export function MeetOurTeamSection({
                     ))}
                   </div>
                 </div>
-                <div className="px-5 pt-5 pb-6">
-                  <p className="text-xl font-medium text-[#0a0a0a]">
-                    {member.name}
-                  </p>
-                  <p className="mt-1 text-lg font-medium text-[var(--zen-accent)]">
-                    {member.role}
-                  </p>
+
+                {/* Bottom Right Cutout (Solid gray box matching section background) */}
+                <div className="absolute bottom-0 right-0 rounded-tl-[2.5rem] bg-[#efefef] pl-6 pt-5">
+                  <div className="flex flex-col text-left">
+                    <p className="text-[20px] font-semibold text-[#0a0a0a] lg:text-[22px]">{member.name}</p>
+                    <p className="mt-1 text-[16px] font-medium text-[var(--zen-accent)]">{member.role}</p>
+                  </div>
                 </div>
               </motion.article>
             </Reveal>

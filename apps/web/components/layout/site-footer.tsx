@@ -49,13 +49,28 @@ export function SiteFooter({
             </button>
           </form>
         </Reveal>
-        <hr className="my-12 border-[#bbbbbb]/40" />
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <p className="font-semibold text-white">{siteSettings.name}</p>
-            <p className="mt-4 max-w-xs text-lg leading-relaxed text-white/90">
-              {footer.blurb}
-            </p>
+        <hr className="my-12 border-[#bbbbbb]/20" />
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[2fr_1.5fr_1.5fr_2fr]">
+          <div className="flex flex-col">
+            <Image src="/assets/zenvara-logo.svg" alt="Zenvara Energy" width={180} height={40} className="mb-6" />
+            <p className="max-w-xs text-base leading-relaxed text-white/90">{FOOTER.blurb}</p>
+            <div className="mt-8 flex items-center gap-4">
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                <FaInstagram className="h-5 w-5 text-[var(--zen-accent)]" />
+              </a>
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                <FaFacebookF className="h-5 w-5 text-[var(--zen-accent)]" />
+              </a>
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                <FaXTwitter className="h-5 w-5 text-[var(--zen-accent)]" />
+              </a>
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                <FaLinkedinIn className="h-5 w-5 text-[var(--zen-accent)]" />
+              </a>
+              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                <FaYoutube className="h-5 w-5 text-[var(--zen-accent)]" />
+              </a>
+            </div>
           </div>
           <div>
             <p className="text-2xl font-semibold">Quick Links</p>

@@ -8,11 +8,8 @@ import { DEFAULT_HOME_PAGE, DEFAULT_SITE_SETTINGS } from "@/lib/default-content"
 import type { HomePageContent, SiteSettingsContent } from "@/lib/content-types"
 import { EASE_PREMIUM, revealHidden, revealVisible } from "@/lib/motion-presets"
 
-type ZenvaraHeaderHeroProps = {
-  hero?: HomePageContent["hero"]
-  heroImage?: string
-  siteSettings?: SiteSettingsContent
-}
+const heroImage =
+  "/assets/homepage-banner.jpg"
 
 export function ZenvaraHeaderHero({
   hero = DEFAULT_HOME_PAGE.hero,
@@ -32,14 +29,8 @@ export function ZenvaraHeaderHero({
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/45 to-black/70" />
-        <motion.div
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(27,221,206,0.18),transparent_55%)]"
-          aria-hidden
-          initial={reduce ? undefined : { opacity: 0.4 }}
-          animate={reduce ? undefined : { opacity: [0.35, 0.55, 0.4] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
+        {/* Slight gradient only at the very top to ensure navbar text remains readable against any image */}
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-[min(100svh,880px)] max-w-[1440px] flex-col px-5 pt-6 pb-10 md:px-10">
