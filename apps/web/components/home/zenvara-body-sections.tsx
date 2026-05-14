@@ -12,6 +12,15 @@ import { EASE_PREMIUM, revealHidden, revealVisible, staggerContainer } from "@/l
 import { Reveal } from "./reveal"
 import { SectionLayout } from "@/components/layout/section-layout"
 import Slider from "react-slick"
+import {
+  Antenna,
+  Bike,
+  Boxes,
+  CarFront,
+  Plug,
+  Sun,
+  type LucideIcon,
+} from "lucide-react"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import PerformanceOutlast from "../common/PerformanceOutlast"
@@ -27,6 +36,9 @@ const productBg = [
   "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=70",
   "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=70",
 ] as const
+
+/** Lucide icons per product card index (matches PRODUCTS.cards order). */
+const PRODUCT_CARD_ICONS = [Bike, CarFront, Plug, Sun, Antenna, Boxes] as const
 
 const featureCardClass: Record<
   (typeof WHY_ZENVARA.features)[number]["variant"],
@@ -156,33 +168,48 @@ export function ZenvaraBodySections() {
               },
             ]}
           >
-            {PRODUCTS.cards.map((c, idx) => (
+            {PRODUCTS.cards.map((c, idx) => {
+              const CardIcon = PRODUCT_CARD_ICONS[
+                idx % PRODUCT_CARD_ICONS.length
+              ] as LucideIcon
+              return (
               <div key={c.title} className="px-3">
                 <Reveal>
                   <motion.article
-                    className="relative flex h-[398px] w-full flex-col justify-end overflow-hidden rounded-2xl bg-[#0b1f2a] p-6 text-white shadow-lg"
+                    className="relative flex min-h-[398px] w-full flex-col overflow-hidden rounded-[28px] bg-[#0b1f2a] text-white shadow-lg ring-1 ring-black/10"
                     whileHover={reduce ? undefined : { scale: 1.01 }}
                     transition={{ duration: 0.35, ease: EASE_PREMIUM }}
                   >
                     <div
-                      className="absolute inset-0 opacity-90"
+                      className="absolute inset-0 bg-cover bg-center"
                       style={{
-                        backgroundImage: `linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.95) 100%), url(${productBg[idx % productBg.length]})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
+                        backgroundImage: `linear-gradient(180deg, transparent 0%, transparent 38%, rgba(8, 15, 22, 0.55) 62%, rgba(6, 10, 14, 0.92) 100%), url(${productBg[idx % productBg.length]})`,
                       }}
                     />
-                    <div className="relative z-10">
-                      <span className="mb-4 inline-flex h-[78px] w-[78px] items-center justify-center rounded-full bg-[#0b1f2a] text-sm font-medium text-[var(--zen-accent)]">
-                        {idx + 1}
-                      </span>
-                      <h3 className="text-2xl font-medium">{c.title}</h3>
-                      <p className="mt-2 text-lg leading-relaxed text-white/95">{c.body}</p>
+                    <div
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
+                      aria-hidden
+                    />
+                    <div className="absolute left-5 top-5 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-[#0b1f2a] shadow-inner ring-1 ring-white/10 md:left-6 md:top-6 md:h-16 md:w-16">
+                      <CardIcon
+                        className="h-7 w-7 text-[var(--zen-accent)] md:h-8 md:w-8"
+                        strokeWidth={1.5}
+                        aria-hidden
+                      />
+                    </div>
+                    <div className="relative z-10 mt-auto flex flex-col px-6 pb-8 pt-28 md:px-7 md:pb-9">
+                      <h3 className="text-2xl font-bold tracking-tight text-white md:text-[26px]">
+                        {c.title}
+                      </h3>
+                      <p className="mt-3 max-w-prose text-base font-normal leading-relaxed text-white/90 md:text-lg">
+                        {c.body}
+                      </p>
                     </div>
                   </motion.article>
                 </Reveal>
               </div>
-            ))}
+              )
+            })}
           </Slider>
         </div>
       </section>

@@ -3,7 +3,11 @@
 import { motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import { MeetOurTeamSection } from "@/components/about/meet-our-team-section"
-import { MarketingCtaStrip, MarketingImpact, MarketingTestimonial } from "@/components/home/marketing-blocks"
+import {
+  MarketingCtaStrip,
+  MarketingImpact,
+  MarketingTestimonial,
+} from "@/components/home/marketing-blocks"
 import { Reveal } from "@/components/home/reveal"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { SiteHeaderBar } from "@/components/layout/site-header-bar"
@@ -23,15 +27,28 @@ import MissionVision from "../common/MissionVision"
 const aboutHeroBg =
     '/assets/about-us-banner.jpg'
 
-export function ZenvaraAboutPage() {
+export function ZenvaraAboutPage({
+  content = DEFAULT_ABOUT_PAGE,
+  sharedMarketingContent = DEFAULT_HOME_PAGE,
+  siteSettings = DEFAULT_SITE_SETTINGS,
+}: ZenvaraAboutPageProps) {
   const reduce = useReducedMotion()
+  const { hero, images, intro, stats, team } = content
+  const {
+    cta,
+    hero: homeHero,
+    images: homeImages,
+    impact,
+    missionVision,
+    testimonial,
+  } = sharedMarketingContent
 
   return (
     <div className="zenvara-page bg-white font-[family-name:var(--font-open-sans)] text-[#0a0a0a] [--zen-accent:#1bddce] [&_h2]:font-[family-name:var(--font-inter)] [&_h3]:font-[family-name:var(--font-inter)]">
       <header className="relative min-h-[min(55svh,520px)] overflow-hidden bg-[#0a1620] text-white md:min-h-[480px]">
         <div className="absolute inset-0">
           <Image
-            src={aboutHeroBg}
+            src={images.heroBackground}
             alt=""
             fill
             priority
@@ -42,16 +59,21 @@ export function ZenvaraAboutPage() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.8)_100%)]" />
           <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/60 to-transparent" />
         </div>
-        <div className="relative z-10 mx-auto flex min-h-[min(55svh,520px)] max-w-[1440px] flex-col px-5 pb-16 pt-6 md:min-h-[480px] md:px-10">
-          <SiteHeaderBar active="About Us" ctaLabel={HERO.secondaryCta} ctaHref="/#contact" />
-          <div className="flex flex-1 flex-col items-center justify-center pb-8 pt-10 text-center md:pt-4">
+        <div className="relative z-10 mx-auto flex min-h-[min(55svh,520px)] max-w-[1440px] flex-col px-5 pt-6 pb-16 md:min-h-[480px] md:px-10">
+          <SiteHeaderBar
+            active="About Us"
+            ctaLabel={homeHero.secondaryCta}
+            ctaHref="/#contact"
+            siteSettings={siteSettings}
+          />
+          <div className="flex flex-1 flex-col items-center justify-center pt-10 pb-8 text-center md:pt-4">
             <motion.h1
-              className="text-balance text-4xl font-medium leading-tight text-white md:text-[56px] md:leading-[1.1]"
+              className="text-4xl leading-tight font-medium text-balance text-white md:text-[56px] md:leading-[1.1]"
               initial={reduce ? false : revealHidden}
               animate={reduce ? false : revealVisible(0.9)}
               transition={{ ease: EASE_PREMIUM }}
             >
-              {ABOUT_HERO.title}
+              {hero.title}
             </motion.h1>
           </div>
         </div>
@@ -60,7 +82,7 @@ export function ZenvaraAboutPage() {
       <section className="mx-auto grid max-w-[1440px] gap-10 px-5 py-16 md:grid-cols-2 md:items-start md:gap-14 md:px-10 md:py-20">
         <Reveal className="relative h-[280px] w-full md:h-[499px]">
           <Image
-            src={ABOUT_SIDE_IMAGE}
+            src={images.sideImage}
             alt=""
             fill
             className="rounded-[20px] object-cover"
@@ -69,9 +91,11 @@ export function ZenvaraAboutPage() {
         </Reveal>
         <div>
           <Reveal>
-            <p className="text-lg font-medium text-[#0a0a0a]">{ABOUT_INTRO.eyebrow}</p>
-            <h2 className="mt-2 text-balance text-4xl font-medium text-[#0b1f2a] md:text-[56px] md:leading-[1.12]">
-              {ABOUT_INTRO.title}
+            <p className="text-lg font-medium text-[#0a0a0a]">
+              {intro.eyebrow}
+            </p>
+            <h2 className="mt-2 text-4xl font-medium text-balance text-[#0b1f2a] md:text-[56px] md:leading-[1.12]">
+              {intro.title}
             </h2>
             <h2 className="mt-2 font-medium text-balance text-[var(--zen-accent)] md:text-[56px] md:leading-[1.12]">
               {ABOUT_INTRO.title2}
@@ -83,7 +107,7 @@ export function ZenvaraAboutPage() {
               {ABOUT_INTRO.body}
             </p>
             <div className="mt-8">
-              <PillButton href="/#products">{ABOUT_INTRO.cta}</PillButton>
+              <PillButton href="/#products">{intro.cta}</PillButton>
             </div>
           </Reveal>
         </div>
@@ -97,12 +121,15 @@ export function ZenvaraAboutPage() {
 
      <MissionVision />
 
-      <MeetOurTeamSection />
+      <MeetOurTeamSection team={team} />
 
-      <MarketingImpact />
-      <MarketingCtaStrip />
-      <MarketingTestimonial />
-      <SiteFooter />
+      <MarketingImpact impact={impact} image={homeImages.impactImage} />
+      <MarketingCtaStrip cta={cta} />
+      <MarketingTestimonial
+        testimonial={testimonial}
+        image={homeImages.testimonialImage}
+      />
+      <SiteFooter siteSettings={siteSettings} />
     </div>
   )
 }

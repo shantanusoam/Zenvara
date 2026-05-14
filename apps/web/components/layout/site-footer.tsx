@@ -1,11 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
-import { Mail, MapPin } from "lucide-react"
-import { FaInstagram, FaFacebookF, FaXTwitter, FaLinkedinIn, FaYoutube } from "react-icons/fa6"
-import { FOOTER, SITE } from "@/lib/home-content"
 import { Reveal } from "@/components/home/reveal"
+import { DEFAULT_SITE_SETTINGS } from "@/lib/default-content"
+import type { SiteSettingsContent } from "@/lib/content-types"
 
 const quickHref: Record<string, string> = {
   Home: "/",
@@ -15,12 +13,25 @@ const quickHref: Record<string, string> = {
   Contact: "/#contact",
 }
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  siteSettings?: SiteSettingsContent
+}
+
+export function SiteFooter({
+  siteSettings = DEFAULT_SITE_SETTINGS,
+}: SiteFooterProps) {
+  const { footer } = siteSettings
+
   return (
-    <footer id="contact" className="bg-[#102a38] pb-12 pt-16 text-white md:pt-20">
+    <footer
+      id="contact"
+      className="bg-[#102a38] pt-16 pb-12 text-white md:pt-20"
+    >
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-        <Reveal className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <p className="max-w-md text-3xl font-semibold leading-snug lg:text-[40px] lg:leading-tight">{FOOTER.newsletter}</p>
+        <Reveal>
+          <p className="max-w-lg text-3xl leading-snug font-semibold">
+            {footer.newsletter}
+          </p>
           <form
             className="flex w-full max-w-xl flex-col gap-2 rounded-3xl sm:rounded-full bg-white p-2 sm:flex-row sm:items-center"
             onSubmit={(e) => e.preventDefault()}
@@ -63,8 +74,8 @@ export function SiteFooter() {
           </div>
           <div>
             <p className="text-2xl font-semibold">Quick Links</p>
-            <ul className="mt-6 space-y-3 text-base text-[var(--zen-accent)]">
-              {FOOTER.quickLinks.map((l) => (
+            <ul className="mt-4 space-y-2 text-lg text-[var(--zen-accent)]">
+              {footer.quickLinks.map((l) => (
                 <li key={l}>
                   <Link href={quickHref[l] ?? "#"} className="hover:underline">{l}</Link>
                 </li>
@@ -73,8 +84,8 @@ export function SiteFooter() {
           </div>
           <div>
             <p className="text-2xl font-semibold">Our Products</p>
-            <ul className="mt-6 space-y-3 text-base text-[var(--zen-accent)]">
-              {FOOTER.productLinks.map((l) => (
+            <ul className="mt-4 space-y-2 text-lg text-[var(--zen-accent)]">
+              {footer.productLinks.map((l) => (
                 <li key={l}>
                   <Link href="/#products" className="hover:underline">{l}</Link>
                 </li>
@@ -83,32 +94,24 @@ export function SiteFooter() {
           </div>
           <div>
             <p className="text-2xl font-semibold">Contact Information</p>
-            <div className="mt-6 flex items-start gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10">
-                <Mail className="h-5 w-5 text-[var(--zen-accent)]" />
-              </div>
-              <div>
-                <p className="text-sm text-white/90">{FOOTER.contact.emailLabel}</p>
-                <p className="mt-1 text-lg">{FOOTER.contact.email}</p>
-              </div>
-            </div>
-            <div className="mt-6 flex items-start gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10">
-                <MapPin className="h-5 w-5 text-[var(--zen-accent)]" />
-              </div>
-              <div>
-                <p className="text-sm text-white/90">{FOOTER.contact.locationLabel}</p>
-                <p className="mt-1 whitespace-pre-line text-lg">{FOOTER.contact.address}</p>
-              </div>
-            </div>
+            <p className="mt-4 text-sm text-white/90">
+              {footer.contact.emailLabel}
+            </p>
+            <p className="text-xl">{footer.contact.email}</p>
+            <p className="mt-4 text-sm text-white/90">
+              {footer.contact.locationLabel}
+            </p>
+            <p className="text-xl whitespace-pre-line">
+              {footer.contact.address}
+            </p>
           </div>
         </div>
-        <hr className="my-10 border-[#bbbbbb]/20" />
-        <div className="flex flex-col gap-4 text-[13px] text-white/80 md:flex-row md:items-center md:justify-between">
-          <p>{FOOTER.copyright}</p>
-          <div className="flex gap-6 font-semibold text-[var(--zen-accent)]">
-            {FOOTER.legal.map((l) => (
-              <Link key={l} href="#" className="hover:underline">
+        <hr className="my-10 border-[#bbbbbb]/40" />
+        <div className="flex flex-col gap-4 text-sm text-white/80 md:flex-row md:items-center md:justify-between">
+          <p>{footer.copyright}</p>
+          <div className="flex gap-6 text-[15px] font-semibold text-[var(--zen-accent)]">
+            {footer.legal.map((l) => (
+              <Link key={l} href="#">
                 {l}
               </Link>
             ))}

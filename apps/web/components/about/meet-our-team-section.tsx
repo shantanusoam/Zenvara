@@ -4,7 +4,8 @@ import { motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
 import { Reveal } from "@/components/home/reveal"
-import { TEAM, type TeamSocialKind } from "@/lib/about-content"
+import { DEFAULT_ABOUT_PAGE } from "@/lib/default-content"
+import type { AboutPageContent, TeamSocialKind } from "@/lib/content-types"
 import { EASE_PREMIUM } from "@/lib/motion-presets"
 
 /** Figma target: node 35:2535 (Meet our team). MCP read timed out; structure mirrors About frame team cards: ~402×428 portrait, name, role, social row. */
@@ -51,7 +52,13 @@ function SocialIcon({ kind }: { kind: TeamSocialKind }) {
   )
 }
 
-export function MeetOurTeamSection() {
+type MeetOurTeamSectionProps = {
+  team?: AboutPageContent["team"]
+}
+
+export function MeetOurTeamSection({
+  team = DEFAULT_ABOUT_PAGE.team,
+}: MeetOurTeamSectionProps) {
   const reduce = useReducedMotion()
 
   return (
