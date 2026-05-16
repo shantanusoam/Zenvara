@@ -10,6 +10,7 @@ import {
   WHO_WE_ARE,
 } from "@/lib/home-content"
 import { Reveal } from "./reveal"
+import { ImageTextSection } from "@/components/layout/image-text-section"
 import { AnimatedCtaButton } from "@/components/layout/animated-cta-button"
 import { SectionLayout } from "@/components/layout/section-layout"
 import Slider from "react-slick"
@@ -88,29 +89,16 @@ export function ZenvaraBodySections() {
         bgClass="bg-[#efefef]"
         containerClass="flex flex-col gap-16 md:gap-24"
       >
-        <div className="grid gap-12 md:grid-cols-2 md:gap-16">
-          <Reveal>
-            <p className="text-lg text-[#0a0a0a]">{WHO_WE_ARE.eyebrow}</p>
-            <h2 className="mt-2 text-4xl font-semibold text-balance text-[#0a0a0a] md:text-[56px] md:leading-[1.12]">
-              {WHO_WE_ARE.title}
-            </h2>
-            <p className="mt-6 text-lg leading-relaxed whitespace-pre-line text-[#0b1f2a]">
-              {WHO_WE_ARE.body}
-            </p>
-            <motion.div className="mt-8">
-              <AnimatedCtaButton href="/about">{WHO_WE_ARE.cta}</AnimatedCtaButton>
-            </motion.div>
-          </Reveal>
-          <Reveal className="relative min-h-[280px] md:min-h-[360px]">
-            <Image
-              src={aboutImage}
-              alt=""
-              fill
-              className="rounded-2xl object-cover"
-              sizes="(min-width: 768px) 50vw, 100vw"
-            />
-          </Reveal>
-        </div>
+        <ImageTextSection
+          imageSrc={aboutImage}
+          imagePosition="right"
+          eyebrow={WHO_WE_ARE.eyebrow}
+          title={WHO_WE_ARE.title}
+          description={WHO_WE_ARE.body}
+          ctaLabel={WHO_WE_ARE.cta}
+          ctaHref="/about"
+          containerClass=""
+        />
       </SectionLayout>
 
       <MissionVision />
