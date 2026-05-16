@@ -125,12 +125,20 @@ export function resolveHomePageContent(
         value.impact?.words,
         DEFAULT_HOME_PAGE.impact.words
       ),
+      panels: arrayOrFallback(
+        value.impact?.panels,
+        DEFAULT_HOME_PAGE.impact.panels ?? []
+      ),
       right: {
         ...DEFAULT_HOME_PAGE.impact.right,
         ...value.impact?.right,
       },
     },
     testimonial: { ...DEFAULT_HOME_PAGE.testimonial, ...value.testimonial },
+    testimonialSlides: arrayOrFallback(
+      value.testimonialSlides,
+      DEFAULT_HOME_PAGE.testimonialSlides
+    ),
     sustainability: {
       ...DEFAULT_HOME_PAGE.sustainability,
       ...value.sustainability,

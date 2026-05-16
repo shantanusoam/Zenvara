@@ -284,6 +284,12 @@ const homePage = defineType({
                 defineField({ name: "title", type: "string" }),
                 defineField({ name: "body", type: "text", rows: 3 }),
                 defineField({
+                  name: "bodyExpanded",
+                  title: "Body (expanded on hover)",
+                  type: "text",
+                  rows: 5,
+                }),
+                defineField({
                   name: "variant",
                   type: "string",
                   options: {
@@ -352,6 +358,28 @@ const homePage = defineType({
         defineField({ name: "quote", type: "text", rows: 5 }),
         defineField({ name: "name", type: "string" }),
         defineField({ name: "role", type: "string" }),
+      ],
+    }),
+    defineField({
+      name: "testimonialSlides",
+      title: "Testimonial carousel slides",
+      description: "Optional. Each slide: quote, name, role, hero image URL, avatar URL.",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({ name: "quote", type: "text", rows: 4 }),
+            defineField({ name: "name", type: "string" }),
+            defineField({ name: "role", type: "string" }),
+            defineField({ name: "image", type: "string", title: "Hero image URL" }),
+            defineField({
+              name: "avatar",
+              type: "string",
+              title: "Avatar URL (optional)",
+            }),
+          ],
+        }),
       ],
     }),
     defineField({

@@ -14,11 +14,13 @@ import {
   IMPACT,
   MISSION_VISION,
   NAV,
+  PRODUCT_CARD_BACKGROUNDS,
   PRODUCTS,
   SITE,
   STAT_STRIP,
   SUSTAINABILITY,
   TESTIMONIAL,
+  TESTIMONIAL_SLIDES,
   WHY_ZENVARA,
   WHO_WE_ARE,
 } from "./home-content"
@@ -64,8 +66,10 @@ export const DEFAULT_HOME_PAGE = {
   impact: {
     ...IMPACT,
     words: [...IMPACT.words],
+    panels: [...IMPACT.panels],
   },
   testimonial: TESTIMONIAL,
+  testimonialSlides: [...TESTIMONIAL_SLIDES],
   sustainability: {
     ...SUSTAINABILITY,
     pillars: [...SUSTAINABILITY.pillars],
@@ -76,24 +80,13 @@ export const DEFAULT_HOME_PAGE = {
     posts: [...BLOG.posts],
   },
   images: {
-    heroImage:
-      "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80",
-    aboutImage:
-      "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?w=1200&q=80",
-    productBackgrounds: [
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=70",
-      "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=70",
-      "https://images.unsplash.com/photo-1620288627223-53302f4e41c2?w=800&q=70",
-      "https://images.unsplash.com/photo-1509391366360?w=800&q=70",
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=70",
-      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=70",
-    ],
-    impactImage:
-      "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=900&q=80",
-    testimonialImage:
-      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=80",
+    heroImage: "/assets/home page/hero_image.png",
+    aboutImage: "/assets/about_us.png",
+    productBackgrounds: [...PRODUCT_CARD_BACKGROUNDS],
+    impactImage: IMPACT.panels[0]!.image,
+    testimonialImage: "/assets/testimonials.png",
     sustainabilityImage:
-      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1600&q=80",
+      "/assets/home%20page/16339529_26_Ecology_concept%201.png",
   },
   seo: {
     metaTitle: `${SITE.name} | ${SITE.tagline}`,

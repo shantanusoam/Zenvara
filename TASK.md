@@ -2,6 +2,10 @@
 
 ## Completed
 
+- **2026-05-15** — Home page feedback (desktop + mobile): header logo sizing + `AnimatedCtaButton` on Get in Touch (arrow straightens on hover); stats marquee auto-scroll; products carousel with brand images + step autoplay; Impact tabs (Transformation/Growth/Opportunity) swap copy + image; testimonial vertical scroll + `testimonials.png`; badges background/center position; CTA parallax background; blog card images; footer contact icons; mobile products white-space + compact header CTA.
+- **2026-05-15** — Shared `AnimatedCtaButton`: fade-up entrance (optional `revealDelay`), horizontal expand + arrow rotate on hover; used on home hero and About intro CTA.
+- **2026-05-14** — `meet-our-team-section.tsx`: use prop `team` instead of undefined `TEAM` for eyebrow, title, and members.
+- **2026-05-14** — `site-footer.tsx`: add missing `next/image` and `react-icons` imports (`Fa*` / `FaXTwitter`) so social icons and logo resolve; add `react-icons` to `apps/web` dependencies.
 - **2026-05-13** — Fix `/studio` Internal Server Error in production: avoid SSR of Sanity (`window is not defined`) by rendering Studio only in the client (`next/dynamic` + `ssr: false`), using `NextStudio` from `next-sanity/studio/client-component`, and `force-dynamic` on the studio page.
 - **2026-05-13** — DigitalOcean deploy: copy `apps/web/public` into `.next/standalone/apps/web/public` after unpack so `next/image` and `/_next/image` resolve local assets; add `sharp` for production image optimization on Linux.
 - **2026-05-12** — Home build and JSX fixes: `zenvara-lower-sections` blog `</section>` / `sustainability` props / duplicate eyebrow; sustainability radial icons (`SUSTAINABILITY_PILLAR_ICONS_FALLBACK`, optional `icon` on pillars); `zenvara-body-sections` drop missing `react-slick` imports, `statStrip.headline2`, `SectionLayout` indentation; `statStrip.headline2` in types, GROQ, Sanity schema; `ChevronDown` import in `site-header-bar`.

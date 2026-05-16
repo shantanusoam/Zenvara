@@ -43,7 +43,7 @@ export const homePageQuery = groq`
     whyZenvara{
       eyebrow,
       title,
-      features[]{title, body, variant}
+      features[]{title, body, bodyExpanded, variant}
     },
     products{
       eyebrow,
@@ -57,6 +57,7 @@ export const homePageQuery = groq`
       right{title, body}
     },
     testimonial{eyebrow, title, quote, name, role},
+    testimonialSlides[]{quote, name, role, image, avatar},
     sustainability{
       eyebrow,
       title,

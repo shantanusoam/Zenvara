@@ -1,6 +1,15 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
+import { Mail, MapPin } from "lucide-react"
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+} from "react-icons/fa"
+import { FaXTwitter } from "react-icons/fa6"
 import { Reveal } from "@/components/home/reveal"
 import { DEFAULT_SITE_SETTINGS } from "@/lib/default-content"
 import type { SiteSettingsContent } from "@/lib/content-types"
@@ -53,7 +62,7 @@ export function SiteFooter({
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[2fr_1.5fr_1.5fr_2fr]">
           <div className="flex flex-col">
             <Image src="/assets/zenvara-logo.svg" alt="Zenvara Energy" width={180} height={40} className="mb-6" />
-            <p className="max-w-xs text-base leading-relaxed text-white/90">{FOOTER.blurb}</p>
+            <p className="max-w-xs text-base leading-relaxed text-white/90">{footer.blurb}</p>
             <div className="mt-8 flex items-center gap-4">
               <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
                 <FaInstagram className="h-5 w-5 text-[var(--zen-accent)]" />
@@ -94,11 +103,13 @@ export function SiteFooter({
           </div>
           <div>
             <p className="text-2xl font-semibold">Contact Information</p>
-            <p className="mt-4 text-sm text-white/90">
+            <p className="mt-4 flex items-center gap-2 text-sm text-white/90">
+              <Mail className="h-4 w-4 shrink-0 text-[var(--zen-accent)]" aria-hidden />
               {footer.contact.emailLabel}
             </p>
             <p className="text-xl">{footer.contact.email}</p>
-            <p className="mt-4 text-sm text-white/90">
+            <p className="mt-4 flex items-center gap-2 text-sm text-white/90">
+              <MapPin className="h-4 w-4 shrink-0 text-[var(--zen-accent)]" aria-hidden />
               {footer.contact.locationLabel}
             </p>
             <p className="text-xl whitespace-pre-line">

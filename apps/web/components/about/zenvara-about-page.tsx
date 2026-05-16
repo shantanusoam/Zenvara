@@ -11,7 +11,7 @@ import {
 import { Reveal } from "@/components/home/reveal"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { SiteHeaderBar } from "@/components/layout/site-header-bar"
-import { PillButton } from "@/components/layout/pill-button"
+import { AnimatedCtaButton } from "@/components/layout/animated-cta-button"
 import {
   ABOUT_HERO,
   ABOUT_INTRO,
@@ -20,7 +20,19 @@ import {
   ABOUT_WIDE_IMAGE,
 } from "@/lib/about-content"
 import { HERO, MISSION_VISION } from "@/lib/home-content"
+import {
+  DEFAULT_ABOUT_PAGE,
+  DEFAULT_HOME_PAGE,
+  DEFAULT_SITE_SETTINGS,
+} from "@/lib/default-content"
+import type { AboutPageContent, HomePageContent, SiteSettingsContent } from "@/lib/content-types"
 import { EASE_PREMIUM, revealHidden, revealVisible, staggerContainer } from "@/lib/motion-presets"
+
+type ZenvaraAboutPageProps = {
+  content?: AboutPageContent
+  sharedMarketingContent?: HomePageContent
+  siteSettings?: SiteSettingsContent
+}
 import PerformanceOutlast from "../common/PerformanceOutlast"
 import MissionVision from "../common/MissionVision"
 
@@ -107,7 +119,7 @@ export function ZenvaraAboutPage({
               {ABOUT_INTRO.body}
             </p>
             <div className="mt-8">
-              <PillButton href="/#products">{intro.cta}</PillButton>
+              <AnimatedCtaButton href="/#products">{intro.cta}</AnimatedCtaButton>
             </div>
           </Reveal>
         </div>
@@ -128,6 +140,7 @@ export function ZenvaraAboutPage({
       <MarketingTestimonial
         testimonial={testimonial}
         image={homeImages.testimonialImage}
+        testimonialSlides={sharedMarketingContent.testimonialSlides}
       />
       <SiteFooter siteSettings={siteSettings} />
     </div>

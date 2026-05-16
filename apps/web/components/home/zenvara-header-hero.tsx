@@ -3,13 +3,16 @@
 import { motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import { SiteHeaderBar } from "@/components/layout/site-header-bar"
-import { PillButton } from "@/components/layout/pill-button"
+import { AnimatedCtaButton } from "@/components/layout/animated-cta-button"
 import { DEFAULT_HOME_PAGE, DEFAULT_SITE_SETTINGS } from "@/lib/default-content"
 import type { HomePageContent, SiteSettingsContent } from "@/lib/content-types"
 import { EASE_PREMIUM, revealHidden, revealVisible } from "@/lib/motion-presets"
 
-const heroImage =
-  "/assets/homepage-banner.jpg"
+type ZenvaraHeaderHeroProps = {
+  hero?: HomePageContent["hero"]
+  heroImage?: string
+  siteSettings?: SiteSettingsContent
+}
 
 export function ZenvaraHeaderHero({
   hero = DEFAULT_HOME_PAGE.hero,
@@ -50,13 +53,9 @@ export function ZenvaraHeaderHero({
           >
             {hero.headline}
           </motion.h1>
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 24 }}
-            animate={reduce ? false : { opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.9, ease: EASE_PREMIUM }}
-          >
-            <PillButton href="/#products">{hero.primaryCta}</PillButton>
-          </motion.div>
+          <AnimatedCtaButton href="/#products" revealDelay={0.2}>
+            {hero.primaryCta}
+          </AnimatedCtaButton>
         </div>
 
         <p className="absolute bottom-4 left-1/2 hidden max-w-lg -translate-x-1/2 rounded-full bg-[var(--zen-accent)] px-4 py-2 text-center text-sm text-white md:block">

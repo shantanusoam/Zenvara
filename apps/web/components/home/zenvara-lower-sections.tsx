@@ -26,10 +26,11 @@ export function ZenvaraLowerSections({
 
   return (
     <>
-      <MarketingImpact impact={content.impact} image={images.impactImage} />
+     
       <MarketingTestimonial
         testimonial={content.testimonial}
         image={images.testimonialImage}
+        testimonialSlides={content.testimonialSlides}
       />
 
       <section className="relative overflow-hidden py-16 md:py-24">
@@ -41,7 +42,7 @@ export function ZenvaraLowerSections({
             className="object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-white/88" />
+     
         </div>
         <div className="relative mx-auto max-w-[1440px] px-5 text-center md:px-10">
          
@@ -49,7 +50,7 @@ export function ZenvaraLowerSections({
           {/* Desktop Layout (Radial Positioning) */}
           <div className="relative mt-16 hidden h-[650px] w-full lg:block">
             {/* Center Badge */}
-            <div className="absolute left-1/2 top-[55%] z-10 -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute left-1/2 top-[62%] z-10 -translate-x-1/2 -translate-y-1/2">
               <Reveal delay={0.3}>
                 <Image src="/assets/badge.png" alt="Zenvara Badge" width={380} height={380} className="drop-shadow-2xl" />
               </Reveal>
@@ -177,7 +178,7 @@ export function ZenvaraLowerSections({
           </div>
         </div>
       </section>
-
+      <MarketingImpact impact={content.impact} image={images.impactImage} />
       <MarketingCtaStrip cta={content.cta} />
 
       <section id="blog" className="bg-white py-16 md:py-24">
@@ -194,7 +195,17 @@ export function ZenvaraLowerSections({
             {blog.posts.map((post) => (
               <Reveal key={post.title}>
                 <article className="flex h-full flex-col overflow-hidden rounded-[20px] bg-[#0b1f2a] text-left text-white">
-                  <div className="aspect-[380/254] bg-[#16394a]" />
+                  <div className="relative aspect-[380/254] bg-[#16394a]">
+                    {post.image ? (
+                      <Image
+                        src={post.image}
+                        alt=""
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 768px) 33vw, 100vw"
+                      />
+                    ) : null}
+                  </div>
                   <div className="flex flex-1 flex-col p-6">
                     <h3 className="text-2xl font-semibold">{post.category}</h3>
                     <p className="mt-2 flex-1 text-lg leading-relaxed">

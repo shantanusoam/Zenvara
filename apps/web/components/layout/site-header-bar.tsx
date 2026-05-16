@@ -2,9 +2,10 @@
 
 import Link from "next/link"
 import { ChevronDown } from "lucide-react"
-import { NAV } from "@/lib/home-content"
-import { PillButton } from "./pill-button"
 import Image from "next/image"
+import { AnimatedCtaButton } from "./animated-cta-button"
+import { DEFAULT_SITE_SETTINGS } from "@/lib/default-content"
+import type { SiteSettingsContent } from "@/lib/content-types"
 
 type SiteHeaderBarProps = {
   active: string
@@ -20,9 +21,16 @@ export function SiteHeaderBar({
   siteSettings = DEFAULT_SITE_SETTINGS,
 }: SiteHeaderBarProps) {
   return (
-    <div className="flex items-center justify-between gap-4">
-      <Link href="/" className="font-semibold tracking-tight text-white">
-        <Image src="/assets/zenvara-logo.svg" alt="Zenvara Energy" width={282} height={110} className="h-auto"  />
+    <div className="flex items-center justify-between gap-3 sm:gap-4">
+      <Link href="/" className="relative z-20 shrink-0">
+        <Image
+          src="/assets/zenvara-logo.svg"
+          alt="Zenvara Energy"
+          width={180}
+          height={48}
+          className="h-24 w-auto sm:h-24 md:h-24"
+          priority
+        />
       </Link>
       <nav className="hidden items-center gap-8 text-xl lg:flex">
         {siteSettings.nav.map((item) => (
@@ -36,13 +44,15 @@ export function SiteHeaderBar({
             }`}
           >
             {item.label}
-            {item.label !== "Home" && <ChevronDown className="h-5 w-5 opacity-80" />}
+            {item.label !== "Home" && (
+              <ChevronDown className="h-5 w-5 opacity-80" />
+            )}
           </Link>
         ))}
       </nav>
-      <PillButton variant="ghost" href={ctaHref}>
-        {ctaLabel}
-      </PillButton>
+      <AnimatedCtaButton href={ctaHref} size="compact" className="shrink-0">
+        <span className="truncate">{ctaLabel}</span>
+      </AnimatedCtaButton>
     </div>
   )
 }

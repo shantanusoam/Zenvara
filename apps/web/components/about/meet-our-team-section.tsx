@@ -67,15 +67,15 @@ export function MeetOurTeamSection({
         
         {/* Left Side: Titles */}
         <Reveal className="w-full shrink-0 lg:w-[380px]">
-          <p className="text-[17px] font-medium text-[var(--zen-accent)]">{TEAM.eyebrow}</p>
+          <p className="text-[17px] font-medium text-[var(--zen-accent)]">{team.eyebrow}</p>
           <h2 className="mt-4 text-balance text-5xl font-medium tracking-tight text-[#0a0a0a] lg:text-[64px] lg:leading-[1.12]">
-            {TEAM.title}
+            {team.title}
           </h2>
         </Reveal>
 
         {/* Right Side: Team Cards */}
         <div className="flex w-full flex-1 flex-col gap-8 sm:flex-row sm:justify-center lg:justify-end">
-          {TEAM.members.map((member, i) => (
+          {team.members.map((member, i) => (
             <Reveal key={member.name} delay={i * 0.06} className="w-full sm:w-[calc(50%-16px)] max-w-[420px]">
               <motion.article
                 className="relative w-full"

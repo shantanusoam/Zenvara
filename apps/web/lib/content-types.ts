@@ -77,6 +77,8 @@ export type HomePageContent = {
     features: {
       title: string
       body: string
+      bodyExpanded?: string
+      icon?: string
       variant: "accent" | "dark" | "light" | "outline"
     }[]
   }
@@ -92,6 +94,11 @@ export type HomePageContent = {
     eyebrow: string
     leftTitle: string
     words: string[]
+    panels?: {
+      title: string
+      body: string
+      image: string
+    }[]
     right: {
       title: string
       body: string
@@ -104,6 +111,13 @@ export type HomePageContent = {
     name: string
     role: string
   }
+  testimonialSlides: {
+    quote: string
+    name: string
+    role: string
+    image: string
+    avatar?: string
+  }[]
   sustainability: {
     eyebrow: string
     title: string
@@ -124,6 +138,7 @@ export type HomePageContent = {
     posts: {
       category: string
       title: string
+      image?: string
     }[]
   }
   images: {
