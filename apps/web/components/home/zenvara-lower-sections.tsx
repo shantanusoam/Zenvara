@@ -13,6 +13,46 @@ import {
 import { Reveal } from "./reveal"
 import { SUSTAINABILITY_PILLAR_ICONS_FALLBACK } from "@/lib/home-content"
 
+/** Mobile 2×2 grid order (matches design); index 4 is centered below. */
+const SUSTAINABILITY_MOBILE_GRID_ORDER = [0, 3, 1, 2] as const
+
+type SustainabilityPillarProps = {
+  pillar: HomePageContent["sustainability"]["pillars"][number]
+  pillarIndex: number
+  delay?: number
+  className?: string
+}
+
+function SustainabilityPillar({
+  pillar,
+  pillarIndex,
+  delay = 0,
+  className,
+}: SustainabilityPillarProps) {
+  const iconSrc =
+    pillar.icon ?? SUSTAINABILITY_PILLAR_ICONS_FALLBACK[pillarIndex] ?? ""
+
+  return (
+    <Reveal delay={delay} className={className}>
+      <div className="flex flex-col items-center text-center">
+        <Image
+          src={iconSrc}
+          alt=""
+          width={80}
+          height={80}
+          className="mb-3 h-[72px] w-[72px] object-contain lg:mb-4 lg:h-20 lg:w-20"
+        />
+        <h3 className="text-base font-bold leading-snug text-[#0a0a0a] lg:text-xl">
+          {pillar.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-[#5c5c5c] lg:text-base lg:text-[#0a0a0a]">
+          {pillar.body}
+        </p>
+      </div>
+    </Reveal>
+  )
+}
+
 type ZenvaraLowerSectionsProps = {
   content?: HomePageContent
   siteSettings?: SiteSettingsContent
@@ -33,21 +73,52 @@ export function ZenvaraLowerSections({
         testimonialSlides={content.testimonialSlides}
       />
 
-      <section className="relative overflow-hidden py-16 md:py-24">
+      <section className="relative overflow-hidden py-14 md:py-24">
         <div className="absolute inset-0">
           <Image
             src={images.sustainabilityImage}
             alt=""
             fill
-            className="object-cover"
+            className="object-cover object-[center_85%] lg:object-center"
             sizes="100vw"
           />
-     
         </div>
-        <div className="relative mx-auto max-w-[1440px] px-5 text-center md:px-10">
-         
-        
-          {/* Desktop Layout (Radial Positioning) */}
+        <div className="relative mx-auto max-w-[1440px] px-5 pb-6 text-center md:px-10 md:pb-0">
+          <Reveal>
+            <h2 className="text-4xl font-semibold leading-tight text-balance text-[#0a0a0a] md:text-5xl lg:text-[56px] lg:leading-[1.1]">
+              {sustainability.title}
+            </h2>
+            <p className="mt-2 text-lg font-medium text-[var(--zen-accent)] md:mt-3 md:text-xl">
+              {sustainability.eyebrow}
+            </p>
+          </Reveal>
+
+          <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:hidden">
+            {SUSTAINABILITY_MOBILE_GRID_ORDER.map((pillarIndex, i) => {
+              const pillar = sustainability.pillars[pillarIndex]
+              if (!pillar) return null
+              return (
+                <SustainabilityPillar
+                  key={pillar.title}
+                  pillar={pillar}
+                  pillarIndex={pillarIndex}
+                  delay={i * 0.06}
+                />
+              )
+            })}
+            {sustainability.pillars[4] ? (
+              <div className="col-span-2 flex justify-center px-2">
+                <SustainabilityPillar
+                  pillar={sustainability.pillars[4]}
+                  pillarIndex={4}
+                  delay={0.28}
+                  className="max-w-[300px]"
+                />
+              </div>
+            ) : null}
+          </div>
+
+          {/* Desktop: radial layout with center badge */}
           <div className="relative mt-16 hidden h-[650px] w-full lg:block">
             {/* Center Badge */}
             <div className="absolute left-1/2 top-[62%] z-10 -translate-x-1/2 -translate-y-1/2">

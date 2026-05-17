@@ -21,15 +21,19 @@ export function SiteHeaderBar({
   siteSettings = DEFAULT_SITE_SETTINGS,
 }: SiteHeaderBarProps) {
   return (
-    <div className="flex items-center justify-between gap-3 sm:gap-4">
-      <Link href="/" className="relative z-20 shrink-0">
+    <div className="flex min-w-0 items-center justify-between gap-2 sm:gap-4">
+      <Link
+        href="/"
+        className="relative z-20 block max-w-[min(52vw,148px)] shrink-0 sm:max-w-[180px] md:max-w-none"
+      >
         <Image
           src="/assets/zenvara-logo.svg"
           alt="Zenvara Energy"
           width={180}
           height={48}
-          className="h-24 w-auto sm:h-24 md:h-24"
+          className="h-12 w-auto sm:h-14 md:h-16 lg:h-20"
           priority
+          sizes="(max-width: 640px) 148px, 180px"
         />
       </Link>
       <nav className="hidden items-center gap-8 text-xl lg:flex">

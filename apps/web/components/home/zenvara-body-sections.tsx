@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useMemo, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
@@ -55,11 +56,17 @@ const featureCardClass: Record<
   outline: "border border-[var(--zen-accent)] bg-white/95 text-[#0a0a0a]",
 }
 
-const productSliderSettings = {
+function slidesToShowForWidth(width: number) {
+  if (width >= 1280) return 3.5
+  if (width >= 1024) return 3
+  if (width >= 768) return 2.2
+  return 1
+}
+
+const productSliderBase = {
   dots: true,
   infinite: true,
   speed: 700,
-  slidesToShow: 3.5,
   slidesToScroll: 1,
   swipeToSlide: true,
   arrows: false,
@@ -68,31 +75,34 @@ const productSliderSettings = {
   pauseOnHover: true,
   pauseOnFocus: true,
   cssEase: "cubic-bezier(0.4, 0, 0.2, 1)",
-  responsive: [
-    {
-      breakpoint: 1280,
-      settings: { slidesToShow: 3, slidesToScroll: 1 },
-    },
-    {
-      breakpoint: 1024,
-      settings: { slidesToShow: 2.2, slidesToScroll: 1 },
-    },
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        dots: true,
-        centerMode: false,
-      },
-    },
-  ],
+  centerMode: false,
+  variableWidth: false,
+} as const
+
+function useProductSliderSettings() {
+  const [slidesToShow, setSlidesToShow] = useState(1)
+
+  useEffect(() => {
+    const update = () => setSlidesToShow(slidesToShowForWidth(window.innerWidth))
+    update()
+    window.addEventListener("resize", update)
+    return () => window.removeEventListener("resize", update)
+  }, [])
+
+  return useMemo(
+    () => ({
+      ...productSliderBase,
+      slidesToShow,
+    }),
+    [slidesToShow]
+  )
 }
 
 export function ZenvaraBodySections({
   services = DEFAULT_SERVICES,
 }: ZenvaraBodySectionsProps) {
   const reduce = useReducedMotion()
+  const productSliderSettings = useProductSliderSettings()
 
   return (
     <>
@@ -167,8 +177,11 @@ export function ZenvaraBodySections({
           </div>
      
         </div>
-        <div className="products-carousel mt-8 pl-5 md:pl-10 lg:pl-20 lg:pr-20 [&_.slick-dots]:bottom-[-28px] [&_.slick-list]:overflow-visible md:[&_.slick-list]:overflow-hidden [&_.slick-slide]:h-auto [&_.slick-track]:flex [&_.slick-track]:items-stretch">
-          <Slider {...productSliderSettings}>
+        <div className="products-carousel mt-8 pl-5 md:pl-10 lg:pl-20 lg:pr-20 [&_.slick-dots]:bottom-[-28px] [&_.slick-list]:overflow-hidden [&_.slick-slide>div]:h-full [&_.slick-slide]:h-auto [&_.slick-track]:!flex [&_.slick-track]:items-stretch">
+          <Slider
+            key={productSliderSettings.slidesToShow}
+            {...productSliderSettings}
+          >
             {services.map((service, idx) => {
               const CardIcon =
                 SERVICE_ICON_BY_SLUG[service.slug] ??
