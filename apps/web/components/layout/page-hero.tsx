@@ -43,8 +43,8 @@ export function PageHero({
       <div className="relative z-10 mx-auto flex min-h-[min(55svh,520px)] max-w-[1440px] flex-col px-5 pb-16 pt-6 md:min-h-[480px] md:px-10">
         <SiteHeaderBar
           active={activeNavRoute}
-          ctaLabel={ctaLabel}
-          ctaHref={ctaHref}
+          ctaLabel={ctaLabel ?? "Get in Touch"}
+          ctaHref={ctaHref ?? "/contact"}
           siteSettings={siteSettings}
         />
         <div className="flex flex-1 flex-col items-center justify-center pb-8 pt-10 text-center md:pt-4">

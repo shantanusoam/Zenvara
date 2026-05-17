@@ -81,6 +81,52 @@ export const homePageQuery = groq`
   }
 `
 
+const serviceProjection = groq`
+  "slug": slug.current,
+  title,
+  shortDescription,
+  sortOrder,
+  "cardImage": cardImage.asset->url,
+  hero{
+    eyebrow,
+    title,
+    description,
+    primaryCta,
+    secondaryCta,
+    "image": image.asset->url
+  },
+  intro{
+    eyebrow,
+    title,
+    description,
+    "image": image.asset->url
+  },
+  specs{
+    eyebrow,
+    title,
+    specs[]{label, value}
+  },
+  faqs{
+    eyebrow,
+    title,
+    faqs[]{question, answer}
+  },
+  cta{title, subtitle, button},
+  seo{${seoProjection}}
+`
+
+export const servicesQuery = groq`
+  *[_type == "service"] | order(sortOrder asc, title asc) {
+    ${serviceProjection}
+  }
+`
+
+export const serviceBySlugQuery = groq`
+  *[_type == "service" && slug.current == $slug][0] {
+    ${serviceProjection}
+  }
+`
+
 export const aboutPageQuery = groq`
   *[_type == "aboutPage"][0]{
     hero{title},

@@ -40,7 +40,7 @@ export function ZenvaraHeaderHero({
         <SiteHeaderBar
           active="Home"
           ctaLabel={hero.secondaryCta}
-          ctaHref="/#contact"
+          ctaHref="/contact"
           siteSettings={siteSettings}
         />
 

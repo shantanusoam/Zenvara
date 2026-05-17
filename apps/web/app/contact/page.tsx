@@ -8,10 +8,14 @@ export async function generateMetadata() {
   ])
 
   // Custom SEO for contact page since there's no specific sanity content for it yet
-  return buildPageMetadata({
-    title: "Contact Us",
-    description: "Get in touch with Zenvara Energy for inquiries, support, and business opportunities.",
-  }, siteSettings)
+  return buildPageMetadata(
+    {
+      metaTitle: "Contact Us | Zenvara",
+      metaDescription:
+        "Get in touch with Zenvara Energy for inquiries, support, and business opportunities.",
+    },
+    siteSettings
+  )
 }
 
 export default async function ContactPage() {

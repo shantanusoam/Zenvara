@@ -1,6 +1,7 @@
-import { ZenvaraServicePage } from "@/components/service/zenvara-service-page"
+import { ServicesIndexPage } from "@/components/service/services-index-page"
 import {
   getHomePageContent,
+  getServices,
   getSiteSettings,
 } from "@/lib/sanity/content"
 import { buildPageMetadata } from "@/lib/seo"
@@ -11,22 +12,25 @@ export async function generateMetadata() {
   return buildPageMetadata(
     {
       metaTitle: "Services | Zenvara",
-      metaDescription: "Explore Zenvara's advanced energy storage solutions and custom configurations tailored to power your fleet efficiently.",
+      metaDescription:
+        "Explore Zenvara's advanced energy storage solutions and custom configurations tailored to power your fleet efficiently.",
     },
     siteSettings
   )
 }
 
-export default async function ServicePage() {
-  const [sharedMarketingContent, siteSettings] = await Promise.all([
-    getHomePageContent(),
+export default async function ServiceIndexPage() {
+  const [services, siteSettings, homeContent] = await Promise.all([
+    getServices(),
     getSiteSettings(),
+    getHomePageContent(),
   ])
 
   return (
-    <ZenvaraServicePage
-      sharedMarketingContent={sharedMarketingContent}
+    <ServicesIndexPage
+      services={services}
       siteSettings={siteSettings}
+      homeContent={homeContent}
     />
   )
 }

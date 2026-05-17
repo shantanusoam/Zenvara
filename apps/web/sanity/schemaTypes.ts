@@ -565,6 +565,155 @@ const aboutPage = defineType({
   ],
 })
 
+const serviceSpecItem = defineType({
+  name: "serviceSpecItem",
+  title: "Specification row",
+  type: "object",
+  fields: [
+    defineField({
+      name: "label",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "value",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+  ],
+})
+
+const serviceFaqItem = defineType({
+  name: "serviceFaqItem",
+  title: "FAQ item",
+  type: "object",
+  fields: [
+    defineField({
+      name: "question",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "answer",
+      type: "text",
+      rows: 4,
+      validation: (rule) => rule.required(),
+    }),
+  ],
+})
+
+const service = defineType({
+  name: "service",
+  title: "Service / Product",
+  type: "document",
+  fields: [
+    defineField({
+      name: "title",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "slug",
+      type: "slug",
+      options: { source: "title", maxLength: 96 },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "sortOrder",
+      title: "Sort order (home carousel)",
+      type: "number",
+      initialValue: 0,
+    }),
+    defineField({
+      name: "shortDescription",
+      title: "Short description (home card)",
+      type: "text",
+      rows: 3,
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "cardImage",
+      title: "Card background image",
+      type: "image",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "hero",
+      title: "Hero",
+      type: "object",
+      fields: [
+        defineField({ name: "eyebrow", type: "string" }),
+        defineField({ name: "title", type: "text", rows: 2 }),
+        defineField({ name: "description", type: "text", rows: 4 }),
+        defineField({ name: "primaryCta", type: "string" }),
+        defineField({ name: "secondaryCta", type: "string" }),
+        defineField({
+          name: "image",
+          type: "image",
+          options: { hotspot: true },
+        }),
+      ],
+    }),
+    defineField({
+      name: "intro",
+      title: "Product overview",
+      type: "object",
+      fields: [
+        defineField({ name: "eyebrow", type: "string" }),
+        defineField({ name: "title", type: "string" }),
+        defineField({ name: "description", type: "text", rows: 8 }),
+        defineField({
+          name: "image",
+          type: "image",
+          options: { hotspot: true },
+        }),
+      ],
+    }),
+    defineField({
+      name: "specs",
+      title: "Technical specifications",
+      type: "object",
+      fields: [
+        defineField({ name: "eyebrow", type: "string" }),
+        defineField({ name: "title", type: "string" }),
+        defineField({
+          name: "specs",
+          type: "array",
+          of: [defineArrayMember({ type: "serviceSpecItem" })],
+        }),
+      ],
+    }),
+    defineField({
+      name: "faqs",
+      title: "FAQs",
+      type: "object",
+      fields: [
+        defineField({ name: "eyebrow", type: "string" }),
+        defineField({ name: "title", type: "string" }),
+        defineField({
+          name: "faqs",
+          type: "array",
+          of: [defineArrayMember({ type: "serviceFaqItem" })],
+        }),
+      ],
+    }),
+    defineField({
+      name: "cta",
+      title: "Bottom CTA",
+      type: "object",
+      fields: [
+        defineField({ name: "title", type: "string" }),
+        defineField({ name: "subtitle", type: "text", rows: 2 }),
+        defineField({ name: "button", type: "string" }),
+      ],
+    }),
+    defineField({ name: "seo", type: "seo" }),
+  ],
+  preview: {
+    select: { title: "title", subtitle: "shortDescription" },
+  },
+})
+
 const blogPost = defineType({
   name: "blogPost",
   title: "Blog post",
@@ -603,8 +752,11 @@ export const schemaTypes = [
   statItem,
   missionVision,
   teamSocial,
+  serviceSpecItem,
+  serviceFaqItem,
   siteSettings,
   homePage,
   aboutPage,
+  service,
   blogPost,
 ]

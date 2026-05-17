@@ -64,7 +64,7 @@ export function ZenvaraAboutPage({
         backgroundImage={images.heroBackground}
         activeNavRoute="About Us"
         ctaLabel={homeHero.secondaryCta}
-        ctaHref="/#contact"
+        ctaHref="/contact"
         siteSettings={siteSettings}
       />
 

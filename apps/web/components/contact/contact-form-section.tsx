@@ -108,7 +108,7 @@ export function ContactFormSection() {
 
           <div className="mt-4">
             <AnimatedCtaButton
-              href={'#contact'}
+              href={'contact'}
             >
               Send Message
               </AnimatedCtaButton>

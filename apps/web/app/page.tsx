@@ -1,5 +1,9 @@
 import { ZenvaraHome } from "@/components/home/zenvara-home"
-import { getHomePageContent, getSiteSettings } from "@/lib/sanity/content"
+import {
+  getHomePageContent,
+  getServices,
+  getSiteSettings,
+} from "@/lib/sanity/content"
 import { buildPageMetadata } from "@/lib/seo"
 
 export async function generateMetadata() {
@@ -12,10 +16,17 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const [content, siteSettings] = await Promise.all([
+  const [content, siteSettings, services] = await Promise.all([
     getHomePageContent(),
     getSiteSettings(),
+    getServices(),
   ])
 
-  return <ZenvaraHome content={content} siteSettings={siteSettings} />
+  return (
+    <ZenvaraHome
+      content={content}
+      siteSettings={siteSettings}
+      services={services}
+    />
+  )
 }

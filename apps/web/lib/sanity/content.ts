@@ -7,11 +7,22 @@ import type {
   AboutPageContent,
   HomePageContent,
   SeoFields,
+  ServiceContent,
   SiteSettingsContent,
 } from "@/lib/content-types"
+import {
+  DEFAULT_SERVICES,
+  getDefaultServiceBySlug,
+} from "@/lib/services-content"
 import { sanityClient } from "./client"
 import { isSanityConfigured } from "./env"
-import { aboutPageQuery, homePageQuery, siteSettingsQuery } from "./queries"
+import {
+  aboutPageQuery,
+  homePageQuery,
+  serviceBySlugQuery,
+  servicesQuery,
+  siteSettingsQuery,
+} from "./queries"
 
 const revalidate = 60
 
@@ -246,20 +257,87 @@ export function resolveAboutPageContent(
   }
 }
 
-async function fetchSanity<T>(query: string): Promise<T | null> {
+async function fetchSanity<T>(
+  query: string,
+  params: Record<string, string> = {}
+): Promise<T | null> {
   if (!isSanityConfigured) {
     return null
   }
 
   try {
-    return await sanityClient.fetch<T | null>(
-      query,
-      {},
-      { next: { revalidate } }
-    )
+    return await sanityClient.fetch<T | null>(query, params, {
+      next: { revalidate },
+    })
   } catch {
     return null
   }
+}
+
+export function resolveServiceContent(
+  value: Partial<ServiceContent> | null | undefined,
+  fallback: ServiceContent
+): ServiceContent {
+  if (!value?.slug) {
+    return fallback
+  }
+
+  return {
+    ...fallback,
+    ...value,
+    slug: value.slug,
+    hero: {
+      ...fallback.hero,
+      ...value.hero,
+      image: stringOrFallback(value.hero?.image, fallback.hero.image),
+    },
+    intro: {
+      ...fallback.intro,
+      ...value.intro,
+      image: stringOrFallback(
+        value.intro?.image,
+        fallback.intro.image ?? "/assets/about_us.png"
+      ),
+    },
+    specs: {
+      ...fallback.specs,
+      ...value.specs,
+      specs: arrayOrFallback(value.specs?.specs, fallback.specs.specs),
+    },
+    faqs: {
+      ...fallback.faqs,
+      ...value.faqs,
+      faqs: arrayOrFallback(value.faqs?.faqs, fallback.faqs.faqs),
+    },
+    cta: { ...fallback.cta, ...value.cta },
+    cardImage: stringOrFallback(value.cardImage, fallback.cardImage),
+    shortDescription: stringOrFallback(
+      value.shortDescription,
+      fallback.shortDescription
+    ),
+    title: stringOrFallback(value.title, fallback.title),
+    sortOrder:
+      typeof value.sortOrder === "number" ? value.sortOrder : fallback.sortOrder,
+    seo: mergeSeo(value.seo, fallback.seo),
+  }
+}
+
+function resolveServicesList(
+  value: Partial<ServiceContent>[] | null | undefined
+): ServiceContent[] {
+  if (!value || value.length === 0) {
+    return DEFAULT_SERVICES
+  }
+
+  return value
+    .map((item, index) => {
+      const fallback =
+        getDefaultServiceBySlug(item.slug ?? "") ??
+        DEFAULT_SERVICES[index] ??
+        DEFAULT_SERVICES[0]!
+      return resolveServiceContent(item, fallback)
+    })
+    .sort((a, b) => a.sortOrder - b.sortOrder)
 }
 
 export async function getSiteSettings(): Promise<SiteSettingsContent> {
@@ -278,4 +356,32 @@ export async function getAboutPageContent(): Promise<AboutPageContent> {
   return resolveAboutPageContent(
     await fetchSanity<Partial<AboutPageContent>>(aboutPageQuery)
   )
+}
+
+export async function getServices(): Promise<ServiceContent[]> {
+  return resolveServicesList(
+    await fetchSanity<Partial<ServiceContent>[]>(servicesQuery)
+  )
+}
+
+export async function getServiceBySlug(slug: string): Promise<ServiceContent | null> {
+  const fallback = getDefaultServiceBySlug(slug)
+  if (!fallback) {
+    return null
+  }
+
+  const fromCms = await fetchSanity<Partial<ServiceContent>>(serviceBySlugQuery, {
+    slug,
+  })
+
+  if (!fromCms) {
+    return fallback
+  }
+
+  return resolveServiceContent(fromCms, fallback)
+}
+
+export async function getServiceSlugs(): Promise<string[]> {
+  const services = await getServices()
+  return services.map((s) => s.slug)
 }

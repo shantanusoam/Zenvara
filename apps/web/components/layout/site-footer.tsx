@@ -19,7 +19,7 @@ const quickHref: Record<string, string> = {
   "About Us": "/about",
   Products: "/#products",
   Blog: "/#blog",
-  Contact: "/#contact",
+  Contact: "/contact",
 }
 
 type SiteFooterProps = {

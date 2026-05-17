@@ -164,6 +164,54 @@ export type TeamMemberContent = {
   }[]
 }
 
+export type ServiceSpecItem = {
+  label: string
+  value: string
+}
+
+export type ServiceFaqItem = {
+  question: string
+  answer: string
+}
+
+export type ServiceContent = {
+  slug: string
+  title: string
+  shortDescription: string
+  cardImage: string
+  sortOrder: number
+  hero: {
+    eyebrow: string
+    title: string
+    description: string
+    primaryCta: string
+    secondaryCta: string
+    image: string
+  }
+  intro: {
+    eyebrow: string
+    title: string
+    description: string
+    image?: string
+  }
+  specs: {
+    eyebrow: string
+    title: string
+    specs: ServiceSpecItem[]
+  }
+  faqs: {
+    eyebrow: string
+    title: string
+    faqs: ServiceFaqItem[]
+  }
+  cta: {
+    title: string
+    subtitle: string
+    button: string
+  }
+  seo: SeoFields
+}
+
 export type AboutPageContent = {
   hero: {
     title: string

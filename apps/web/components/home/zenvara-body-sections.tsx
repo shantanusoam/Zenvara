@@ -3,12 +3,9 @@
 import { motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
-import {
-  PRODUCTS,
-  PRODUCT_CARD_BACKGROUNDS,
-  WHY_ZENVARA,
-  WHO_WE_ARE,
-} from "@/lib/home-content"
+import { PRODUCTS, WHY_ZENVARA, WHO_WE_ARE } from "@/lib/home-content"
+import type { ServiceContent } from "@/lib/content-types"
+import { DEFAULT_SERVICES } from "@/lib/services-content"
 import { Reveal } from "./reveal"
 import { ImageTextSection } from "@/components/layout/image-text-section"
 import { AnimatedCtaButton } from "@/components/layout/animated-cta-button"
@@ -32,8 +29,21 @@ import { WhyZenvaraFeatureCard } from "./why-zenvara-feature-card"
 
 const aboutImage = "/assets/about_us.png"
 
-/** Lucide icons per product card index (matches PRODUCTS.cards order). */
+/** Lucide icons per product card index (matches default services order). */
 const PRODUCT_CARD_ICONS = [Bike, CarFront, Plug, Sun, Antenna, Boxes] as const
+
+const SERVICE_ICON_BY_SLUG: Record<string, LucideIcon> = {
+  "2-wheeler": Bike,
+  "3-wheeler": CarFront,
+  "inverter-ups": Plug,
+  solar: Sun,
+  "telecom-batteries": Antenna,
+  ess: Boxes,
+}
+
+type ZenvaraBodySectionsProps = {
+  services?: ServiceContent[]
+}
 
 const featureCardClass: Record<
   (typeof WHY_ZENVARA.features)[number]["variant"],
@@ -79,7 +89,9 @@ const productSliderSettings = {
   ],
 }
 
-export function ZenvaraBodySections() {
+export function ZenvaraBodySections({
+  services = DEFAULT_SERVICES,
+}: ZenvaraBodySectionsProps) {
   const reduce = useReducedMotion()
 
   return (
@@ -157,20 +169,17 @@ export function ZenvaraBodySections() {
         </div>
         <div className="products-carousel mt-8 pl-5 md:pl-10 lg:pl-20 lg:pr-20 [&_.slick-dots]:bottom-[-28px] [&_.slick-list]:overflow-visible md:[&_.slick-list]:overflow-hidden [&_.slick-slide]:h-auto [&_.slick-track]:flex [&_.slick-track]:items-stretch">
           <Slider {...productSliderSettings}>
-            {PRODUCTS.cards.map((c, idx) => {
-              const CardIcon = PRODUCT_CARD_ICONS[
-                idx % PRODUCT_CARD_ICONS.length
-              ] as LucideIcon
-              const bg =
-                PRODUCT_CARD_BACKGROUNDS[
-                  idx % PRODUCT_CARD_BACKGROUNDS.length
-                ]!
+            {services.map((service, idx) => {
+              const CardIcon =
+                SERVICE_ICON_BY_SLUG[service.slug] ??
+                (PRODUCT_CARD_ICONS[idx % PRODUCT_CARD_ICONS.length] as LucideIcon)
+              const bg = service.cardImage
               return (
-                <div key={c.title} className="px-2 md:px-3">
+                <div key={service.slug} className="px-2 md:px-3">
                   <article className="group/product-card relative flex min-h-[360px] w-full flex-col overflow-hidden rounded-[28px]  text-white md:min-h-[398px]">
                     <Image
                       src={bg}
-                      alt={c.title}
+                      alt={service.title}
                       fill
                       className=" transition-transform duration-500 ease-out "
                       sizes="(max-width: 768px) 90vw, (max-width: 1024px) 45vw, 32vw"
@@ -192,14 +201,14 @@ export function ZenvaraBodySections() {
                     </div>
                     <div className="relative z-10 mt-auto flex flex-col px-6 pt-28 pb-8 md:px-7 md:pb-9">
                       <h3 className="text-2xl font-bold tracking-tight text-white md:text-[26px]">
-                        {c.title}
+                        {service.title}
                       </h3>
                       <p className="mt-3 max-w-prose text-base leading-relaxed font-normal text-white/90 md:text-lg">
-                        {c.body}
+                        {service.shortDescription}
                       </p>
                       <Link
-                        href="/#contact"
-                        aria-label={`Learn more about ${c.title}`}
+                        href={`/service/${service.slug}`}
+                        aria-label={`Learn more about ${service.title}`}
                         className={`mt-4 inline-flex w-fit items-center gap-2 text-lg font-semibold text-[var(--zen-accent)] underline-offset-4 transition-all duration-300 ease-out hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--zen-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b1f2a] ${
                           reduce
                             ? "translate-y-0 opacity-100"

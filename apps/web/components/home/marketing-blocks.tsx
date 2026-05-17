@@ -390,7 +390,7 @@ export function MarketingCtaStrip({
               {cta.body}
             </p>
             <div className="mt-10">
-              <AnimatedCtaButton href="#contact">{cta.button}</AnimatedCtaButton>
+              <AnimatedCtaButton href="contact">{cta.button}</AnimatedCtaButton>
             </div>
           </Reveal>
         </div>
