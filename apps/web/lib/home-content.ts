@@ -253,17 +253,17 @@ export const BLOG = {
     {
       category: "Lithium vs. Lead-Acid",
       title: "The Total Cost of Ownership Comparison Every Inverter Buyer Should See ",
-      image: "/assets/energy-storage.jpg",
+      image: "/assets/blog/LithiumvsLEad.png",
     },
     {
       category: "Inside a Battery Pack:",
       title: "What Actually Goes Into Assembling an LFP Module",
-      image: "/assets/expert1.jpg",
+      image: "/assets/blog/insideabatterypack.png",
     },
     {
       category: "Why LFP Is Winning the Indian Battery Market",
       title: "And What It Means for Your Business",
-      image: "/assets/expert2.jpg",
+      image: "/assets/blog/LPF.png",
     },
   ],
 } as const
