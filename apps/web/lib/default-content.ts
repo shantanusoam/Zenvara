@@ -99,8 +99,7 @@ export const DEFAULT_ABOUT_PAGE = {
   hero: ABOUT_HERO,
   intro: ABOUT_INTRO,
   images: {
-    heroBackground:
-      "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1920&q=80",
+    heroBackground: "/assets/about-us-banner.jpg",
     sideImage: ABOUT_SIDE_IMAGE,
     wideImage: ABOUT_WIDE_IMAGE,
   },

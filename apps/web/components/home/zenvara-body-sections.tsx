@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
@@ -18,6 +18,8 @@ import {
   Bike,
   Boxes,
   CarFront,
+  ChevronLeft,
+  ChevronRight,
   Plug,
   Sun,
   type LucideIcon,
@@ -103,6 +105,7 @@ export function ZenvaraBodySections({
 }: ZenvaraBodySectionsProps) {
   const reduce = useReducedMotion()
   const productSliderSettings = useProductSliderSettings()
+  const productSliderRef = useRef<Slider | null>(null)
 
   return (
     <>
@@ -161,24 +164,49 @@ export function ZenvaraBodySections({
 
       <section id="products" className="overflow-hidden pt-4 pb-10 md:pb-16">
         <div className="mx-auto max-w-[1440px] px-5 md:px-10 lg:px-20">
-          <div className="flex flex-col gap-4 w-full lg:flex-row lg:justify-between lg:items-start">
-            <Reveal>
+          <div className="flex w-full flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <Reveal className="lg:max-w-[220px]">
               <p className="text-lg lg:mr-24 flex-3 font-medium text-[#0b1f2a] lg:pt-2 lg:min-w-[180px] lg:max-w-[220px]">
                 {PRODUCTS.eyebrow}
               </p>
             </Reveal>
-            <Reveal className="flex-1 text-right">
-              <h2 className="text-4xl font-medium text-balance text-left text-[#0b1f2a] lg:text-[56px] lg:leading-[1.15]">
-                Powering the Future with{" "}
-                <span className="pl-2 text-[var(--zen-accent)]">Renewable Energy</span> <br />
-                Solutions
-              </h2>
+            <Reveal className="flex-1">
+              <div className="flex flex-col gap-5 lg:items-end">
+                <h2 className="text-left text-4xl font-medium text-balance text-[#0b1f2a] lg:text-[56px] lg:leading-[1.15]">
+                  Powering the Future with{" "}
+                  <span className="pl-2 text-[var(--zen-accent)]">
+                    Renewable Energy
+                  </span>{" "}
+                  <br />
+                  Solutions
+                </h2>
+                {services.length > 1 ? (
+                  <div className="flex items-center gap-3 self-start lg:self-end">
+                    <button
+                      type="button"
+                      onClick={() => productSliderRef.current?.slickPrev()}
+                      className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#0b1f2a]/12 bg-white text-[#0b1f2a]/65 shadow-sm transition-colors hover:border-[var(--zen-accent)] hover:text-[var(--zen-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--zen-accent)]"
+                      aria-label="Previous product"
+                    >
+                      <ChevronLeft className="h-6 w-6" aria-hidden />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => productSliderRef.current?.slickNext()}
+                      className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#0b1f2a]/12 bg-white text-[#0b1f2a]/65 shadow-sm transition-colors hover:border-[var(--zen-accent)] hover:text-[var(--zen-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--zen-accent)]"
+                      aria-label="Next product"
+                    >
+                      <ChevronRight className="h-6 w-6" aria-hidden />
+                    </button>
+                  </div>
+                ) : null}
+              </div>
             </Reveal>
           </div>
-     
         </div>
         <div className="products-carousel mt-8 pl-5 md:pl-10 lg:pl-20 lg:pr-20 [&_.slick-dots]:bottom-[-28px] [&_.slick-list]:overflow-hidden [&_.slick-slide>div]:h-full [&_.slick-slide]:h-auto [&_.slick-track]:!flex [&_.slick-track]:items-stretch">
           <Slider
+            ref={productSliderRef}
             key={productSliderSettings.slidesToShow}
             {...productSliderSettings}
           >
@@ -189,12 +217,16 @@ export function ZenvaraBodySections({
               const bg = service.cardImage
               return (
                 <div key={service.slug} className="px-2 md:px-3">
-                  <article className="group/product-card relative flex min-h-[360px] w-full flex-col overflow-hidden rounded-[28px]  text-white md:min-h-[398px]">
+                  <Link
+                    href={`/service/${service.slug}`}
+                    aria-label={`View details for ${service.title}`}
+                    className="group/product-card relative flex min-h-[360px] w-full flex-col overflow-hidden rounded-[28px] text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--zen-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-white md:min-h-[398px]"
+                  >
                     <Image
                       src={bg}
                       alt={service.title}
                       fill
-                      className=" transition-transform duration-500 ease-out "
+                      className="object-cover transition-transform duration-500 ease-out group-hover/product-card:scale-105"
                       sizes="(max-width: 768px) 90vw, (max-width: 1024px) 45vw, 32vw"
                     />
                     <div
@@ -219,20 +251,18 @@ export function ZenvaraBodySections({
                       <p className="mt-3 max-w-prose text-base leading-relaxed font-normal text-white/90 md:text-lg">
                         {service.shortDescription}
                       </p>
-                      <Link
-                        href={`/service/${service.slug}`}
-                        aria-label={`Learn more about ${service.title}`}
-                        className={`mt-4 inline-flex w-fit items-center gap-2 text-lg font-semibold text-[var(--zen-accent)] underline-offset-4 transition-all duration-300 ease-out hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--zen-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b1f2a] ${
+                      <span
+                        className={`mt-4 inline-flex w-fit items-center gap-2 text-lg font-semibold text-[var(--zen-accent)] underline-offset-4 transition-all duration-300 ease-out group-hover/product-card:underline ${
                           reduce
                             ? "translate-y-0 opacity-100"
-                            : "pointer-events-none translate-y-2 opacity-0 group-hover/product-card:pointer-events-auto group-hover/product-card:translate-y-0 group-hover/product-card:opacity-100 group-focus-within/product-card:pointer-events-auto group-focus-within/product-card:translate-y-0 group-focus-within/product-card:opacity-100"
+                            : "translate-y-0 opacity-100 md:translate-y-2 md:opacity-0 md:group-hover/product-card:translate-y-0 md:group-hover/product-card:opacity-100 md:group-focus-within/product-card:translate-y-0 md:group-focus-within/product-card:opacity-100"
                         }`}
                       >
                         Learn more
                         <ArrowRight className="h-5 w-5 shrink-0" aria-hidden />
-                      </Link>
+                      </span>
                     </div>
-                  </article>
+                  </Link>
                 </div>
               )
             })}

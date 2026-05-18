@@ -5,13 +5,15 @@ import { ChevronDown } from "lucide-react"
 import Image from "next/image"
 import { AnimatedCtaButton } from "./animated-cta-button"
 import { DEFAULT_SITE_SETTINGS } from "@/lib/default-content"
-import type { SiteSettingsContent } from "@/lib/content-types"
+import { DEFAULT_SERVICES } from "@/lib/services-content"
+import type { ServiceContent, SiteSettingsContent } from "@/lib/content-types"
 
 type SiteHeaderBarProps = {
   active: string
   ctaLabel: string
   ctaHref: string
   siteSettings?: SiteSettingsContent
+  services?: Pick<ServiceContent, "slug" | "title">[]
 }
 
 export function SiteHeaderBar({
@@ -19,6 +21,7 @@ export function SiteHeaderBar({
   ctaLabel,
   ctaHref,
   siteSettings = DEFAULT_SITE_SETTINGS,
+  services = DEFAULT_SERVICES,
 }: SiteHeaderBarProps) {
   return (
     <div className="flex min-w-0 items-center justify-between gap-2 sm:gap-4">
@@ -36,27 +39,58 @@ export function SiteHeaderBar({
           sizes="(max-width: 640px) 148px, 180px"
         />
       </Link>
-      <nav className="hidden items-center gap-8 text-xl lg:flex">
-        {siteSettings.nav.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            className={`flex items-center gap-1.5 ${
-              item.label === active
+      <div className="ml-auto flex items-center gap-3 sm:gap-4 lg:gap-8">
+        <nav className="hidden items-center justify-end gap-8 text-lg xl:text-xl lg:flex">
+          {siteSettings.nav.map((item) => {
+            const isActive = item.label === active
+            const navClass = `flex items-center gap-1.5 transition-colors ${
+              isActive
                 ? "text-[var(--zen-accent)]"
                 : "text-white/90 hover:text-[var(--zen-accent)]"
-            }`}
-          >
-            {item.label}
-            {item.label !== "Home" && (
-              <ChevronDown className="h-5 w-5 opacity-80" />
-            )}
-          </Link>
-        ))}
-      </nav>
-      <AnimatedCtaButton href={ctaHref} size="compact" className="shrink-0">
-        <span className="truncate">{ctaLabel}</span>
-      </AnimatedCtaButton>
+            }`
+
+            if (item.label === "Products") {
+              return (
+                <div key={item.label} className="group relative">
+                  <Link
+                    href="/service"
+                    className={navClass}
+                    aria-haspopup="menu"
+                  >
+                    {item.label}
+                    <ChevronDown className="h-5 w-5 opacity-80 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180" />
+                  </Link>
+                  <div
+                    className="invisible pointer-events-none absolute right-0 top-full z-30 mt-4 w-72 translate-y-2 rounded-[24px] border border-white/10 bg-[#0b1f2a]/95 p-2 opacity-0 shadow-[0_24px_64px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
+                    role="menu"
+                    aria-label="Products menu"
+                  >
+                    {services.map((service) => (
+                      <Link
+                        key={service.slug}
+                        href={`/service/${service.slug}`}
+                        className="flex rounded-[18px] px-4 py-3 text-sm font-medium text-white/85 transition-colors hover:bg-white/8 hover:text-[var(--zen-accent)] focus:bg-white/8 focus:text-[var(--zen-accent)] focus:outline-none"
+                        role="menuitem"
+                      >
+                        {service.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )
+            }
+
+            return (
+              <Link key={item.label} href={item.href} className={navClass}>
+                {item.label}
+              </Link>
+            )
+          })}
+        </nav>
+        <AnimatedCtaButton href={ctaHref} size="compact" className="shrink-0">
+          <span className="truncate">{ctaLabel}</span>
+        </AnimatedCtaButton>
+      </div>
     </div>
   )
 }

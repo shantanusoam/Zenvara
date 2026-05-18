@@ -93,6 +93,44 @@ export function ZenvaraLowerSections({
             </p>
           </Reveal>
 
+          <Reveal className="mt-10">
+            <div className="mx-auto max-w-5xl overflow-hidden rounded-[28px] border border-white/45 bg-white/70 shadow-[0_20px_60px_rgba(0,0,0,0.18)] backdrop-blur-sm">
+              <div className="grid items-stretch lg:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.9fr)]">
+                <div className="relative min-h-[240px] sm:min-h-[280px] lg:min-h-[340px]">
+                  <Image
+                    src={images.sustainabilityImage}
+                    alt="Zenvara sustainability"
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 1024px) 52vw, 100vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#0a1620]/70 via-[#0a1620]/25 to-transparent" />
+                  <div className="absolute bottom-5 left-5 max-w-sm text-left text-white sm:bottom-6 sm:left-6">
+                    <p className="text-xs font-semibold tracking-[0.22em] uppercase text-[var(--zen-accent)]">
+                      Powered by Zenvara
+                    </p>
+                    <p className="mt-3 text-lg font-semibold leading-snug sm:text-2xl">
+                      Battery systems built for cleaner energy adoption across mobility, backup, and storage.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col justify-center gap-4 p-6 text-left sm:p-8">
+                  <p className="text-sm font-semibold tracking-[0.2em] uppercase text-[var(--zen-accent)]">
+                    Cleaner systems
+                  </p>
+                  <h3 className="text-2xl font-semibold leading-tight text-[#0a0a0a] sm:text-3xl">
+                    Built for long life, lower waste, and future-ready performance.
+                  </h3>
+                  <p className="text-base leading-relaxed text-[#334155] sm:text-lg">
+                    {sustainability.pillars.at(4)?.body ??
+                      sustainability.pillars.at(1)?.body ??
+                      "Efficient lithium storage supports renewable integration and reduces grid dependence."}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
           <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:hidden">
             {SUSTAINABILITY_MOBILE_GRID_ORDER.map((pillarIndex, i) => {
               const pillar = sustainability.pillars[pillarIndex]

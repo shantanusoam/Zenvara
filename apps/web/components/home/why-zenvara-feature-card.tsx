@@ -4,7 +4,7 @@ import Image from "next/image"
 import { motion, useReducedMotion } from "motion/react"
 
 /** Fixed card height — inner animation only, no layout morph of the tile. */
-const CARD_H = "h-[22rem] md:h-[23rem]"
+const CARD_H = "min-h-[24rem] md:h-[23rem]"
 
 export type WhyZenvaraFeatureCardProps = {
   title: string
@@ -60,7 +60,7 @@ export function WhyZenvaraFeatureCard({
       </div>
 
       <div
-        className="min-h-[100px] shrink-0 transition-[min-height] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover/card:min-h-0 group-focus-within/card:min-h-0 md:min-h-[140px]"
+        className="hidden min-h-[100px] shrink-0 transition-[min-height] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover/card:min-h-0 group-focus-within/card:min-h-0 md:block md:min-h-[140px]"
         aria-hidden
       />
 
@@ -68,7 +68,11 @@ export function WhyZenvaraFeatureCard({
         {title}
       </h3>
 
-      <div className="relative z-10 mt-3 flex min-h-0 flex-1 flex-col">
+      <p className="relative z-10 mt-3 text-lg leading-relaxed opacity-95 md:hidden">
+        {expanded}
+      </p>
+
+      <div className="relative z-10 mt-3 hidden min-h-0 flex-1 flex-col md:flex">
         <div className="relative flex-1 min-h-[6rem]">
           <p className="absolute inset-0 overflow-y-auto text-lg leading-relaxed opacity-95 transition-opacity duration-500 ease-out group-hover/card:pointer-events-none group-hover/card:opacity-0 group-focus-within/card:pointer-events-none group-focus-within/card:opacity-0">
             {preview}

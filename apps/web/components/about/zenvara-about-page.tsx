@@ -61,7 +61,7 @@ export function ZenvaraAboutPage({
     <div className="zenvara-page bg-white font-[family-name:var(--font-open-sans)] text-[#0a0a0a] [--zen-accent:#1bddce] [&_h2]:font-[family-name:var(--font-inter)] [&_h3]:font-[family-name:var(--font-inter)]">
       <PageHero
         title={hero.title}
-        backgroundImage={images.heroBackground}
+        backgroundImage="/assets/about-us-banner.jpg"
         activeNavRoute="About Us"
         ctaLabel={homeHero.secondaryCta}
         ctaHref="/contact"

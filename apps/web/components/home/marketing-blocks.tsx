@@ -41,7 +41,7 @@ export function MarketingImpact({
 
   return (
     <section className="relative overflow-hidden bg-[#0b1f2a] py-20 text-white md:py-28">
-      <div className="mx-auto grid max-w-[1440px] gap-12 px-5 md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_2fr_minmax(350px,450px)] md:px-10 lg:gap-16">
+      <div className="mx-auto grid max-w-[1440px] gap-12 px-5 md:grid-cols-[1fr_2fr] lg:grid-cols-[0.95fr_1.25fr_minmax(360px,470px)] md:px-10 lg:gap-16">
         <Reveal>
           <p className="text-lg font-medium text-[var(--zen-accent)]">
             {impact.eyebrow}
@@ -77,7 +77,7 @@ export function MarketingImpact({
         </div>
 
         <Reveal className="flex flex-col">
-          <div className="relative h-[280px] w-full shrink-0 overflow-hidden rounded-2xl lg:h-[350px]">
+          <div className="relative h-[320px] w-full shrink-0 overflow-hidden rounded-[28px] border border-white/10 shadow-[0_18px_50px_rgba(0,0,0,0.28)] lg:h-[400px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={active.image ?? image}
@@ -94,6 +94,18 @@ export function MarketingImpact({
                   className="object-cover"
                   sizes="(min-width: 1024px) 33vw, 100vw"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#071019]/80 via-[#071019]/10 to-transparent" />
+                <div className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/25 px-4 py-2 text-xs font-semibold tracking-[0.22em] text-[var(--zen-accent)] uppercase backdrop-blur-sm">
+                  Impact in focus
+                </div>
+                <div className="absolute inset-x-4 bottom-4 rounded-[22px] border border-white/10 bg-black/35 p-4 backdrop-blur-sm">
+                  <p className="text-sm font-semibold tracking-[0.18em] text-[var(--zen-accent)] uppercase">
+                    {impact.eyebrow}
+                  </p>
+                  <p className="mt-2 text-lg font-semibold text-white">
+                    {active.title}
+                  </p>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -381,18 +393,22 @@ export function MarketingCtaStrip({
       </motion.div>
 
       <div className="relative z-10 flex min-h-[min(100svh,720px)] items-center py-20 md:py-28">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <Reveal>
-            <h2 className="max-w-3xl text-4xl font-semibold text-balance md:text-[56px] md:leading-tight">
-              {cta.title}
-            </h2>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/95">
-              {cta.body}
-            </p>
-            <div className="mt-10">
-              <AnimatedCtaButton href="contact">{cta.button}</AnimatedCtaButton>
-            </div>
-          </Reveal>
+        <div className="mx-auto w-full max-w-[1440px] px-5 md:px-10">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:items-end lg:gap-14">
+            <Reveal>
+              <h2 className="max-w-3xl text-left text-4xl font-semibold text-balance md:text-[56px] md:leading-tight">
+                {cta.title}
+              </h2>
+            </Reveal>
+            <Reveal className="max-w-xl lg:justify-self-end" delay={0.08}>
+              <p className="text-left text-lg leading-relaxed text-white/95">
+                {cta.body}
+              </p>
+              <div className="mt-10">
+                <AnimatedCtaButton href="/contact">{cta.button}</AnimatedCtaButton>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>
