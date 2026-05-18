@@ -37,7 +37,7 @@ export function SiteFooter({
       className="bg-[#102a38] pt-16 pb-12 text-white md:pt-20"
     >
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-        <Reveal>
+        <Reveal className="lg:flex lg:flex-wrap lg:justify-around">
           <p className="max-w-lg text-3xl leading-snug font-semibold">
             {footer.newsletter}
           </p>
