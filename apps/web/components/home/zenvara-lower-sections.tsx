@@ -93,7 +93,7 @@ export function ZenvaraLowerSections({
             </p>
           </Reveal>
 
-          <Reveal className="mt-10">
+          {/* <Reveal className="mt-10">
             <div className="mx-auto max-w-5xl overflow-hidden rounded-[28px] border border-white/45 bg-white/70 shadow-[0_20px_60px_rgba(0,0,0,0.18)] backdrop-blur-sm">
               <div className="grid items-stretch lg:grid-cols-[minmax(0,1.1fr)_minmax(280px,0.9fr)]">
                 <div className="relative min-h-[240px] sm:min-h-[280px] lg:min-h-[340px]">
@@ -129,7 +129,7 @@ export function ZenvaraLowerSections({
                 </div>
               </div>
             </div>
-          </Reveal>
+          </Reveal> */}
 
           <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-12 lg:hidden">
             {SUSTAINABILITY_MOBILE_GRID_ORDER.map((pillarIndex, i) => {
