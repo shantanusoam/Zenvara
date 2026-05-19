@@ -61,20 +61,22 @@ export function SiteHeaderBar({
                     <ChevronDown className="h-5 w-5 opacity-80 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180" />
                   </Link>
                   <div
-                    className="invisible pointer-events-none absolute right-0 top-full z-30 mt-4 w-72 translate-y-2 rounded-[24px] border border-white/10 bg-[#0b1f2a]/95 p-2 opacity-0 shadow-[0_24px_64px_rgba(0,0,0,0.35)] backdrop-blur-md transition-all duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
+                    className="invisible pointer-events-none absolute right-0 top-full z-30 w-72 pt-4 opacity-0 transition-opacity duration-200 group-hover:pointer-events-auto group-hover:visible group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:opacity-100"
                     role="menu"
                     aria-label="Products menu"
                   >
-                    {services.map((service) => (
-                      <Link
-                        key={service.slug}
-                        href={`/service/${service.slug}`}
-                        className="flex rounded-[18px] px-4 py-3 text-sm font-medium text-white/85 transition-colors hover:bg-white/8 hover:text-[var(--zen-accent)] focus:bg-white/8 focus:text-[var(--zen-accent)] focus:outline-none"
-                        role="menuitem"
-                      >
-                        {service.title}
-                      </Link>
-                    ))}
+                    <div className="translate-y-2 rounded-[24px] border border-white/10 bg-[#0b1f2a]/95 p-2 shadow-[0_24px_64px_rgba(0,0,0,0.35)] backdrop-blur-md transition-transform duration-200 group-hover:translate-y-0 group-focus-within:translate-y-0">
+                      {services.map((service) => (
+                        <Link
+                          key={service.slug}
+                          href={`/service/${service.slug}`}
+                          className="flex rounded-[18px] px-4 py-3 text-sm font-medium text-white/85 transition-colors hover:bg-white/8 hover:text-[var(--zen-accent)] focus:bg-white/8 focus:text-[var(--zen-accent)] focus:outline-none"
+                          role="menuitem"
+                        >
+                          {service.title}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 </div>
               )
