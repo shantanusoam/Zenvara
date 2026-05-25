@@ -27,7 +27,7 @@ import {
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import PerformanceOutlast from "../common/PerformanceOutlast"
-import MissionVision from "../common/MissionVision"
+import MissionVisionAnimated from "../common/MissionVisionAnimated"
 import { WhyZenvaraFeatureCard } from "./why-zenvara-feature-card"
 
 const aboutImage = "/assets/about_us.png"
@@ -126,7 +126,7 @@ export function ZenvaraBodySections({
         />
       </SectionLayout>
 
-      <MissionVision />
+      <MissionVisionAnimated />
       <PerformanceOutlast />
       <SectionLayout id="why-zenvara" bgClass="bg-[#efefef]">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-16">
