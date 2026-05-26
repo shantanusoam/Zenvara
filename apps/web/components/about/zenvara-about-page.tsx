@@ -36,7 +36,7 @@ type ZenvaraAboutPageProps = {
   siteSettings?: SiteSettingsContent
 }
 import PerformanceOutlast from "../common/PerformanceOutlast"
-import MissionVision from "../common/MissionVision"
+import MissionVisionAnimated from "../common/MissionVisionAnimated"
 
 const aboutHeroBg =
     '/assets/about-us-banner.jpg'
@@ -91,7 +91,7 @@ export function ZenvaraAboutPage({
 
      <PerformanceOutlast bgClass="bg-[#efefef]"/>
 
-     <MissionVision />
+     <MissionVisionAnimated />
 
       <MeetOurTeamSection team={team} />
 
