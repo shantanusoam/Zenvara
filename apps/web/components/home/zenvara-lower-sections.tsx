@@ -73,14 +73,16 @@ export function ZenvaraLowerSections({
         testimonialSlides={content.testimonialSlides}
       />
 
-      <section className="relative overflow-hidden py-14 md:py-24">
-        <div className="absolute inset-0">
-          <Image
-            src={images.sustainabilityImage}
-            alt=""
-            fill
-            className="object-cover object-[center_85%] lg:object-center"
-            sizes="100vw"
+      <section className="relative overflow-hidden pt-14 pb-4 md:pt-24 md:pb-8 bg-white">
+        {/* Extend the video wrapper below the section boundary to crop out its built-in white space */}
+        <div className="absolute inset-x-0 top-0 bottom-[-15%] md:bottom-[-25%]">
+          <video
+            src="/assets/suistanable-energy.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover object-top opacity-[0.35]"
           />
         </div>
         <div className="relative mx-auto max-w-[1440px] px-5 pb-6 text-center md:px-10 md:pb-0">
@@ -156,33 +158,27 @@ export function ZenvaraLowerSections({
             ) : null}
           </div>
 
-          {/* Desktop: radial layout with center badge */}
-          <div className="relative mt-16 hidden h-[650px] w-full lg:block">
+          {/* Desktop: responsive absolute radial layout with center badge */}
+          <div className="relative mt-12 xl:mt-16 hidden h-[600px] xl:h-[650px] w-full max-w-[1200px] mx-auto lg:block">
             {/* Center Badge */}
-            <div className="absolute left-1/2 top-[62%] z-10 -translate-x-1/2 -translate-y-1/2">
+            <div className="absolute left-1/2 top-[52%] xl:top-[55%] z-10 -translate-x-1/2 -translate-y-1/2">
               <Reveal delay={0.3}>
-                <Image src="/assets/badge.png" alt="Zenvara Badge" width={380} height={380} className="drop-shadow-2xl" />
+                <Image src="/assets/badge.png" alt="Zenvara Badge" width={380} height={380} className="drop-shadow-2xl w-[260px] xl:w-[380px] h-auto" />
               </Reveal>
             </div>
 
             {/* Future-Ready Systems (Top Center) */}
-            <div className="absolute left-1/2 top-0 w-[340px] -translate-x-1/2">
+            <div className="absolute left-1/2 top-0 w-[280px] xl:w-[340px] -translate-x-1/2">
               <Reveal delay={0.1}>
                 <div className="flex flex-col items-center text-center">
                   <Image
-                    src={
-                      sustainability.pillars.at(1)?.icon ??
-                      SUSTAINABILITY_PILLAR_ICONS_FALLBACK[1]
-                    }
-                    alt=""
-                    width={80}
-                    height={80}
-                    className="mb-4"
+                    src={sustainability.pillars.at(1)?.icon ?? SUSTAINABILITY_PILLAR_ICONS_FALLBACK[1]}
+                    alt="" width={80} height={80} className="mb-3 xl:mb-4 h-16 w-16 xl:h-20 xl:w-20 object-contain"
                   />
-                  <h3 className="text-xl font-bold text-[#0a0a0a]">
+                  <h3 className="text-lg xl:text-xl font-bold text-[#0a0a0a]">
                     {sustainability.pillars.at(1)?.title ?? ""}
                   </h3>
-                  <p className="mt-2 leading-relaxed text-[#0a0a0a]">
+                  <p className="mt-2 text-sm xl:text-base leading-relaxed text-[#0a0a0a]">
                     {sustainability.pillars.at(1)?.body ?? ""}
                   </p>
                 </div>
@@ -190,95 +186,71 @@ export function ZenvaraLowerSections({
             </div>
 
             {/* Reduced Emissions (Top Left) */}
-            <div className="absolute left-[12%] top-[15%] w-[320px]">
+            <div className="absolute left-0 xl:left-[4%] top-[15%] w-[260px] xl:w-[320px]">
               <Reveal delay={0.2}>
                 <div className="flex flex-col items-center text-center">
                   <Image
-                    src={
-                      sustainability.pillars.at(0)?.icon ??
-                      SUSTAINABILITY_PILLAR_ICONS_FALLBACK[0]
-                    }
-                    alt=""
-                    width={80}
-                    height={80}
-                    className="mb-4"
+                    src={sustainability.pillars.at(0)?.icon ?? SUSTAINABILITY_PILLAR_ICONS_FALLBACK[0]}
+                    alt="" width={80} height={80} className="mb-3 xl:mb-4 h-16 w-16 xl:h-20 xl:w-20 object-contain"
                   />
-                  <h3 className="text-xl font-bold text-[#0a0a0a]">
+                  <h3 className="text-lg xl:text-xl font-bold text-[#0a0a0a]">
                     {sustainability.pillars.at(0)?.title ?? ""}
                   </h3>
-                  <p className="mt-2 leading-relaxed text-[#0a0a0a]">
+                  <p className="mt-2 text-sm xl:text-base leading-relaxed text-[#0a0a0a]">
                     {sustainability.pillars.at(0)?.body ?? ""}
                   </p>
                 </div>
               </Reveal>
             </div>
 
-            {/* Responsible Manufacturing (Bottom Left) */}
-            <div className="absolute bottom-[5%] left-[5%] w-[320px]">
-              <Reveal delay={0.3}>
-                <div className="flex flex-col items-center text-center">
-                  <Image
-                    src={
-                      sustainability.pillars.at(3)?.icon ??
-                      SUSTAINABILITY_PILLAR_ICONS_FALLBACK[3]
-                    }
-                    alt=""
-                    width={80}
-                    height={80}
-                    className="mb-4"
-                  />
-                  <h3 className="text-xl font-bold text-[#0a0a0a]">
-                    {sustainability.pillars.at(3)?.title ?? ""}
-                  </h3>
-                  <p className="mt-2 leading-relaxed text-[#0a0a0a]">
-                    {sustainability.pillars.at(3)?.body ?? ""}
-                  </p>
-                </div>
-              </Reveal>
-            </div>
-
             {/* Long Lifecycle (Top Right) */}
-            <div className="absolute right-[12%] top-[15%] w-[320px]">
+            <div className="absolute right-0 xl:right-[4%] top-[15%] w-[260px] xl:w-[320px]">
               <Reveal delay={0.4}>
                 <div className="flex flex-col items-center text-center">
                   <Image
-                    src={
-                      sustainability.pillars.at(2)?.icon ??
-                      SUSTAINABILITY_PILLAR_ICONS_FALLBACK[2]
-                    }
-                    alt=""
-                    width={80}
-                    height={80}
-                    className="mb-4"
+                    src={sustainability.pillars.at(2)?.icon ?? SUSTAINABILITY_PILLAR_ICONS_FALLBACK[2]}
+                    alt="" width={80} height={80} className="mb-3 xl:mb-4 h-16 w-16 xl:h-20 xl:w-20 object-contain"
                   />
-                  <h3 className="text-xl font-bold text-[#0a0a0a]">
+                  <h3 className="text-lg xl:text-xl font-bold text-[#0a0a0a]">
                     {sustainability.pillars.at(2)?.title ?? ""}
                   </h3>
-                  <p className="mt-2 leading-relaxed text-[#0a0a0a]">
+                  <p className="mt-2 text-sm xl:text-base leading-relaxed text-[#0a0a0a]">
                     {sustainability.pillars.at(2)?.body ?? ""}
                   </p>
                 </div>
               </Reveal>
             </div>
 
+            {/* Responsible Manufacturing (Bottom Left) */}
+            <div className="absolute bottom-[10%] xl:bottom-[15%] left-0 xl:left-[2%] w-[260px] xl:w-[320px]">
+              <Reveal delay={0.3}>
+                <div className="flex flex-col items-center text-center">
+                  <Image
+                    src={sustainability.pillars.at(3)?.icon ?? SUSTAINABILITY_PILLAR_ICONS_FALLBACK[3]}
+                    alt="" width={80} height={80} className="mb-3 xl:mb-4 h-16 w-16 xl:h-20 xl:w-20 object-contain"
+                  />
+                  <h3 className="text-lg xl:text-xl font-bold text-[#0a0a0a]">
+                    {sustainability.pillars.at(3)?.title ?? ""}
+                  </h3>
+                  <p className="mt-2 text-sm xl:text-base leading-relaxed text-[#0a0a0a]">
+                    {sustainability.pillars.at(3)?.body ?? ""}
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+
             {/* Cleaner Energy Storage (Bottom Right) */}
-            <div className="absolute bottom-[5%] right-[5%] w-[320px]">
+            <div className="absolute bottom-[10%] xl:bottom-[15%] right-0 xl:right-[2%] w-[260px] xl:w-[320px]">
               <Reveal delay={0.5}>
                 <div className="flex flex-col items-center text-center">
                   <Image
-                    src={
-                      sustainability.pillars.at(4)?.icon ??
-                      SUSTAINABILITY_PILLAR_ICONS_FALLBACK[4]
-                    }
-                    alt=""
-                    width={80}
-                    height={80}
-                    className="mb-4"
+                    src={sustainability.pillars.at(4)?.icon ?? SUSTAINABILITY_PILLAR_ICONS_FALLBACK[4]}
+                    alt="" width={80} height={80} className="mb-3 xl:mb-4 h-16 w-16 xl:h-20 xl:w-20 object-contain"
                   />
-                  <h3 className="text-xl font-bold text-[#0a0a0a]">
+                  <h3 className="text-lg xl:text-xl font-bold text-[#0a0a0a]">
                     {sustainability.pillars.at(4)?.title ?? ""}
                   </h3>
-                  <p className="mt-2 leading-relaxed text-[#0a0a0a]">
+                  <p className="mt-2 text-sm xl:text-base leading-relaxed text-[#0a0a0a]">
                     {sustainability.pillars.at(4)?.body ?? ""}
                   </p>
                 </div>

@@ -168,7 +168,7 @@ export const IMPACT = {
     {
       title: "India’s Energy Shift",
       body: "India’s energy landscape is undergoing a major transformation, driven by policies like FAME-III and PLI incentives. Rising EV adoption and solar expansion are accelerating demand for reliable lithium-ion battery solutions across sectors.",
-      image: "/assets/energy-storage.jpg",
+      image: "/assets/transformation.jpg",
     },
     {
       title: "Accelerating Clean Growth",
@@ -285,7 +285,7 @@ export const FOOTER = {
     emailLabel: "Email Address",
     email: "info@zenvaraenergy.com",
     locationLabel: "Our Location",
-    address: "123 Dummy Address, \nDelhi NCR ",
+    address: "Plot 117, Sector 53, HSIIDC, Kundli, Sonipat, Haryana - 131028 ",
   },
   newsletter: "Stay updated with latest innovations and news.",
   legal: ["Privacy Policy ", "Terms & Conditions"],
