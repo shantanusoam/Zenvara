@@ -39,6 +39,14 @@ export function MarketingImpact({
   const panels = impactPanels(impact)
   const active = panels[activeImpact] ?? panels[0]!
 
+  useEffect(() => {
+    if (reduce || panels.length < 2) return
+    const id = window.setInterval(() => {
+      setActiveImpact((i) => (i + 1) % panels.length)
+    }, 6500)
+    return () => window.clearInterval(id)
+  }, [reduce, panels.length])
+
   return (
     <section className="relative overflow-hidden bg-[#0b1f2a] py-20 text-white md:py-28">
       <div className="mx-auto grid max-w-[1440px] gap-12 px-5 md:grid-cols-[1fr_2fr] lg:grid-cols-[0.95fr_1.25fr_minmax(360px,470px)] md:px-10 lg:gap-16">
@@ -62,11 +70,10 @@ export function MarketingImpact({
                   <button
                     type="button"
                     onClick={() => setActiveImpact(i)}
-                    className={`text-left cursor-pointer text-4xl font-semibold transition-colors md:text-[56px] md:leading-tight ${
-                      activeImpact === i
+                    className={`text-left cursor-pointer text-4xl font-semibold transition-colors md:text-[56px] md:leading-tight ${activeImpact === i
                         ? "text-[var(--zen-accent)]"
                         : "text-white/90 hover:text-white"
-                    }`}
+                      }`}
                   >
                     {w}
                   </button>
@@ -94,18 +101,6 @@ export function MarketingImpact({
                   className="object-cover"
                   sizes="(min-width: 1024px) 33vw, 100vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071019]/80 via-[#071019]/10 to-transparent" />
-                <div className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/25 px-4 py-2 text-xs font-semibold tracking-[0.22em] text-[var(--zen-accent)] uppercase backdrop-blur-sm">
-                  Impact in focus
-                </div>
-                <div className="absolute inset-x-4 bottom-4 rounded-[22px] border border-white/10 bg-black/35 p-4 backdrop-blur-sm">
-                  <p className="text-sm font-semibold tracking-[0.18em] text-[var(--zen-accent)] uppercase">
-                    {impact.eyebrow}
-                  </p>
-                  <p className="mt-2 text-lg font-semibold text-white">
-                    {active.title}
-                  </p>
-                </div>
               </motion.div>
             </AnimatePresence>
           </div>
