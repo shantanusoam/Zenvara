@@ -8,6 +8,8 @@
     "build": "next build",
     "cms:dev": "sanity dev",
     "cms:seed": "sanity exec sanity/seed.ts --with-user-token",
+    "cms:cors": "bash ../../scripts/setup-sanity-cms.sh",
+    "cms:setup": "bash ../../scripts/setup-sanity-cms.sh",
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",

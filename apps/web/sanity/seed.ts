@@ -4,6 +4,7 @@ import {
   DEFAULT_HOME_PAGE,
   DEFAULT_SITE_SETTINGS,
 } from "../lib/default-content"
+import { DEFAULT_SERVICES } from "../lib/services-content"
 
 const client = getCliClient()
 
@@ -49,8 +50,33 @@ const aboutPage: SeedDocument = {
   },
 }
 
+const services: SeedDocument[] = DEFAULT_SERVICES.map((service) => ({
+  _id: `service-${service.slug}`,
+  _type: "service",
+  title: service.title.replace("\n", " "),
+  slug: { _type: "slug", current: service.slug },
+  sortOrder: service.sortOrder,
+  shortDescription: service.shortDescription,
+  hero: {
+    eyebrow: service.hero.eyebrow,
+    title: service.hero.title,
+    description: service.hero.description,
+    primaryCta: service.hero.primaryCta,
+    secondaryCta: service.hero.secondaryCta,
+  },
+  intro: {
+    eyebrow: service.intro.eyebrow,
+    title: service.intro.title,
+    description: service.intro.description,
+  },
+  specs: service.specs,
+  faqs: service.faqs,
+  cta: service.cta,
+  seo: service.seo,
+}))
+
 await Promise.all(
-  [siteSettings, homePage, aboutPage].map((document) =>
+  [siteSettings, homePage, aboutPage, ...services].map((document) =>
     client.createOrReplace(cleanDocument(document))
   )
 )

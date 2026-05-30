@@ -56,8 +56,17 @@ echo "Preparing local build toolchain"
 corepack enable
 corepack prepare "pnpm@9.15.9" --activate
 
-echo "Building standalone Next.js runtime locally"
+echo "Installing dependencies"
 pnpm install --frozen-lockfile --filter "${BUILD_FILTER}..."
+
+echo "Configuring Sanity CMS (CORS + optional seed)"
+SERVER_NAME="$SERVER_NAME" PUBLIC_PORT="$PUBLIC_PORT" APP_ENV_FILE="$APP_ENV_FILE" \
+  CMS_SKIP="${CMS_SKIP:-0}" CMS_SEED="${CMS_SEED:-1}" \
+  bash "$ROOT_DIR/scripts/setup-sanity-cms.sh" || {
+  echo "Sanity CMS setup had warnings; continuing deploy" >&2
+}
+
+echo "Building standalone Next.js runtime locally"
 pnpm --filter "$BUILD_FILTER" build
 
 if [[ ! -d "$STANDALONE_DIR" ]]; then
@@ -213,10 +222,12 @@ $SUDO systemctl restart nginx
 echo "Verifying deployment"
 curl -fsSI "http://127.0.0.1:$INTERNAL_PORT" >/dev/null
 curl -fsSI "http://127.0.0.1:$PUBLIC_PORT" >/dev/null
+curl -fsSI "http://127.0.0.1:$PUBLIC_PORT/studio" >/dev/null || echo "Warning: /studio did not respond yet" >&2
 systemctl is-active --quiet "$SERVICE_NAME"
 systemctl is-active --quiet nginx
 
 echo "Deployment complete: http://$SERVER_NAME:$PUBLIC_PORT"
+echo "Admin studio: http://$SERVER_NAME:$PUBLIC_PORT/studio"
 REMOTE_SCRIPT
 
 echo "Checking public URL: http://${SERVER_NAME}:${PUBLIC_PORT}"
@@ -229,3 +240,4 @@ if command -v curl >/dev/null 2>&1; then
 fi
 
 echo "Done: http://${SERVER_NAME}:${PUBLIC_PORT}"
+echo "Admin studio: http://${SERVER_NAME}:${PUBLIC_PORT}/studio"
