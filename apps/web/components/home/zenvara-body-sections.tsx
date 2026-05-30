@@ -4,8 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import Link from "next/link"
-import { PRODUCTS, WHY_ZENVARA, WHO_WE_ARE } from "@/lib/home-content"
-import type { ServiceContent } from "@/lib/content-types"
+import type { HomePageContent, ServiceContent } from "@/lib/content-types"
+import { DEFAULT_HOME_PAGE } from "@/lib/default-content"
 import { DEFAULT_SERVICES } from "@/lib/services-content"
 import { Reveal } from "./reveal"
 import { ImageTextSection } from "@/components/layout/image-text-section"
@@ -32,6 +32,8 @@ import { WhyZenvaraFeatureCard } from "./why-zenvara-feature-card"
 
 const aboutImage = "/assets/about_us.png"
 
+type FeatureVariant = HomePageContent["whyZenvara"]["features"][number]["variant"]
+
 /** Lucide icons per product card index (matches default services order). */
 const PRODUCT_CARD_ICONS = [Bike, CarFront, Plug, Sun, Antenna, Boxes] as const
 
@@ -45,13 +47,11 @@ const SERVICE_ICON_BY_SLUG: Record<string, LucideIcon> = {
 }
 
 type ZenvaraBodySectionsProps = {
+  content?: HomePageContent
   services?: ServiceContent[]
 }
 
-const featureCardClass: Record<
-  (typeof WHY_ZENVARA.features)[number]["variant"],
-  string
-> = {
+const featureCardClass: Record<FeatureVariant, string> = {
   accent: "border border-[var(--zen-accent)] bg-[var(--zen-accent)] text-[#0a0a0a]",
   dark: "bg-[#102a38] text-white",
   light: "border border-[var(--zen-accent)] bg-white text-[#0b1f2a]",
@@ -101,11 +101,14 @@ function useProductSliderSettings() {
 }
 
 export function ZenvaraBodySections({
+  content = DEFAULT_HOME_PAGE,
   services = DEFAULT_SERVICES,
 }: ZenvaraBodySectionsProps) {
   const reduce = useReducedMotion()
   const productSliderSettings = useProductSliderSettings()
   const productSliderRef = useRef<Slider | null>(null)
+  const { whoWeAre, missionVision, statStrip, whyZenvara, products, images } =
+    content
 
   return (
     <>
@@ -115,44 +118,46 @@ export function ZenvaraBodySections({
         containerClass="flex flex-col gap-16 md:gap-24"
       >
         <ImageTextSection
-          imageSrc={aboutImage}
+          imageSrc={images.aboutImage || aboutImage}
           imagePosition="right"
-          eyebrow={WHO_WE_ARE.eyebrow}
-          title={WHO_WE_ARE.title}
-          description={WHO_WE_ARE.body}
-          ctaLabel={WHO_WE_ARE.cta}
+          eyebrow={whoWeAre.eyebrow}
+          title={whoWeAre.title}
+          description={whoWeAre.body}
+          ctaLabel={whoWeAre.cta}
           ctaHref="/about"
           containerClass=""
         />
       </SectionLayout>
 
-      <MissionVisionAnimated />
-      <PerformanceOutlast />
+      <MissionVisionAnimated missionVision={missionVision} />
+      <PerformanceOutlast
+        headline={statStrip.headline}
+        headline2={statStrip.headline2}
+        stats={statStrip.stats}
+      />
       <SectionLayout id="why-zenvara" bgClass="bg-[#efefef]">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-16">
           <div className="shrink-0 lg:w-56">
             <Reveal>
               <p className="text-lg font-medium text-[#0a0a0a] lg:pt-3">
-                {WHY_ZENVARA.eyebrow}
+                {whyZenvara.eyebrow}
               </p>
             </Reveal>
           </div>
           <div className="max-w-5xl flex-1">
             <Reveal>
               <h2 className="text-4xl font-medium text-balance text-[#0b1f2a] lg:text-[56px] lg:leading-[1.15]">
-                Engineered Energy Solutions
-                <br className="hidden lg:block" /> for{" "}
-                <span className="text-[var(--zen-accent)]">Every Application</span>
+                {whyZenvara.title}
               </h2>
             </Reveal>
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {WHY_ZENVARA.features.map((f, i) => (
+              {whyZenvara.features.map((f, i) => (
                 <Reveal key={f.title} delay={i * 0.05}>
                   <WhyZenvaraFeatureCard
                     title={f.title}
                     body={f.body}
                     bodyExpanded={f.bodyExpanded}
-                    icon={f.icon}
+                    icon={f.icon ?? ""}
                     variantClass={featureCardClass[f.variant]}
                   />
                 </Reveal>
@@ -167,18 +172,13 @@ export function ZenvaraBodySections({
           <div className="flex w-full flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <Reveal className="lg:max-w-[220px]">
               <p className="text-lg lg:mr-24 flex-3 font-medium text-[#0b1f2a] lg:pt-2 lg:min-w-[180px] lg:max-w-[220px]">
-                {PRODUCTS.eyebrow}
+                {products.eyebrow}
               </p>
             </Reveal>
             <Reveal className="flex-1">
               <div className="flex flex-col gap-5 lg:items-end">
                 <h2 className="text-left text-4xl font-medium text-balance text-[#0b1f2a] lg:text-[56px] lg:leading-[1.15]">
-                  Powering the Future with{" "}
-                  <span className="pl-2 text-[var(--zen-accent)]">
-                    Renewable Energy
-                  </span>{" "}
-                  <br />
-                  Solutions
+                  {products.title}
                 </h2>
                 {services.length > 1 ? (
                   <div className="flex items-center gap-3 self-start lg:self-end">

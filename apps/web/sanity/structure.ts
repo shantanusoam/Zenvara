@@ -1,11 +1,17 @@
 import type { StructureResolver } from "sanity/desk"
 
-const singletonTypes = new Set(["siteSettings", "homePage", "aboutPage"])
+const singletonTypes = new Set([
+  "siteSettings",
+  "homePage",
+  "aboutPage",
+  "contactPage",
+])
 
 const singletonItems = [
   { title: "Site settings", schemaType: "siteSettings", documentId: "siteSettings" },
   { title: "Home page", schemaType: "homePage", documentId: "homePage" },
   { title: "About page", schemaType: "aboutPage", documentId: "aboutPage" },
+  { title: "Contact page", schemaType: "contactPage", documentId: "contactPage" },
 ] as const
 
 export const structure: StructureResolver = (S) =>

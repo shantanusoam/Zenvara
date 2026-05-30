@@ -1,31 +1,30 @@
 import { ZenvaraContactPage } from "@/components/contact/zenvara-contact-page"
-import { getHomePageContent, getSiteSettings } from "@/lib/sanity/content"
+import {
+  getContactPageContent,
+  getHomePageContent,
+  getSiteSettings,
+} from "@/lib/sanity/content"
 import { buildPageMetadata } from "@/lib/seo"
 
 export async function generateMetadata() {
-  const [siteSettings] = await Promise.all([
+  const [content, siteSettings] = await Promise.all([
+    getContactPageContent(),
     getSiteSettings(),
   ])
 
-  // Custom SEO for contact page since there's no specific sanity content for it yet
-  return buildPageMetadata(
-    {
-      metaTitle: "Contact Us | Zenvara",
-      metaDescription:
-        "Get in touch with Zenvara Energy for inquiries, support, and business opportunities.",
-    },
-    siteSettings
-  )
+  return buildPageMetadata(content.seo, siteSettings)
 }
 
 export default async function ContactPage() {
-  const [sharedMarketingContent, siteSettings] = await Promise.all([
+  const [content, sharedMarketingContent, siteSettings] = await Promise.all([
+    getContactPageContent(),
     getHomePageContent(),
     getSiteSettings(),
   ])
 
   return (
     <ZenvaraContactPage
+      content={content}
       sharedMarketingContent={sharedMarketingContent}
       siteSettings={siteSettings}
     />

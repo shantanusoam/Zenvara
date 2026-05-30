@@ -56,6 +56,15 @@ Skip CMS steps on a redeploy with `CMS_SKIP=1`, or CORS-only with `CMS_SEED=0`.
 
 Production admin URL: `http://168.144.92.215:8004/studio`. Edits in the CMS appear on the marketing site within about 60 seconds (ISR revalidation).
 
+### Verify seeded content
+
+After deploy or `pnpm --filter web cms:seed`:
+
+1. Open `/studio` → **Site** → Home / About / Contact / Site settings
+2. Confirm **Services** lists 6 product documents
+3. Edit home hero headline in Studio → reload `/` and confirm the change within ~60s
+4. If seed skipped, run `npx sanity login` or set `SANITY_AUTH_TOKEN` in `apps/web/.env.production`, then redeploy
+
 ## Deploy to DigitalOcean
 
 Run from the monorepo root:

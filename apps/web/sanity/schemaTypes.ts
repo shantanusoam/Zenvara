@@ -347,6 +347,25 @@ const homePage = defineType({
             defineField({ name: "body", type: "text", rows: 4 }),
           ],
         }),
+        defineField({
+          name: "panels",
+          title: "Impact tab panels",
+          type: "array",
+          of: [
+            defineArrayMember({
+              type: "object",
+              fields: [
+                defineField({ name: "title", type: "string" }),
+                defineField({ name: "body", type: "text", rows: 4 }),
+                defineField({
+                  name: "image",
+                  type: "image",
+                  options: { hotspot: true },
+                }),
+              ],
+            }),
+          ],
+        }),
       ],
     }),
     defineField({
@@ -397,6 +416,11 @@ const homePage = defineType({
               fields: [
                 defineField({ name: "title", type: "string" }),
                 defineField({ name: "body", type: "text", rows: 3 }),
+                defineField({
+                  name: "icon",
+                  type: "image",
+                  options: { hotspot: true },
+                }),
               ],
             }),
           ],
@@ -429,6 +453,11 @@ const homePage = defineType({
               fields: [
                 defineField({ name: "category", type: "string" }),
                 defineField({ name: "title", type: "string" }),
+                defineField({
+                  name: "image",
+                  type: "image",
+                  options: { hotspot: true },
+                }),
               ],
             }),
           ],
@@ -504,6 +533,8 @@ const aboutPage = defineType({
       fields: [
         defineField({ name: "eyebrow", type: "string" }),
         defineField({ name: "title", type: "string" }),
+        defineField({ name: "title2", type: "string" }),
+        defineField({ name: "title3", type: "string" }),
         defineField({ name: "body", type: "text", rows: 6 }),
         defineField({ name: "cta", title: "CTA", type: "string" }),
         defineField({
@@ -561,6 +592,60 @@ const aboutPage = defineType({
         }),
       ],
     }),
+    defineField({ name: "seo", type: "seo" }),
+  ],
+})
+
+const contactPage = defineType({
+  name: "contactPage",
+  title: "Contact page",
+  type: "document",
+  fields: [
+    defineField({
+      name: "hero",
+      type: "object",
+      fields: [
+        defineField({
+          name: "title",
+          type: "string",
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "backgroundImage",
+          type: "image",
+          options: { hotspot: true },
+        }),
+      ],
+    }),
+    defineField({
+      name: "contactInfo",
+      title: "Contact info panel",
+      type: "object",
+      fields: [
+        defineField({ name: "headline", type: "string" }),
+        defineField({ name: "headlineAccent", type: "string" }),
+        defineField({ name: "location", type: "text", rows: 2 }),
+        defineField({ name: "email", type: "string" }),
+        defineField({ name: "phone", type: "string" }),
+        defineField({ name: "hours", type: "string" }),
+      ],
+    }),
+    defineField({
+      name: "form",
+      title: "Contact form",
+      type: "object",
+      fields: [
+        defineField({ name: "eyebrow", type: "string" }),
+        defineField({ name: "title", type: "string" }),
+        defineField({ name: "namePlaceholder", type: "string" }),
+        defineField({ name: "phonePlaceholder", type: "string" }),
+        defineField({ name: "emailPlaceholder", type: "string" }),
+        defineField({ name: "businessPlaceholder", type: "string" }),
+        defineField({ name: "messagePlaceholder", type: "string" }),
+        defineField({ name: "submitLabel", type: "string" }),
+      ],
+    }),
+    defineField({ name: "mapEmbedUrl", title: "Google Maps embed URL", type: "url" }),
     defineField({ name: "seo", type: "seo" }),
   ],
 })
@@ -757,6 +842,7 @@ export const schemaTypes = [
   siteSettings,
   homePage,
   aboutPage,
+  contactPage,
   service,
   blogPost,
 ]

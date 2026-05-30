@@ -28,7 +28,7 @@ export function ZenvaraHome({
         heroImage={content.images.heroImage}
         siteSettings={siteSettings}
       />
-      <ZenvaraBodySections services={services} />
+      <ZenvaraBodySections content={content} services={services} />
       <ZenvaraLowerSections content={content} siteSettings={siteSettings} />
     </div>
   )

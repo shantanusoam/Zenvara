@@ -24,8 +24,10 @@ import {
   WHY_ZENVARA,
   WHO_WE_ARE,
 } from "./home-content"
+import { CONTACT_PAGE } from "./contact-content"
 import type {
   AboutPageContent,
+  ContactPageContent,
   HomePageContent,
   SiteSettingsContent,
 } from "./content-types"
@@ -120,3 +122,7 @@ export const DEFAULT_ABOUT_PAGE = {
       "Learn about Zenvara Energy, a Delhi-NCR lithium-ion battery company building safe, reliable LFP packs for India's energy transition.",
   },
 } satisfies AboutPageContent
+
+export const DEFAULT_CONTACT_PAGE = {
+  ...CONTACT_PAGE,
+} satisfies ContactPageContent

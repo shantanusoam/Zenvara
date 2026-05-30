@@ -30,13 +30,13 @@ We design, assemble, and supply high-cycle-life LFP battery packs for electric v
 } as const
 
 export const MISSION_VISION = {
-  mission: {
-    title: "Our Mission",
-    body: "To accelerate India’s transition to clean energy by making high-performance lithium-ion battery packs accessible, affordable, and dependable for every business that needs them.",
-  },
   vision: {
-    title: "Our Vision",
-    body: "To accelerate India’s transition to clean energy by making high-performance lithium-ion battery packs accessible, affordable, and dependable for every business that needs them.",
+    title: "Every era is defined by how it moves its energy.",
+    body: "Zenvara exists to engineer the lithium-ion systems that will carry a new India forward — quietly, dependably, and at the scale a billion lives will demand.",
+  },
+  mission: {
+    title: "We were founded on a simple conviction:",
+    body: "that India’s energy future deserves to be engineered at home, for the conditions of home. From the three-wheelers earning a living on our streets, to the homes that refuse to go dark, to the warehouses, telecom towers, and rural grids that will hold up tomorrow's economy — Zenvara builds lithium-ion battery systems tuned for Indian roads, Indian climates, and Indian load patterns. Cell by cell, pack by pack, we are assembling the energy backbone of a self-reliant Bharat.",
   },
 } as const
 
@@ -118,7 +118,7 @@ export const WHY_ZENVARA = {
 
 export const PRODUCTS = {
   eyebrow: "Our Products",
-  title: "Powering the Future with ",
+  title: "Powering the Future with Renewable Energy Solutions",
   cards: [
     {
       title: "2-Wheeler",

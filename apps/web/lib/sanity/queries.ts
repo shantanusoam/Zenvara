@@ -54,20 +54,33 @@ export const homePageQuery = groq`
       eyebrow,
       leftTitle,
       words,
-      right{title, body}
+      right{title, body},
+      panels[]{
+        title,
+        body,
+        "image": image.asset->url
+      }
     },
     testimonial{eyebrow, title, quote, name, role},
     testimonialSlides[]{quote, name, role, image, avatar},
     sustainability{
       eyebrow,
       title,
-      pillars[]{title, body}
+      pillars[]{
+        title,
+        body,
+        "icon": icon.asset->url
+      }
     },
     cta{title, body, button},
     blog{
       eyebrow,
       title,
-      posts[]{category, title}
+      posts[]{
+        category,
+        title,
+        "image": image.asset->url
+      }
     },
     "images": {
       "heroImage": images.heroImage.asset->url,
@@ -129,13 +142,20 @@ export const serviceBySlugQuery = groq`
 
 export const aboutPageQuery = groq`
   *[_type == "aboutPage"][0]{
-    hero{title},
-    intro{eyebrow, title, body, cta},
-    "images": {
-      "heroBackground": hero.backgroundImage.asset->url,
-      "sideImage": intro.sideImage.asset->url,
-      "wideImage": wideImage.asset->url
+    hero{
+      title,
+      "backgroundImage": backgroundImage.asset->url
     },
+    intro{
+      eyebrow,
+      title,
+      title2,
+      title3,
+      body,
+      cta,
+      "sideImage": sideImage.asset->url
+    },
+    "wideImage": wideImage.asset->url,
     stats{
       headline,
       stats[]{value, caption}
@@ -150,6 +170,35 @@ export const aboutPageQuery = groq`
         socials[]{kind, href}
       }
     },
+    seo{${seoProjection}}
+  }
+`
+
+export const contactPageQuery = groq`
+  *[_type == "contactPage"][0]{
+    hero{
+      title,
+      "backgroundImage": backgroundImage.asset->url
+    },
+    contactInfo{
+      headline,
+      headlineAccent,
+      location,
+      email,
+      phone,
+      hours
+    },
+    form{
+      eyebrow,
+      title,
+      namePlaceholder,
+      phonePlaceholder,
+      emailPlaceholder,
+      businessPlaceholder,
+      messagePlaceholder,
+      submitLabel
+    },
+    mapEmbedUrl,
     seo{${seoProjection}}
   }
 `

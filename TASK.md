@@ -2,6 +2,7 @@
 
 ## Completed
 
+- **2026-05-30** — Seed static marketing content into Sanity (asset upload from `public/`), wire home/about/contact components to CMS props, add contactPage singleton, expand schema/queries/resolvers.
 - **2026-05-30** — Deploy script runs Sanity CMS setup (CORS for production URL + optional seed via `scripts/setup-sanity-cms.sh`); studio layout, singleton structure, expanded seed.
 - **2026-05-15** — Home page feedback (desktop + mobile): header logo sizing + `AnimatedCtaButton` on Get in Touch (arrow straightens on hover); stats marquee auto-scroll; products carousel with brand images + step autoplay; Impact tabs (Transformation/Growth/Opportunity) swap copy + image; testimonial vertical scroll + `testimonials.png`; badges background/center position; CTA parallax background; blog card images; footer contact icons; mobile products white-space + compact header CTA.
 - **2026-05-15** — Shared `AnimatedCtaButton`: fade-up entrance (optional `revealDelay`), horizontal expand + arrow rotate on hover; used on home hero and About intro CTA.

@@ -1,10 +1,12 @@
 import {
   DEFAULT_ABOUT_PAGE,
+  DEFAULT_CONTACT_PAGE,
   DEFAULT_HOME_PAGE,
   DEFAULT_SITE_SETTINGS,
 } from "@/lib/default-content"
 import type {
   AboutPageContent,
+  ContactPageContent,
   HomePageContent,
   SeoFields,
   ServiceContent,
@@ -18,6 +20,7 @@ import { sanityClient } from "./client"
 import { isSanityConfigured } from "./env"
 import {
   aboutPageQuery,
+  contactPageQuery,
   homePageQuery,
   serviceBySlugQuery,
   servicesQuery,
@@ -139,7 +142,16 @@ export function resolveHomePageContent(
       panels: arrayOrFallback(
         value.impact?.panels,
         DEFAULT_HOME_PAGE.impact.panels ?? []
-      ),
+      ).map((panel, index) => {
+        const fallback =
+          DEFAULT_HOME_PAGE.impact.panels?.[index] ??
+          DEFAULT_HOME_PAGE.impact.panels?.[0]!
+        return {
+          ...fallback,
+          ...panel,
+          image: stringOrFallback(panel.image, fallback.image),
+        }
+      }),
       right: {
         ...DEFAULT_HOME_PAGE.impact.right,
         ...value.impact?.right,
@@ -156,13 +168,29 @@ export function resolveHomePageContent(
       pillars: arrayOrFallback(
         value.sustainability?.pillars,
         DEFAULT_HOME_PAGE.sustainability.pillars
-      ),
+      ).map((pillar, index) => {
+        const fallback = DEFAULT_HOME_PAGE.sustainability.pillars[index]!
+        return {
+          ...fallback,
+          ...pillar,
+          icon: stringOrFallback(pillar.icon, fallback.icon),
+        }
+      }),
     },
     cta: { ...DEFAULT_HOME_PAGE.cta, ...value.cta },
     blog: {
       ...DEFAULT_HOME_PAGE.blog,
       ...value.blog,
-      posts: arrayOrFallback(value.blog?.posts, DEFAULT_HOME_PAGE.blog.posts),
+      posts: arrayOrFallback(value.blog?.posts, DEFAULT_HOME_PAGE.blog.posts).map(
+        (post, index) => {
+          const fallback = DEFAULT_HOME_PAGE.blog.posts[index]!
+          return {
+            ...fallback,
+            ...post,
+            image: stringOrFallback(post.image, fallback.image),
+          }
+        }
+      ),
     },
     images: {
       ...DEFAULT_HOME_PAGE.images,
@@ -197,7 +225,11 @@ export function resolveHomePageContent(
 }
 
 export function resolveAboutPageContent(
-  value: Partial<AboutPageContent> | null | undefined
+  value: Partial<AboutPageContent> & {
+    hero?: Partial<AboutPageContent["hero"]> & { backgroundImage?: string }
+    intro?: Partial<AboutPageContent["intro"]> & { sideImage?: string }
+    wideImage?: string
+  } | null | undefined
 ): AboutPageContent {
   if (!value) {
     return DEFAULT_ABOUT_PAGE
@@ -228,15 +260,15 @@ export function resolveAboutPageContent(
       ...DEFAULT_ABOUT_PAGE.images,
       ...value.images,
       heroBackground: stringOrFallback(
-        value.images?.heroBackground,
+        value.images?.heroBackground ?? value.hero?.backgroundImage,
         DEFAULT_ABOUT_PAGE.images.heroBackground
       ),
       sideImage: stringOrFallback(
-        value.images?.sideImage,
+        value.images?.sideImage ?? value.intro?.sideImage,
         DEFAULT_ABOUT_PAGE.images.sideImage
       ),
       wideImage: stringOrFallback(
-        value.images?.wideImage,
+        value.images?.wideImage ?? value.wideImage,
         DEFAULT_ABOUT_PAGE.images.wideImage
       ),
     },
@@ -254,6 +286,42 @@ export function resolveAboutPageContent(
       members,
     },
     seo: mergeSeo(value.seo, DEFAULT_ABOUT_PAGE.seo),
+  }
+}
+
+export function resolveContactPageContent(
+  value: Partial<ContactPageContent> & {
+    hero?: Partial<ContactPageContent["hero"]> & { backgroundImage?: string }
+  } | null | undefined
+): ContactPageContent {
+  if (!value) {
+    return DEFAULT_CONTACT_PAGE
+  }
+
+  return {
+    ...DEFAULT_CONTACT_PAGE,
+    ...value,
+    hero: {
+      ...DEFAULT_CONTACT_PAGE.hero,
+      ...value.hero,
+      backgroundImage: stringOrFallback(
+        value.hero?.backgroundImage,
+        DEFAULT_CONTACT_PAGE.hero.backgroundImage
+      ),
+    },
+    contactInfo: {
+      ...DEFAULT_CONTACT_PAGE.contactInfo,
+      ...value.contactInfo,
+    },
+    form: {
+      ...DEFAULT_CONTACT_PAGE.form,
+      ...value.form,
+    },
+    mapEmbedUrl: stringOrFallback(
+      value.mapEmbedUrl,
+      DEFAULT_CONTACT_PAGE.mapEmbedUrl
+    ),
+    seo: mergeSeo(value.seo, DEFAULT_CONTACT_PAGE.seo),
   }
 }
 
@@ -354,7 +422,19 @@ export async function getHomePageContent(): Promise<HomePageContent> {
 
 export async function getAboutPageContent(): Promise<AboutPageContent> {
   return resolveAboutPageContent(
-    await fetchSanity<Partial<AboutPageContent>>(aboutPageQuery)
+    await fetchSanity<
+      Partial<AboutPageContent> & {
+        hero?: { backgroundImage?: string }
+        intro?: { sideImage?: string }
+        wideImage?: string
+      }
+    >(aboutPageQuery)
+  )
+}
+
+export async function getContactPageContent(): Promise<ContactPageContent> {
+  return resolveContactPageContent(
+    await fetchSanity<Partial<ContactPageContent>>(contactPageQuery)
   )
 }
 

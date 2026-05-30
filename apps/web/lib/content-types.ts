@@ -219,6 +219,8 @@ export type AboutPageContent = {
   intro: {
     eyebrow: string
     title: string
+    title2: string
+    title3: string
     body: string
     cta: string
   }
@@ -236,5 +238,32 @@ export type AboutPageContent = {
     title: string
     members: TeamMemberContent[]
   }
+  seo: SeoFields
+}
+
+export type ContactPageContent = {
+  hero: {
+    title: string
+    backgroundImage: string
+  }
+  contactInfo: {
+    headline: string
+    headlineAccent: string
+    location: string
+    email: string
+    phone: string
+    hours: string
+  }
+  form: {
+    eyebrow: string
+    title: string
+    namePlaceholder: string
+    phonePlaceholder: string
+    emailPlaceholder: string
+    businessPlaceholder: string
+    messagePlaceholder: string
+    submitLabel: string
+  }
+  mapEmbedUrl: string
   seo: SeoFields
 }

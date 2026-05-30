@@ -2,11 +2,12 @@
 
 import { animate, motion, useInView, useReducedMotion } from "motion/react"
 import { useEffect, useRef, useState } from "react"
-import { STAT_STRIP } from "@/lib/home-content"
+import type { StatItem } from "@/lib/content-types"
+import { DEFAULT_HOME_PAGE } from "@/lib/default-content"
 import { Reveal } from "../home/reveal"
 import { SectionLayout } from "../layout/section-layout"
 
-/** Numeric targets for each stat row (matches STAT_STRIP.stats order). */
+/** Numeric targets for each stat row (matches default stat order). */
 const STAT_NUMBERS = [
   { end: 3000, prefix: ">", suffix: "" },
   { end: 3, prefix: ">", suffix: " times" },
@@ -56,17 +57,31 @@ function AnimatedStatNumber({
   )
 }
 
-const PerformanceOutlast = ({ bgClass }: { bgClass?: string }) => {
+type PerformanceOutlastProps = {
+  bgClass?: string
+  headline?: string
+  headline2?: string
+  stats?: StatItem[]
+}
+
+const PerformanceOutlast = ({
+  bgClass,
+  headline = DEFAULT_HOME_PAGE.statStrip.headline,
+  headline2 = DEFAULT_HOME_PAGE.statStrip.headline2,
+  stats = DEFAULT_HOME_PAGE.statStrip.stats,
+}: PerformanceOutlastProps) => {
   return (
     <SectionLayout bgClass={bgClass}>
       <div>
         <Reveal>
           <h2 className="max-w-4xl text-balance text-4xl font-medium text-[#0a0a0a] md:text-[56px] md:leading-[1.15]">
-            {STAT_STRIP.headline}
+            {headline}
           </h2>
-          <h2 className="max-w-4xl text-balance text-4xl font-medium text-[var(--zen-accent)] md:text-[56px] md:leading-[1.15]">
-            {STAT_STRIP.headline2}
-          </h2>
+          {headline2 ? (
+            <h2 className="max-w-4xl text-balance text-4xl font-medium text-[var(--zen-accent)] md:text-[56px] md:leading-[1.15]">
+              {headline2}
+            </h2>
+          ) : null}
         </Reveal>
 
         <motion.div
@@ -76,11 +91,11 @@ const PerformanceOutlast = ({ bgClass }: { bgClass?: string }) => {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ staggerChildren: 0.12 }}
         >
-          {STAT_STRIP.stats.map((s, i) => {
-            const num = STAT_NUMBERS[i]!
+          {stats.map((s, i) => {
+            const num = STAT_NUMBERS[i] ?? STAT_NUMBERS[0]!
             return (
               <motion.div
-                key={s.value}
+                key={`${s.value}-${i}`}
                 variants={{
                   hidden: { opacity: 0, y: 24 },
                   visible: { opacity: 1, y: 0 },

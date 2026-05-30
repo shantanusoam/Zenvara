@@ -1,9 +1,16 @@
 "use client"
 
 import { motion } from "motion/react"
-import { EASE_PREMIUM, revealVisible, revealHidden } from "@/lib/motion-presets"
+import { DEFAULT_CONTACT_PAGE } from "@/lib/default-content"
+import { EASE_PREMIUM, revealHidden, revealVisible } from "@/lib/motion-presets"
 
-export function MapSection() {
+type MapSectionProps = {
+  embedUrl?: string
+}
+
+export function MapSection({
+  embedUrl = DEFAULT_CONTACT_PAGE.mapEmbedUrl,
+}: MapSectionProps) {
   return (
     <motion.section
       initial={revealHidden}
@@ -14,7 +21,7 @@ export function MapSection() {
     >
       <div className="w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg border border-gray-100 bg-gray-50">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d112002.34380729709!2d77.12648785820311!3d28.6859345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x52c2b7494e204dce!2sNew%20Delhi%2C%20Delhi!5e0!3m2!1sen!2sin!4v1708513388720!5m2!1sen!2sin"
+          src={embedUrl}
           width="100%"
           height="100%"
           style={{ border: 0 }}
