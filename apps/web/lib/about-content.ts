@@ -19,7 +19,7 @@ export const ABOUT_WIDE_IMAGE =
   "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=1920&q=80" as const
 
 export const ABOUT_SIDE_IMAGE =
-  "/assets/about_us.png" as const
+  "/assets/powering_energy.jpg" as const
 
 export const ABOUT_STATS = {
   headline: "Performance That Outlasts. Efficiency That Delivers.",

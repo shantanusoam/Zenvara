@@ -30,7 +30,6 @@ import PerformanceOutlast from "../common/PerformanceOutlast"
 import MissionVisionAnimated from "../common/MissionVisionAnimated"
 import { WhyZenvaraFeatureCard } from "./why-zenvara-feature-card"
 
-const aboutImage = "/assets/about_us.png"
 
 type FeatureVariant = HomePageContent["whyZenvara"]["features"][number]["variant"]
 
@@ -107,7 +106,7 @@ export function ZenvaraBodySections({
   const reduce = useReducedMotion()
   const productSliderSettings = useProductSliderSettings()
   const productSliderRef = useRef<Slider | null>(null)
-  const { whoWeAre, missionVision, statStrip, whyZenvara, products, images } =
+  const { founderMessage, missionVision, statStrip, whyZenvara, products, images } =
     content
 
   return (
@@ -118,14 +117,12 @@ export function ZenvaraBodySections({
         containerClass="flex flex-col gap-16 md:gap-24"
       >
         <ImageTextSection
-          imageSrc={images.aboutImage || aboutImage}
+          imageSrc={images.founderImage}
           imagePosition="right"
-          eyebrow={whoWeAre.eyebrow}
-          title={whoWeAre.title}
-          description={whoWeAre.body}
-          ctaLabel={whoWeAre.cta}
+          title={founderMessage.title}
+          description={founderMessage.body}
+          ctaLabel={founderMessage.cta}
           ctaHref="/about"
-          containerClass=""
         />
       </SectionLayout>
 

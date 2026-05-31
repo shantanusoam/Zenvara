@@ -29,6 +29,16 @@ We design, assemble, and supply high-cycle-life LFP battery packs for electric v
   cta: "About Us",
 } as const
 
+export const FOUNDER_MESSAGE = {
+  title: "Our Founder’s Message",
+  body: `When the lights stay on through a power cut, when an electric vehicle finishes its last route, when a factory runs on stored sunshine instead of diesel — there's a battery doing quiet, invisible work behind it. We started Zenvara Energy because that quiet work deserves to be done well.
+
+India is building one of the largest energy transitions in human history, and battery storage is its foundation. Yet too much of what reaches the field is mismatched, poorly graded, and assembled in a hurry. A pack is only as strong as its weakest cell — and we refuse to let that weakest cell be ours.
+
+The name Zenvara is built on a single idea: balance. And that's exactly how we work — patiently and precisely. It's also the heart of our craft.`,
+  cta: "About Us",
+} as const
+
 export const MISSION_VISION = {
   vision: {
     title: "Every era is defined by how it moves its energy.",
@@ -168,17 +178,17 @@ export const IMPACT = {
     {
       title: "India’s Energy Shift",
       body: "India’s energy landscape is undergoing a major transformation, driven by policies like FAME-III and PLI incentives. Rising EV adoption and solar expansion are accelerating demand for reliable lithium-ion battery solutions across sectors.",
-      image: "/assets/transformation.jpg",
+      image: "/assets/impact3.png",
     },
     {
       title: "Accelerating Clean Growth",
       body: "From two-wheelers to grid-scale storage, demand for LFP packs is scaling fast. Zenvara helps OEMs and distributors grow with dependable chemistry, predictable supply, and packs engineered for India’s operating conditions.",
-      image: "/assets/expert1.jpg",
+      image: "/assets/impact2.png",
     },
     {
       title: "Opportunity Across Sectors",
       body: "Telecom backup, solar hybrids, inverter upgrades, and commercial ESS open new revenue lines for partners. We co-design solutions so businesses can capture opportunity in mobility and stationary storage alike.",
-      image: "/assets/expert2.jpg",
+      image: "/assets/impact1.png",
     },
   ],
   right: {

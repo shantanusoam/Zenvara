@@ -23,6 +23,7 @@ import {
   TESTIMONIAL_SLIDES,
   WHY_ZENVARA,
   WHO_WE_ARE,
+  FOUNDER_MESSAGE,
 } from "./home-content"
 import { CONTACT_PAGE } from "./contact-content"
 import type {
@@ -51,6 +52,7 @@ export const DEFAULT_SITE_SETTINGS = {
 export const DEFAULT_HOME_PAGE = {
   hero: HERO,
   whoWeAre: WHO_WE_ARE,
+  founderMessage: FOUNDER_MESSAGE,
   missionVision: MISSION_VISION,
   statStrip: {
     ...STAT_STRIP,
@@ -83,7 +85,8 @@ export const DEFAULT_HOME_PAGE = {
   },
   images: {
     heroImage: "/assets/home page/hero_image.png",
-    aboutImage: "/assets/about_us.png",
+    aboutImage: "/assets/powering_energy.jpg",
+    founderImage: "/assets/about_us.png",
     productBackgrounds: [...PRODUCT_CARD_BACKGROUNDS],
     impactImage: IMPACT.panels[0]!.image,
     testimonialImage: "/assets/testimonials.png",

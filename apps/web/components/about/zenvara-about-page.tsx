@@ -36,6 +36,7 @@ export function ZenvaraAboutPage({
     images: homeImages,
     impact,
     missionVision,
+    founderMessage,
     testimonial,
   } = sharedMarketingContent
 
@@ -63,8 +64,15 @@ export function ZenvaraAboutPage({
           </>
         }
         description={intro.body}
-        ctaLabel={intro.cta}
+        ctaLabel="Our Services"
         ctaHref="/#products"
+      />
+
+      <ImageTextSection
+        imageSrc={homeImages.founderImage}
+        imagePosition="right"
+        title={founderMessage.title}
+        description={founderMessage.body}
       />
 
       <PerformanceOutlast

@@ -42,7 +42,7 @@ export function ImageTextSection({
   )
 
   const imageNode = (
-    <Reveal className="relative h-[280px] w-full md:h-[499px]">
+    <Reveal className="relative h-[280px] w-full md:h-full md:min-h-[400px]">
       <Image
         src={imageSrc}
         alt=""
@@ -55,15 +55,15 @@ export function ImageTextSection({
 
   return (
     <section className={`mx-auto max-w-[1440px] px-5 md:px-10 ${containerClass}`}>
-      <div className="grid gap-10 md:grid-cols-2 md:items-start md:gap-14">
+      <div className="grid gap-10 md:grid-cols-2 md:items-stretch md:gap-14">
         {imagePosition === "left" ? (
           <>
             {imageNode}
-            <div>{contentNode}</div>
+            <div className="flex flex-col justify-center">{contentNode}</div>
           </>
         ) : (
           <>
-            <div className="order-2 md:order-1">{contentNode}</div>
+            <div className="order-2 md:order-1 flex flex-col justify-center">{contentNode}</div>
             <div className="order-1 md:order-2">{imageNode}</div>
           </>
         )}
