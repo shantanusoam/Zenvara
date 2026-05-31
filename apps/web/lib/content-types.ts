@@ -61,6 +61,11 @@ export type HomePageContent = {
     body: string
     cta: string
   }
+  founderMessage: {
+    title: string
+    body: string
+    cta?: string
+  }
   missionVision: MissionVisionContent
   statStrip: {
     headline: string
@@ -144,6 +149,7 @@ export type HomePageContent = {
   images: {
     heroImage: string
     aboutImage: string
+    founderImage: string
     productBackgrounds: string[]
     impactImage: string
     testimonialImage: string
