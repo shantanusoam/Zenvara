@@ -87,11 +87,13 @@ export function ZenvaraAboutPage({
 
       <MarketingImpact impact={impact} image={homeImages.impactImage} />
       <MarketingCtaStrip cta={cta} />
-      <MarketingTestimonial
-        testimonial={testimonial}
-        image={homeImages.testimonialImage}
-        testimonialSlides={sharedMarketingContent.testimonialSlides}
-      />
+      {sharedMarketingContent.showTestimonial ? (
+        <MarketingTestimonial
+          testimonial={testimonial}
+          image={homeImages.testimonialImage}
+          testimonialSlides={sharedMarketingContent.testimonialSlides}
+        />
+      ) : null}
       <SiteFooter siteSettings={siteSettings} />
     </div>
   )

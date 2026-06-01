@@ -109,6 +109,8 @@ export type HomePageContent = {
       body: string
     }
   }
+  /** When false, testimonial block is hidden (default). Toggle in Studio → Home page. */
+  showTestimonial: boolean
   testimonial: {
     eyebrow: string
     title: string

@@ -62,16 +62,17 @@ export function ZenvaraLowerSections({
   content = DEFAULT_HOME_PAGE,
   siteSettings = DEFAULT_SITE_SETTINGS,
 }: ZenvaraLowerSectionsProps) {
-  const { blog, images, sustainability } = content
+  const { blog, images, sustainability, showTestimonial } = content
 
   return (
     <>
-     
-      <MarketingTestimonial
-        testimonial={content.testimonial}
-        image={images.testimonialImage}
-        testimonialSlides={content.testimonialSlides}
-      />
+      {showTestimonial ? (
+        <MarketingTestimonial
+          testimonial={content.testimonial}
+          image={images.testimonialImage}
+          testimonialSlides={content.testimonialSlides}
+        />
+      ) : null}
 
       <section className="relative overflow-hidden pt-14 pb-4 md:pt-24 md:pb-8 bg-white">
         {/* Extend the video wrapper below the section boundary to crop out its built-in white space */}

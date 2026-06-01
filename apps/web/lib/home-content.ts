@@ -177,23 +177,23 @@ export const IMPACT = {
   panels: [
     {
       title: "India’s Energy Shift",
-      body: "India’s energy landscape is undergoing a major transformation, driven by policies like FAME-III and PLI incentives. Rising EV adoption and solar expansion are accelerating demand for reliable lithium-ion battery solutions across sectors.",
-      image: "/assets/impact3.png",
+      body: "India’s energy landscape is undergoing a major transformation, driven by policies like FAME II and PLI schemes. Rising EV adoption and solar expansion are accelerating demand for reliable lithium-ion battery solutions across sectors.",
+      image: "/assets/impact_sus/Transformation.png",
     },
     {
-      title: "Accelerating Clean Growth",
-      body: "From two-wheelers to grid-scale storage, demand for LFP packs is scaling fast. Zenvara helps OEMs and distributors grow with dependable chemistry, predictable supply, and packs engineered for India’s operating conditions.",
-      image: "/assets/impact2.png",
+      title: "A Rapidly Expanding Market",
+      body: "India’s lithium-ion battery market is projected to reach $15 billion by 2030, fueled by electromobility, grid modernization, telecom expansion, and increasing energy storage needs.",
+      image: "/assets/impact_sus/Growth.png",
     },
     {
-      title: "Opportunity Across Sectors",
-      body: "Telecom backup, solar hybrids, inverter upgrades, and commercial ESS open new revenue lines for partners. We co-design solutions so businesses can capture opportunity in mobility and stationary storage alike.",
-      image: "/assets/impact1.png",
+      title: "Positioned for the Future",
+      body: "Zenvara is strategically positioned to power this growth combining local assembly with global-grade components, enabling scalable, high-performance battery solutions for India’s evolving energy ecosystem.",
+      image: "/assets/impact_sus/Opportunity.png",
     },
   ],
   right: {
     title: "India’s Energy Shift",
-    body: "India’s energy landscape is undergoing a major transformation, driven by policies like FAME-III and PLI incentives. Rising EV adoption and solar expansion are accelerating demand for reliable lithium-ion battery solutions across sectors.",
+    body: "India’s energy landscape is undergoing a major transformation, driven by policies like FAME II and PLI schemes. Rising EV adoption and solar expansion are accelerating demand for reliable lithium-ion battery solutions across sectors.",
   },
 } as const
 

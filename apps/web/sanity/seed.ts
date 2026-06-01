@@ -29,6 +29,7 @@ async function buildHomePage(): Promise<SeedDocument> {
     whyZenvara,
     products,
     impact,
+    showTestimonial,
     testimonial,
     testimonialSlides,
     sustainability,
@@ -82,6 +83,7 @@ async function buildHomePage(): Promise<SeedDocument> {
       right: impact.right,
       panels: impactPanels,
     },
+    showTestimonial,
     testimonial,
     testimonialSlides: testimonialSlides.map((slide) => ({
       quote: slide.quote,

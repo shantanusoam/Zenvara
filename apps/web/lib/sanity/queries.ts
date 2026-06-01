@@ -61,6 +61,7 @@ export const homePageQuery = groq`
         "image": image.asset->url
       }
     },
+    showTestimonial,
     testimonial{eyebrow, title, quote, name, role},
     testimonialSlides[]{quote, name, role, image, avatar},
     sustainability{

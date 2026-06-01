@@ -371,7 +371,7 @@ export function MarketingCtaStrip({
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[min(100svh,720px)] overflow-hidden text-white"
+      className="relative min-h-[min(85svh,640px)] overflow-hidden text-white md:min-h-[600px]"
     >
       <motion.div
         className="absolute inset-0 will-change-transform"
@@ -381,29 +381,30 @@ export function MarketingCtaStrip({
           src="/assets/energy-storage.jpg"
           alt=""
           fill
-          className="scale-110 object-cover"
+          className="scale-110 object-cover object-center"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-black/50" />
       </motion.div>
 
-      <div className="relative z-10 flex min-h-[min(100svh,720px)] items-center py-20 md:py-28">
-        <div className="mx-auto w-full max-w-[1440px] px-5 md:px-10">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)] lg:items-end lg:gap-14">
-            <Reveal>
-              <h2 className="max-w-3xl text-left text-4xl font-semibold text-balance md:text-[56px] md:leading-tight">
-                {cta.title}
-              </h2>
-            </Reveal>
-            <Reveal className="max-w-xl lg:justify-self-end" delay={0.08}>
-              <p className="text-left text-lg leading-relaxed text-white/95">
-                {cta.body}
-              </p>
-              <div className="mt-10">
-                <AnimatedCtaButton href="/contact">{cta.button}</AnimatedCtaButton>
-              </div>
-            </Reveal>
-          </div>
+      <div className="relative z-10 flex min-h-[min(85svh,640px)] items-center py-16 md:min-h-[600px] md:py-20 lg:py-24">
+        <div className="mx-auto w-full max-w-[1440px] px-5 md:px-10 lg:px-16 xl:px-20">
+          <Reveal className="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
+            <h2 className="text-left text-4xl font-semibold text-balance md:text-[48px] md:leading-[1.12] lg:text-[56px] lg:leading-tight">
+              {cta.title}
+            </h2>
+            <p className="mt-4 text-left text-base leading-relaxed text-white/90 md:mt-6 md:text-lg md:leading-relaxed">
+              {cta.body}
+            </p>
+            <div className="mt-8 md:mt-10">
+              <AnimatedCtaButton
+                href="/contact"
+                className="border-[var(--zen-accent)] bg-transparent hover:bg-white/5"
+              >
+                {cta.button}
+              </AnimatedCtaButton>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

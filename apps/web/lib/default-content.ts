@@ -72,6 +72,7 @@ export const DEFAULT_HOME_PAGE = {
     words: [...IMPACT.words],
     panels: [...IMPACT.panels],
   },
+  showTestimonial: false,
   testimonial: TESTIMONIAL,
   testimonialSlides: [...TESTIMONIAL_SLIDES],
   sustainability: {

@@ -369,6 +369,14 @@ const homePage = defineType({
       ],
     }),
     defineField({
+      name: "showTestimonial",
+      title: "Show testimonial section",
+      description:
+        "When off, the client testimonial block is hidden on the home and about pages.",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
       name: "testimonial",
       type: "object",
       fields: [

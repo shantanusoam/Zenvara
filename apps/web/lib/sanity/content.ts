@@ -157,6 +157,7 @@ export function resolveHomePageContent(
         ...value.impact?.right,
       },
     },
+    showTestimonial: value.showTestimonial === true,
     testimonial: { ...DEFAULT_HOME_PAGE.testimonial, ...value.testimonial },
     testimonialSlides: arrayOrFallback(
       value.testimonialSlides,
