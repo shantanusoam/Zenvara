@@ -1,7 +1,6 @@
 "use client"
 
 import { motion, useReducedMotion } from "motion/react"
-import Image from "next/image"
 import { SiteHeaderBar } from "@/components/layout/site-header-bar"
 import { AnimatedCtaButton } from "@/components/layout/animated-cta-button"
 import { DEFAULT_HOME_PAGE, DEFAULT_SITE_SETTINGS } from "@/lib/default-content"
@@ -24,14 +23,30 @@ export function ZenvaraHeaderHero({
   return (
     <header className="relative min-h-[min(100svh,880px)] overflow-hidden bg-[#0a1620] text-white">
       <div className="absolute inset-0">
-        <Image
-          src={heroImage}
-          alt=""
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
+        <video
+          className="h-full w-full object-cover md:hidden"
+          autoPlay={reduce !== true}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={heroImage}
+          aria-hidden="true"
+        >
+          <source src="/assets/video/Zenvara_mobile.mp4" type="video/mp4" />
+        </video>
+        <video
+          className="hidden h-full w-full object-cover md:block"
+          autoPlay={reduce !== true}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={heroImage}
+          aria-hidden="true"
+        >
+          <source src="/assets/video/Zenvara_desktop.mp4" type="video/mp4" />
+        </video>
         {/* Slight gradient only at the very top to ensure navbar text remains readable against any image */}
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent" />
       </div>
