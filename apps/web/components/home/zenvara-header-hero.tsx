@@ -73,9 +73,9 @@ export function ZenvaraHeaderHero({
           </AnimatedCtaButton>
         </div>
 
-        <p className="absolute bottom-4 left-1/2 hidden max-w-lg -translate-x-1/2 rounded-full bg-[var(--zen-accent)] px-4 py-2 text-center text-sm text-white md:block">
+        {/* <p className="absolute bottom-4 left-1/2 hidden max-w-lg -translate-x-1/2 rounded-full bg-[var(--zen-accent)] px-4 py-2 text-center text-sm text-white md:block">
           {hero.videoNote}
-        </p>
+        </p> */}
       </div>
     </header>
   )
