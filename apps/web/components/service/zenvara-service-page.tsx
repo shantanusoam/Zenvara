@@ -1,6 +1,5 @@
 import { ServiceHero } from "@/components/service/service-hero"
 import { SiteFooter } from "@/components/layout/site-footer"
-import PerformanceOutlast from "@/components/common/PerformanceOutlast"
 import { TechnicalSpecs } from "@/components/service/technical-specs"
 import { ServiceFaq } from "@/components/service/service-faq"
 import { ServiceCta } from "@/components/service/service-cta"
@@ -46,8 +45,6 @@ export function ZenvaraServicePage({
         title={service.intro.title}
         description={service.intro.description}
       />
-
-      <PerformanceOutlast bgClass="bg-[#efefef]" />
 
       <TechnicalSpecs specs={service.specs} />
 

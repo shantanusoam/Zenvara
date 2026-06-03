@@ -293,7 +293,7 @@ export const FOOTER = {
   ],
   contact: {
     emailLabel: "Email Address",
-    email: "info@zenvaraenergy.com",
+    email: "hello@zenvaraenergy.com",
     locationLabel: "Our Location",
     address: "Plot 117, Sector 53, HSIIDC, Kundli, Sonipat, Haryana - 131028 ",
   },
