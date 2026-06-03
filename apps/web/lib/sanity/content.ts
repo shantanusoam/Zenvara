@@ -29,6 +29,10 @@ import {
 
 const revalidate = 60
 
+type SanityFetchResult<T> =
+  | { status: "ok"; data: T | null }
+  | { status: "not-configured" | "error"; data: null }
+
 function arrayOrFallback<T>(value: T[] | undefined, fallback: T[]): T[] {
   return value && value.length > 0 ? value : fallback
 }
@@ -145,7 +149,8 @@ export function resolveHomePageContent(
       ).map((panel, index) => {
         const fallback =
           DEFAULT_HOME_PAGE.impact.panels?.[index] ??
-          DEFAULT_HOME_PAGE.impact.panels?.[0]!
+          DEFAULT_HOME_PAGE.impact.panels?.[0] ??
+          { title: "", body: "", image: "" }
         return {
           ...fallback,
           ...panel,
@@ -328,18 +333,51 @@ export function resolveContactPageContent(
 
 async function fetchSanity<T>(
   query: string,
-  params: Record<string, string> = {}
-): Promise<T | null> {
+  params: Record<string, string> = {},
+  tags: string[] = []
+): Promise<SanityFetchResult<T>> {
   if (!isSanityConfigured) {
-    return null
+    return { status: "not-configured", data: null }
   }
 
   try {
-    return await sanityClient.fetch<T | null>(query, params, {
-      next: { revalidate },
+    const data = await sanityClient.fetch<T | null>(query, params, {
+      next: { revalidate, tags },
     })
-  } catch {
-    return null
+
+    return { status: "ok", data }
+  } catch (error) {
+    console.error("Sanity fetch failed", { tags, params, error })
+    return { status: "error", data: null }
+  }
+}
+
+function serviceFallbackFor(
+  value: Partial<ServiceContent> | null | undefined,
+  fallback: ServiceContent,
+  slug: string
+): ServiceContent {
+  const title = stringOrFallback(value?.title, fallback.title)
+  const shortDescription = stringOrFallback(
+    value?.shortDescription,
+    fallback.shortDescription
+  )
+
+  return {
+    ...fallback,
+    slug: stringOrFallback(value?.slug, slug || fallback.slug),
+    title,
+    shortDescription,
+    hero: {
+      ...fallback.hero,
+      title,
+      description: shortDescription,
+    },
+    seo: {
+      ...fallback.seo,
+      metaTitle: `${title} | Zenvara Energy`,
+      metaDescription: shortDescription,
+    },
   }
 }
 
@@ -391,11 +429,16 @@ export function resolveServiceContent(
   }
 }
 
-function resolveServicesList(
-  value: Partial<ServiceContent>[] | null | undefined
+export function resolveServicesList(
+  value: Partial<ServiceContent>[] | null | undefined,
+  options: { fallbackOnMissing?: boolean } = {}
 ): ServiceContent[] {
-  if (!value || value.length === 0) {
+  if (!value) {
     return DEFAULT_SERVICES
+  }
+
+  if (value.length === 0) {
+    return options.fallbackOnMissing ? DEFAULT_SERVICES : []
   }
 
   return value
@@ -404,62 +447,90 @@ function resolveServicesList(
         getDefaultServiceBySlug(item.slug ?? "") ??
         DEFAULT_SERVICES[index] ??
         DEFAULT_SERVICES[0]!
-      return resolveServiceContent(item, fallback)
+      return resolveServiceContent(
+        item,
+        serviceFallbackFor(item, fallback, item.slug ?? fallback.slug)
+      )
     })
     .sort((a, b) => a.sortOrder - b.sortOrder)
 }
 
 export async function getSiteSettings(): Promise<SiteSettingsContent> {
   return resolveSiteSettingsContent(
-    await fetchSanity<Partial<SiteSettingsContent>>(siteSettingsQuery)
+    (await fetchSanity<Partial<SiteSettingsContent>>(
+      siteSettingsQuery,
+      {},
+      ["siteSettings"]
+    )).data
   )
 }
 
 export async function getHomePageContent(): Promise<HomePageContent> {
   return resolveHomePageContent(
-    await fetchSanity<Partial<HomePageContent>>(homePageQuery)
+    (await fetchSanity<Partial<HomePageContent>>(homePageQuery, {}, [
+      "homePage",
+    ])).data
   )
 }
 
 export async function getAboutPageContent(): Promise<AboutPageContent> {
   return resolveAboutPageContent(
-    await fetchSanity<
+    (await fetchSanity<
       Partial<AboutPageContent> & {
         hero?: { backgroundImage?: string }
         intro?: { sideImage?: string }
         wideImage?: string
       }
-    >(aboutPageQuery)
+    >(aboutPageQuery, {}, ["aboutPage"])).data
   )
 }
 
 export async function getContactPageContent(): Promise<ContactPageContent> {
   return resolveContactPageContent(
-    await fetchSanity<Partial<ContactPageContent>>(contactPageQuery)
+    (await fetchSanity<Partial<ContactPageContent>>(contactPageQuery, {}, [
+      "contactPage",
+    ])).data
   )
 }
 
 export async function getServices(): Promise<ServiceContent[]> {
-  return resolveServicesList(
-    await fetchSanity<Partial<ServiceContent>[]>(servicesQuery)
+  const result = await fetchSanity<Partial<ServiceContent>[]>(
+    servicesQuery,
+    {},
+    ["services"]
   )
+
+  if (result.status !== "ok") {
+    return DEFAULT_SERVICES
+  }
+
+  return resolveServicesList(result.data, { fallbackOnMissing: false })
 }
 
 export async function getServiceBySlug(slug: string): Promise<ServiceContent | null> {
   const fallback = getDefaultServiceBySlug(slug)
-  if (!fallback) {
+  if (!isSanityConfigured) {
+    return fallback ?? null
+  }
+
+  const result = await fetchSanity<Partial<ServiceContent>>(
+    serviceBySlugQuery,
+    { slug },
+    ["services", `service:${slug}`]
+  )
+
+  if (result.status !== "ok") {
+    return fallback ?? null
+  }
+
+  if (!result.data) {
     return null
   }
 
-  const fromCms = await fetchSanity<Partial<ServiceContent>>(serviceBySlugQuery, {
-    slug,
-  })
-
-  if (!fromCms) {
-    return fallback
-  }
-
-  return resolveServiceContent(fromCms, fallback)
+  return resolveServiceContent(
+    result.data,
+    serviceFallbackFor(result.data, fallback ?? DEFAULT_SERVICES[0]!, slug)
+  )
 }
 
 export async function getServiceSlugs(): Promise<string[]> {

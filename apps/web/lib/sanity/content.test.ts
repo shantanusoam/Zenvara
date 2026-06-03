@@ -1,15 +1,18 @@
 import { describe, expect, it } from "vitest"
-import type { HomePageContent } from "@/lib/content-types"
+import type { HomePageContent, ServiceContent } from "@/lib/content-types"
 import {
   DEFAULT_ABOUT_PAGE,
   DEFAULT_CONTACT_PAGE,
   DEFAULT_HOME_PAGE,
   DEFAULT_SITE_SETTINGS,
 } from "@/lib/default-content"
+import { DEFAULT_SERVICES } from "@/lib/services-content"
 import {
   resolveAboutPageContent,
   resolveContactPageContent,
   resolveHomePageContent,
+  resolveServiceContent,
+  resolveServicesList,
   resolveSiteSettingsContent,
 } from "./content"
 
@@ -95,5 +98,50 @@ describe("sanity content resolvers", () => {
     expect(resolveHomePageContent(undefined)).toEqual(DEFAULT_HOME_PAGE)
     expect(resolveSiteSettingsContent(null)).toEqual(DEFAULT_SITE_SETTINGS)
     expect(resolveContactPageContent(null)).toEqual(DEFAULT_CONTACT_PAGE)
+  })
+
+  it("keeps an empty CMS services list empty", () => {
+    expect(resolveServicesList([])).toEqual([])
+  })
+
+  it("can resolve CMS-only service slugs", () => {
+    const fallback = DEFAULT_SERVICES[0]!
+    const service = resolveServiceContent(
+      {
+        slug: "industrial-storage",
+        title: "Industrial Storage",
+        shortDescription: "High-density storage for industrial sites.",
+        sortOrder: 12,
+      },
+      fallback
+    )
+
+    expect(service.slug).toBe("industrial-storage")
+    expect(service.title).toBe("Industrial Storage")
+    expect(service.shortDescription).toBe(
+      "High-density storage for industrial sites."
+    )
+  })
+
+  it("sorts and resolves CMS service lists without requiring default slugs", () => {
+    const services = resolveServicesList([
+      {
+        slug: "z-service",
+        title: "Z Service",
+        shortDescription: "Second service.",
+        sortOrder: 2,
+      },
+      {
+        slug: "a-service",
+        title: "A Service",
+        shortDescription: "First service.",
+        sortOrder: 1,
+      },
+    ] satisfies Partial<ServiceContent>[])
+
+    expect(services.map((service) => service.slug)).toEqual([
+      "a-service",
+      "z-service",
+    ])
   })
 })

@@ -16,6 +16,7 @@ Copy `apps/web/.env.example` to `apps/web/.env.local` and set:
 NEXT_PUBLIC_SANITY_PROJECT_ID=your-project-id
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2026-05-09
+SANITY_REVALIDATE_SECRET=long-random-secret
 ```
 
 Useful commands:
@@ -25,7 +26,9 @@ pnpm --filter web cms:dev
 pnpm --filter web cms:seed
 ```
 
-The embedded Studio is available at `/studio` after Sanity is configured. If the project ID is missing, `/studio` shows the required environment variables instead of attempting to connect to a placeholder Sanity project. The CMS models include global site settings, home page content, about page content, blog posts, and reusable SEO fields used by Next.js `generateMetadata()`.
+The embedded Studio is available at `/studio` after Sanity is configured. If the project ID is missing, `/studio` shows the required environment variables instead of attempting to connect to a placeholder Sanity project. The CMS models include global site settings, home page content, about page content, services/products, blog posts, and reusable SEO fields used by Next.js `generateMetadata()`.
+
+Website queries bypass Sanity's API CDN so published edits do not wait on the CDN cache. In production, services/products are controlled by Sanity: adding a service document publishes a new service, and deleting a service removes it from the home carousel, service index, and detail route after revalidation.
 
 ### Admin / CMS minimum setup
 
@@ -56,14 +59,23 @@ Skip CMS steps on a redeploy with `CMS_SKIP=1`, or CORS-only with `CMS_SEED=0`.
 
 Production admin URL: `http://168.144.92.215:8004/studio`. Edits in the CMS appear on the marketing site within about 60 seconds (ISR revalidation).
 
+For immediate updates after clicking **Publish** in Studio, create a Sanity webhook that calls:
+
+```bash
+http://168.144.92.215:8004/api/revalidate?secret=SANITY_REVALIDATE_SECRET
+```
+
+Trigger it for create, update, publish, and delete events on `homePage`, `siteSettings`, `aboutPage`, `contactPage`, and `service`. Include `_type`, `_id`, and `slug` in the webhook payload; for service documents, the slug lets Next.js refresh `/service/<slug>` precisely.
+
 ### Verify seeded content
 
 After deploy or `pnpm --filter web cms:seed`:
 
 1. Open `/studio` → **Site** → Home / About / Contact / Site settings
 2. Confirm **Services** lists 6 product documents
-3. Edit home hero headline in Studio → reload `/` and confirm the change within ~60s
-4. If seed skipped, run `npx sanity login` or set `SANITY_AUTH_TOKEN` in `apps/web/.env.production`, then redeploy
+3. Edit home hero headline in Studio → publish → reload `/` and confirm the change after the webhook runs, or within ~60s without a webhook
+4. Add or delete a service document → publish → confirm `/`, `/service`, and `/service/<slug>` reflect the change
+5. If seed skipped, run `npx sanity login` or set `SANITY_AUTH_TOKEN` in `apps/web/.env.production`, then redeploy
 
 ## Deploy to DigitalOcean
 
