@@ -3,7 +3,7 @@
 import { MarketingCtaStrip } from "@/components/home/marketing-blocks"
 import { PageHero } from "@/components/layout/page-hero"
 import { SiteFooter } from "@/components/layout/site-footer"
-import type { ContactPageContent, HomePageContent, SiteSettingsContent } from "@/lib/content-types"
+import type { ContactPageContent, HomePageContent, ServiceContent, SiteSettingsContent } from "@/lib/content-types"
 import { DEFAULT_CONTACT_PAGE, DEFAULT_HOME_PAGE, DEFAULT_SITE_SETTINGS } from "@/lib/default-content"
 import { ContactFormSection } from "./contact-form-section"
 import { MapSection } from "./map-section"
@@ -12,12 +12,14 @@ type ZenvaraContactPageProps = {
   content?: ContactPageContent
   sharedMarketingContent?: HomePageContent
   siteSettings?: SiteSettingsContent
+  services?: Pick<ServiceContent, "slug" | "title">[]
 }
 
 export function ZenvaraContactPage({
   content = DEFAULT_CONTACT_PAGE,
   sharedMarketingContent = DEFAULT_HOME_PAGE,
   siteSettings = DEFAULT_SITE_SETTINGS,
+  services,
 }: ZenvaraContactPageProps) {
   const { cta, hero: homeHero } = sharedMarketingContent
 
@@ -30,6 +32,7 @@ export function ZenvaraContactPage({
         ctaLabel={homeHero.secondaryCta}
         ctaHref="/contact"
         siteSettings={siteSettings}
+        services={services}
       />
 
       <div className="w-full ">
@@ -44,7 +47,7 @@ export function ZenvaraContactPage({
       </div>
 
       <MarketingCtaStrip cta={cta} />
-      <SiteFooter siteSettings={siteSettings} />
+      <SiteFooter siteSettings={siteSettings} services={services} />
     </div>
   )
 }

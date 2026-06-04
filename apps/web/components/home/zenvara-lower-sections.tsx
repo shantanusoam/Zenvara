@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { SiteFooter } from "@/components/layout/site-footer"
 import { DEFAULT_HOME_PAGE, DEFAULT_SITE_SETTINGS } from "@/lib/default-content"
-import type { HomePageContent, SiteSettingsContent } from "@/lib/content-types"
+import type { HomePageContent, ServiceContent, SiteSettingsContent } from "@/lib/content-types"
 import {
   MarketingCtaStrip,
   MarketingImpact,
@@ -56,11 +56,13 @@ function SustainabilityPillar({
 type ZenvaraLowerSectionsProps = {
   content?: HomePageContent
   siteSettings?: SiteSettingsContent
+  services?: Pick<ServiceContent, "slug" | "title">[]
 }
 
 export function ZenvaraLowerSections({
   content = DEFAULT_HOME_PAGE,
   siteSettings = DEFAULT_SITE_SETTINGS,
+  services,
 }: ZenvaraLowerSectionsProps) {
   const { blog, images, sustainability, showTestimonial } = content
 
@@ -307,7 +309,7 @@ export function ZenvaraLowerSections({
         </div>
       </section>
 
-      <SiteFooter siteSettings={siteSettings} />
+      <SiteFooter siteSettings={siteSettings} services={services} />
     </>
   )
 }

@@ -2,9 +2,12 @@ import { ZenvaraContactPage } from "@/components/contact/zenvara-contact-page"
 import {
   getContactPageContent,
   getHomePageContent,
+  getServices,
   getSiteSettings,
 } from "@/lib/sanity/content"
 import { buildPageMetadata } from "@/lib/seo"
+
+export const dynamic = "force-dynamic"
 
 export async function generateMetadata() {
   const [content, siteSettings] = await Promise.all([
@@ -16,10 +19,11 @@ export async function generateMetadata() {
 }
 
 export default async function ContactPage() {
-  const [content, sharedMarketingContent, siteSettings] = await Promise.all([
+  const [content, sharedMarketingContent, siteSettings, services] = await Promise.all([
     getContactPageContent(),
     getHomePageContent(),
     getSiteSettings(),
+    getServices(),
   ])
 
   return (
@@ -27,6 +31,7 @@ export default async function ContactPage() {
       content={content}
       sharedMarketingContent={sharedMarketingContent}
       siteSettings={siteSettings}
+      services={services}
     />
   )
 }

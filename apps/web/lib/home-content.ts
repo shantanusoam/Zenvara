@@ -13,6 +13,7 @@ export const NAV = [
 ] as const
 
 export const HERO = {
+  tagline: "Engineered Energy. Built for India.",
   headline: "Engineered Energy. Built for India.",
   primaryCta: "Explore More",
   secondaryCta: "Get in Touch",

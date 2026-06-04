@@ -28,7 +28,7 @@ export const siteSettingsQuery = groq`
 
 export const homePageQuery = groq`
   *[_type == "homePage"][0]{
-    hero{headline, primaryCta, secondaryCta, videoNote},
+    hero{tagline, headline, primaryCta, secondaryCta, videoNote},
     whoWeAre{eyebrow, title, body, cta},
     missionVision{
       mission{title, body},

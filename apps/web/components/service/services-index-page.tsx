@@ -26,6 +26,7 @@ export function ServicesIndexPage({
             ctaLabel={homeContent.hero.secondaryCta}
             ctaHref="/contact"
             siteSettings={siteSettings}
+            services={services}
           />
           <Reveal className="mt-16 max-w-3xl">
             <p className="font-semibold text-[var(--zen-accent)]">Our Products</p>
@@ -77,7 +78,7 @@ export function ServicesIndexPage({
         </div>
       </section>
 
-      <SiteFooter siteSettings={siteSettings} />
+      <SiteFooter siteSettings={siteSettings} services={services} />
     </div>
   )
 }

@@ -3,10 +3,13 @@ import { ZenvaraServicePage } from "@/components/service/zenvara-service-page"
 import {
   getHomePageContent,
   getServiceBySlug,
+  getServices,
   getServiceSlugs,
   getSiteSettings,
 } from "@/lib/sanity/content"
 import { buildPageMetadata } from "@/lib/seo"
+
+export const dynamic = "force-dynamic"
 
 type ServicePageProps = {
   params: Promise<{ slug: string }>
@@ -33,10 +36,11 @@ export async function generateMetadata({ params }: ServicePageProps) {
 
 export default async function ServicePage({ params }: ServicePageProps) {
   const { slug } = await params
-  const [service, siteSettings, homeContent] = await Promise.all([
+  const [service, siteSettings, homeContent, services] = await Promise.all([
     getServiceBySlug(slug),
     getSiteSettings(),
     getHomePageContent(),
+    getServices(),
   ])
 
   if (!service) {
@@ -46,6 +50,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
   return (
     <ZenvaraServicePage
       service={service}
+      services={services}
       siteSettings={siteSettings}
       sharedMarketingContent={homeContent}
     />

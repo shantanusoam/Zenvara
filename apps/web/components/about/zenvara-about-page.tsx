@@ -14,7 +14,7 @@ import {
   DEFAULT_HOME_PAGE,
   DEFAULT_SITE_SETTINGS,
 } from "@/lib/default-content"
-import type { AboutPageContent, HomePageContent, SiteSettingsContent } from "@/lib/content-types"
+import type { AboutPageContent, HomePageContent, ServiceContent, SiteSettingsContent } from "@/lib/content-types"
 import PerformanceOutlast from "../common/PerformanceOutlast"
 import MissionVisionAnimated from "../common/MissionVisionAnimated"
 
@@ -22,12 +22,14 @@ type ZenvaraAboutPageProps = {
   content?: AboutPageContent
   sharedMarketingContent?: HomePageContent
   siteSettings?: SiteSettingsContent
+  services?: Pick<ServiceContent, "slug" | "title">[]
 }
 
 export function ZenvaraAboutPage({
   content = DEFAULT_ABOUT_PAGE,
   sharedMarketingContent = DEFAULT_HOME_PAGE,
   siteSettings = DEFAULT_SITE_SETTINGS,
+  services,
 }: ZenvaraAboutPageProps) {
   const { hero, images, intro, stats, team } = content
   const {
@@ -49,6 +51,7 @@ export function ZenvaraAboutPage({
         ctaLabel={homeHero.secondaryCta}
         ctaHref="/contact"
         siteSettings={siteSettings}
+        services={services}
       />
 
       <ImageTextSection
@@ -94,7 +97,7 @@ export function ZenvaraAboutPage({
           testimonialSlides={sharedMarketingContent.testimonialSlides}
         />
       ) : null}
-      <SiteFooter siteSettings={siteSettings} />
+      <SiteFooter siteSettings={siteSettings} services={services} />
     </div>
   )
 }

@@ -27,8 +27,6 @@ import {
   siteSettingsQuery,
 } from "./queries"
 
-const revalidate = 60
-
 type SanityFetchResult<T> =
   | { status: "ok"; data: T | null }
   | { status: "not-configured" | "error"; data: null }
@@ -342,7 +340,8 @@ async function fetchSanity<T>(
 
   try {
     const data = await sanityClient.fetch<T | null>(query, params, {
-      next: { revalidate, tags },
+      cache: "no-store",
+      next: { tags },
     })
 
     return { status: "ok", data }
@@ -504,7 +503,7 @@ export async function getServices(): Promise<ServiceContent[]> {
     return DEFAULT_SERVICES
   }
 
-  return resolveServicesList(result.data, { fallbackOnMissing: false })
+  return resolveServicesList(result.data, { fallbackOnMissing: true })
 }
 
 export async function getServiceBySlug(slug: string): Promise<ServiceContent | null> {

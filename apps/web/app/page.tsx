@@ -6,6 +6,8 @@ import {
 } from "@/lib/sanity/content"
 import { buildPageMetadata } from "@/lib/seo"
 
+export const dynamic = "force-dynamic"
+
 export async function generateMetadata() {
   const [content, siteSettings] = await Promise.all([
     getHomePageContent(),

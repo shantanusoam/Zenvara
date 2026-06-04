@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa"
 import { Reveal } from "@/components/home/reveal"
 import { DEFAULT_SITE_SETTINGS } from "@/lib/default-content"
-import type { SiteSettingsContent } from "@/lib/content-types"
+import type { ServiceContent, SiteSettingsContent } from "@/lib/content-types"
 
 const quickHref: Record<string, string> = {
   Home: "/",
@@ -44,16 +44,25 @@ const footerSocialLinks = [
   },
 ] as const
 
-const footerEmail = "hello@zenvaraenergy.com"
+const handcraftedBy = {
+  label: "Invincible Web Solutions",
+  href: "https://invinciblewebsolutions.com",
+} as const
 
 type SiteFooterProps = {
   siteSettings?: SiteSettingsContent
+  services?: Pick<ServiceContent, "slug" | "title">[]
 }
 
 export function SiteFooter({
   siteSettings = DEFAULT_SITE_SETTINGS,
+  services,
 }: SiteFooterProps) {
   const { footer } = siteSettings
+  const productLinks = services && services.length > 0
+    ? services.map((service) => ({ label: service.title, href: `/service/${service.slug}` }))
+    : footer.productLinks.map((label) => ({ label, href: "/#products" }))
+  const footerEmail = footer.contact.email || "hello@zenvaraenergy.com"
 
   return (
     <footer
@@ -115,9 +124,9 @@ export function SiteFooter({
           <div>
             <p className="text-2xl font-semibold">Our Products</p>
             <ul className="mt-4 space-y-2 text-lg text-[var(--zen-accent)]">
-              {footer.productLinks.map((l) => (
-                <li key={l}>
-                  <Link href="/#products" className="hover:underline">{l}</Link>
+              {productLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="hover:underline">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -142,7 +151,20 @@ export function SiteFooter({
         </div>
         <hr className="my-10 border-[#bbbbbb]/40" />
         <div className="flex flex-col gap-4 text-sm text-white/80 md:flex-row md:items-center md:justify-between">
-          <p>{footer.copyright}</p>
+          <div className="space-y-1">
+            <p>{footer.copyright}</p>
+            <p>
+              Handcrafted by{" "}
+              <a
+                href={handcraftedBy.href}
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold text-[var(--zen-accent)] hover:underline"
+              >
+                {handcraftedBy.label}
+              </a>
+            </p>
+          </div>
           <div className="flex gap-6 text-[15px] font-semibold text-[var(--zen-accent)]">
             {footer.legal.map((l) => (
               <Link key={l} href="#">

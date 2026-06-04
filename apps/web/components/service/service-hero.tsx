@@ -12,6 +12,7 @@ type ServiceHeroProps = {
   ctaLabel?: string
   ctaHref?: string
   siteSettings: SiteSettingsContent
+  services?: Pick<ServiceContent, "slug" | "title">[]
 }
 
 export function ServiceHero({
@@ -20,6 +21,7 @@ export function ServiceHero({
   ctaLabel,
   ctaHref,
   siteSettings,
+  services,
 }: ServiceHeroProps) {
   const { hero } = service
 
@@ -31,6 +33,7 @@ export function ServiceHero({
           ctaLabel={ctaLabel ?? "Get in Touch"}
           ctaHref={ctaHref ?? "/contact"}
           siteSettings={siteSettings}
+          services={services}
         />
 
         <HeroLayout hero={hero} serviceTitle={service.title} />

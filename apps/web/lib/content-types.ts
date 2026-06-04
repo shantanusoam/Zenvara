@@ -50,6 +50,7 @@ export type StatItem = {
 
 export type HomePageContent = {
   hero: {
+    tagline: string
     headline: string
     primaryCta: string
     secondaryCta: string

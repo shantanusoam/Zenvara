@@ -207,6 +207,11 @@ const homePage = defineType({
       type: "object",
       fields: [
         defineField({
+          name: "tagline",
+          title: "Hero tagline",
+          type: "string",
+        }),
+        defineField({
           name: "headline",
           type: "string",
           validation: (rule) => rule.required(),

@@ -20,6 +20,7 @@ describe("sanity content resolvers", () => {
   it("uses CMS page fields when they are provided", () => {
     const content = resolveHomePageContent({
       hero: {
+        tagline: "CMS tagline",
         headline: "CMS headline",
         primaryCta: "Explore",
         secondaryCta: "Contact",
@@ -27,6 +28,7 @@ describe("sanity content resolvers", () => {
       },
     })
 
+    expect(content.hero.tagline).toBe("CMS tagline")
     expect(content.hero.headline).toBe("CMS headline")
     expect(content.hero.primaryCta).toBe("Explore")
   })
@@ -100,8 +102,10 @@ describe("sanity content resolvers", () => {
     expect(resolveContactPageContent(null)).toEqual(DEFAULT_CONTACT_PAGE)
   })
 
-  it("keeps an empty CMS services list empty", () => {
-    expect(resolveServicesList([])).toEqual([])
+  it("can fall back to local services when CMS returns an empty list", () => {
+    expect(resolveServicesList([], { fallbackOnMissing: true })).toEqual(
+      DEFAULT_SERVICES
+    )
   })
 
   it("can resolve CMS-only service slugs", () => {

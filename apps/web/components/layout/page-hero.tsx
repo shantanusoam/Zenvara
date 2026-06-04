@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "motion/react"
 import Image from "next/image"
 import { SiteHeaderBar } from "@/components/layout/site-header-bar"
 import { EASE_PREMIUM, revealHidden, revealVisible } from "@/lib/motion-presets"
-import type { SiteSettingsContent } from "@/lib/content-types"
+import type { ServiceContent, SiteSettingsContent } from "@/lib/content-types"
 
 type PageHeroProps = {
   title: string
@@ -13,6 +13,7 @@ type PageHeroProps = {
   ctaLabel?: string
   ctaHref?: string
   siteSettings: SiteSettingsContent
+  services?: Pick<ServiceContent, "slug" | "title">[]
 }
 
 export function PageHero({
@@ -22,6 +23,7 @@ export function PageHero({
   ctaLabel,
   ctaHref,
   siteSettings,
+  services,
 }: PageHeroProps) {
   const reduce = useReducedMotion()
 
@@ -46,6 +48,7 @@ export function PageHero({
           ctaLabel={ctaLabel ?? "Get in Touch"}
           ctaHref={ctaHref ?? "/contact"}
           siteSettings={siteSettings}
+          services={services}
         />
         <div className="flex flex-1 flex-col items-center justify-center pb-8 pt-10 text-center md:pt-4">
           <motion.h1

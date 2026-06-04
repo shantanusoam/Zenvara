@@ -16,12 +16,14 @@ import type {
 
 type ZenvaraServicePageProps = {
   service: ServiceContent
+  services?: Pick<ServiceContent, "slug" | "title">[]
   sharedMarketingContent?: HomePageContent
   siteSettings?: SiteSettingsContent
 }
 
 export function ZenvaraServicePage({
   service,
+  services,
   sharedMarketingContent = DEFAULT_HOME_PAGE,
   siteSettings = DEFAULT_SITE_SETTINGS,
 }: ZenvaraServicePageProps) {
@@ -36,6 +38,7 @@ export function ZenvaraServicePage({
         ctaLabel={homeHero.secondaryCta ?? "Get in Touch"}
         ctaHref="/contact"
         siteSettings={siteSettings}
+        services={services}
       />
 
       <ImageTextSection
@@ -52,7 +55,7 @@ export function ZenvaraServicePage({
 
       <ServiceCta cta={service.cta} />
 
-      <SiteFooter siteSettings={siteSettings} />
+      <SiteFooter siteSettings={siteSettings} services={services} />
     </div>
   )
 }
