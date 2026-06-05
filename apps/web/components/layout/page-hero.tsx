@@ -42,7 +42,7 @@ export function PageHero({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.8)_100%)]" />
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/60 to-transparent" />
       </div>
-      <div className="relative z-10 mx-auto flex min-h-[min(55svh,520px)] max-w-[1440px] flex-col px-5 pb-16 pt-6 md:min-h-[480px] md:px-10">
+      <div className="relative mx-auto flex min-h-[min(55svh,520px)] max-w-[1440px] flex-col px-5 pb-16 pt-6 md:min-h-[480px] md:px-10">
         <SiteHeaderBar
           active={activeNavRoute}
           ctaLabel={ctaLabel ?? "Get in Touch"}
@@ -50,7 +50,7 @@ export function PageHero({
           siteSettings={siteSettings}
           services={services}
         />
-        <div className="flex flex-1 flex-col items-center justify-center pb-8 pt-10 text-center md:pt-4">
+        <div className="relative z-10 flex flex-1 flex-col items-center justify-center pb-8 pt-10 text-center md:pt-4">
           <motion.h1
             className="text-balance text-4xl font-medium leading-tight text-white md:text-[56px] md:leading-[1.1]"
             initial={reduce ? false : revealHidden}

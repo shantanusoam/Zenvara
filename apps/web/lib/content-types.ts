@@ -194,7 +194,7 @@ export type ServiceContent = {
     title: string
     description: string
     primaryCta: string
-    secondaryCta: string
+    secondaryCta: string | null
     image: string
   }
   intro: {

@@ -34,7 +34,6 @@ export function ZenvaraHeaderHero({
           loop
           playsInline
           preload="metadata"
-          poster={heroImage}
           aria-hidden="true"
         >
           <source src="/assets/video/Zenvara_mobile.mp4" type="video/mp4" />
@@ -46,7 +45,6 @@ export function ZenvaraHeaderHero({
           loop
           playsInline
           preload="metadata"
-          poster={heroImage}
           aria-hidden="true"
         >
           <source src="/assets/video/Zenvara_desktop.mp4" type="video/mp4" />
@@ -55,7 +53,7 @@ export function ZenvaraHeaderHero({
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent" />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-[min(100svh,880px)] max-w-[1440px] flex-col px-5 pt-6 pb-10 md:px-10">
+      <div className="relative mx-auto flex min-h-[min(100svh,880px)] max-w-[1440px] flex-col px-5 pt-6 pb-10 md:px-10">
         <SiteHeaderBar
           active="Home"
           ctaLabel={hero.secondaryCta}
@@ -64,7 +62,7 @@ export function ZenvaraHeaderHero({
           services={services}
         />
 
-        <div className="mt-auto flex max-w-2xl flex-col gap-8 pt-24 pb-16 md:pt-32">
+        <div className="relative z-10 mt-auto flex max-w-2xl flex-col gap-8 pt-24 pb-16 md:pt-32">
           {showTagline ? (
             <motion.p
               className="text-base font-semibold uppercase tracking-[0.16em] text-[var(--zen-accent)] md:text-lg"

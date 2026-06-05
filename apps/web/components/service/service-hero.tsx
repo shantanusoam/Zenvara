@@ -27,7 +27,7 @@ export function ServiceHero({
 
   return (
     <header className="relative min-h-[min(80svh,800px)] bg-[#0a1620] text-white">
-      <div className="relative z-10 mx-auto flex h-full max-w-[1440px] flex-col px-5 pb-16 pt-6 md:px-10">
+      <div className="relative mx-auto flex h-full max-w-[1440px] flex-col px-5 pb-16 pt-6 md:px-10">
         <SiteHeaderBar
           active={activeNavRoute}
           ctaLabel={ctaLabel ?? "Get in Touch"}
@@ -36,7 +36,9 @@ export function ServiceHero({
           services={services}
         />
 
-        <HeroLayout hero={hero} serviceTitle={service.title} />
+        <div className="relative z-10 flex flex-1 w-full">
+          <HeroLayout hero={hero} serviceTitle={service.title} />
+        </div>
       </div>
     </header>
   )
@@ -68,12 +70,14 @@ function HeroLayout({
             >
               {hero.primaryCta}
             </Link>
-            <Link
-              href="/contact"
-              className="rounded-full border border-[var(--zen-accent)] bg-transparent px-8 py-3.5 font-medium text-white transition-all hover:bg-[rgba(27,221,206,0.1)]"
-            >
-              {hero.secondaryCta}
-            </Link>
+            {hero.secondaryCta && (
+              <Link
+                href="/contact"
+                className="rounded-full border border-[var(--zen-accent)] bg-transparent px-8 py-3.5 font-medium text-white transition-all hover:bg-[rgba(27,221,206,0.1)]"
+              >
+                {hero.secondaryCta}
+              </Link>
+            )}
           </div>
         </Reveal>
       </div>
