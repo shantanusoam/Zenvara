@@ -154,7 +154,7 @@ export function ZenvaraBodySections({
                     title={f.title}
                     body={f.body}
                     bodyExpanded={f.bodyExpanded}
-                    icon={f.icon ?? ""}
+                    icon={f.icon}
                     variantClass={featureCardClass[f.variant]}
                   />
                 </Reveal>

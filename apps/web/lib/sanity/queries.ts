@@ -43,7 +43,7 @@ export const homePageQuery = groq`
     whyZenvara{
       eyebrow,
       title,
-      features[]{title, body, bodyExpanded, variant}
+      features[]{title, body, bodyExpanded, variant, "icon": icon.asset->url}
     },
     products{
       eyebrow,

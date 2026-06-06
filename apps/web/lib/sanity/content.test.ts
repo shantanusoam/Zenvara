@@ -47,6 +47,33 @@ describe("sanity content resolvers", () => {
     expect(content.blog.posts[0]?.image).toBe("https://cdn.test/blog.jpg")
   })
 
+  it("merges Why Zenvara feature icons from CMS with local fallbacks", () => {
+    const content = resolveHomePageContent({
+      whyZenvara: {
+        features: [
+          {
+            title: "CMS Feature",
+            body: "Short",
+            variant: "dark",
+            icon: "https://cdn.test/feature-icon.svg",
+          },
+          {
+            title: "Second Feature",
+            body: "Also short",
+            variant: "accent",
+          },
+        ],
+      },
+    } as Partial<HomePageContent>)
+
+    expect(content.whyZenvara.features[0]?.icon).toBe(
+      "https://cdn.test/feature-icon.svg"
+    )
+    expect(content.whyZenvara.features[1]?.icon).toBe(
+      DEFAULT_HOME_PAGE.whyZenvara.features[1]?.icon
+    )
+  })
+
   it("maps about page CMS image fields onto images", () => {
     const content = resolveAboutPageContent({
       hero: { title: "About", backgroundImage: "https://cdn.test/hero.jpg" },
@@ -125,6 +152,30 @@ describe("sanity content resolvers", () => {
     expect(service.shortDescription).toBe(
       "High-density storage for industrial sites."
     )
+  })
+
+  it("clears secondary CTA when CMS sends null or empty string", () => {
+    const fallback = {
+      ...DEFAULT_SERVICES[0]!,
+      hero: {
+        ...DEFAULT_SERVICES[0]!.hero,
+        secondaryCta: "Download Datasheet",
+      },
+    }
+
+    expect(
+      resolveServiceContent(
+        { slug: "2-wheeler", hero: { secondaryCta: "" } },
+        fallback
+      ).hero.secondaryCta
+    ).toBeNull()
+
+    expect(
+      resolveServiceContent(
+        { slug: "2-wheeler", hero: { secondaryCta: null } },
+        fallback
+      ).hero.secondaryCta
+    ).toBeNull()
   })
 
   it("sorts and resolves CMS service lists without requiring default slugs", () => {

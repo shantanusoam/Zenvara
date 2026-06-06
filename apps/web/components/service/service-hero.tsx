@@ -36,7 +36,7 @@ export function ServiceHero({
           services={services}
         />
 
-        <div className="relative z-10">
+        <div className="relative z-10 flex flex-1 w-full">
           <HeroLayout hero={hero} serviceTitle={service.title} />
         </div>
       </div>
@@ -51,6 +51,8 @@ function HeroLayout({
   hero: ServiceContent["hero"]
   serviceTitle: string
 }) {
+  const secondaryCta = hero.secondaryCta?.trim()
+
   return (
     <div className="mt-12 flex flex-1 flex-col items-center justify-between gap-12 md:mt-20 lg:flex-row lg:gap-24">
       <div className="w-full max-w-xl lg:w-1/2">
@@ -70,14 +72,14 @@ function HeroLayout({
             >
               {hero.primaryCta}
             </Link>
-            {hero.secondaryCta && (
+            {secondaryCta ? (
               <Link
                 href="/contact"
                 className="rounded-full border border-[var(--zen-accent)] bg-transparent px-8 py-3.5 font-medium text-white transition-all hover:bg-[rgba(27,221,206,0.1)]"
               >
-                {hero.secondaryCta}
+                {secondaryCta}
               </Link>
-            )}
+            ) : null}
           </div>
         </Reveal>
       </div>

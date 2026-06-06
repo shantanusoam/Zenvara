@@ -12,7 +12,7 @@ export type WhyZenvaraFeatureCardProps = {
   body: string
   /** Full copy on hover; defaults to `body` when omitted. */
   bodyExpanded?: string
-  icon: string
+  icon?: string
   variantClass: string
 }
 
@@ -31,15 +31,18 @@ export function WhyZenvaraFeatureCard({
   const reduce = useReducedMotion()
   const expanded = (bodyExpanded ?? body).trim()
   const preview = body.trim()
+  const iconSrc = icon?.trim()
+
+  const iconNode = iconSrc ? (
+    <Image src={iconSrc} alt="" width={50} height={50} role="presentation" />
+  ) : null
 
   if (reduce) {
     return (
       <article
         className={`flex ${CARD_H} flex-col overflow-hidden rounded-[20px] p-6 ${variantClass}`}
       >
-        <div className="shrink-0">
-          <Image src={icon} alt="" width={50} height={50} role="presentation" />
-        </div>
+        {iconNode ? <div className="shrink-0">{iconNode}</div> : null}
         <div className="mt-4 flex min-h-0 flex-1 flex-col overflow-y-auto">
           <h3 className="shrink-0 text-2xl leading-snug font-semibold">{title}</h3>
           <p className="mt-3 text-lg leading-relaxed opacity-95">{expanded}</p>
@@ -55,9 +58,9 @@ export function WhyZenvaraFeatureCard({
       className={`group/card relative flex ${CARD_H} cursor-default flex-col overflow-hidden rounded-[20px] p-6 shadow-sm ring-1 ring-black/5 transition-shadow duration-500 hover:shadow-md focus-within:shadow-md focus-within:outline-none ${variantClass}`}
       tabIndex={0}
     >
-      <div className="relative z-10 shrink-0">
-        <Image src={icon} alt="" width={50} height={50} role="presentation" />
-      </div>
+      {iconNode ? (
+        <div className="relative z-10 shrink-0">{iconNode}</div>
+      ) : null}
 
       <div
         className="hidden min-h-[100px] shrink-0 transition-[min-height] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover/card:min-h-0 group-focus-within/card:min-h-0 md:block md:min-h-[140px]"

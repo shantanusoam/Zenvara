@@ -39,6 +39,10 @@ function stringOrFallback(value: unknown, fallback: string): string {
   return typeof value === "string" && value.trim().length > 0 ? value : fallback
 }
 
+function optionalString(value: unknown): string | null {
+  return typeof value === "string" && value.trim().length > 0 ? value.trim() : null
+}
+
 function mergeSeo(
   value: Partial<SeoFields> | undefined,
   fallback: SeoFields
@@ -124,7 +128,16 @@ export function resolveHomePageContent(
       features: arrayOrFallback(
         value.whyZenvara?.features,
         DEFAULT_HOME_PAGE.whyZenvara.features
-      ),
+      ).map((feature, index) => {
+        const fallback =
+          DEFAULT_HOME_PAGE.whyZenvara.features[index] ??
+          DEFAULT_HOME_PAGE.whyZenvara.features[0]!
+        return {
+          ...fallback,
+          ...feature,
+          icon: stringOrFallback(feature.icon, fallback.icon ?? ""),
+        }
+      }),
     },
     products: {
       ...DEFAULT_HOME_PAGE.products,
@@ -396,6 +409,10 @@ export function resolveServiceContent(
       ...fallback.hero,
       ...value.hero,
       image: stringOrFallback(value.hero?.image, fallback.hero.image),
+      secondaryCta:
+        value.hero?.secondaryCta !== undefined
+          ? optionalString(value.hero.secondaryCta)
+          : fallback.hero.secondaryCta,
     },
     intro: {
       ...fallback.intro,

@@ -67,6 +67,16 @@ async function buildHomePage(): Promise<SeedDocument> {
     }))
   )
 
+  const whyZenvaraFeatures = await Promise.all(
+    whyZenvara.features.map(async (feature) => ({
+      title: feature.title,
+      body: feature.body,
+      bodyExpanded: feature.bodyExpanded,
+      variant: feature.variant,
+      icon: await uploadPublicImage(client, feature.icon),
+    }))
+  )
+
   return {
     _id: "homePage",
     _type: "homePage",
@@ -74,7 +84,10 @@ async function buildHomePage(): Promise<SeedDocument> {
     whoWeAre,
     missionVision,
     statStrip,
-    whyZenvara,
+    whyZenvara: {
+      ...whyZenvara,
+      features: whyZenvaraFeatures,
+    },
     products,
     impact: {
       eyebrow: impact.eyebrow,

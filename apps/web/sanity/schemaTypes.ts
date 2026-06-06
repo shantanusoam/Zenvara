@@ -295,6 +295,13 @@ const homePage = defineType({
                   rows: 5,
                 }),
                 defineField({
+                  name: "icon",
+                  title: "Icon",
+                  type: "image",
+                  description: "Square icon shown at the top of the card (SVG or PNG recommended).",
+                  options: { hotspot: true },
+                }),
+                defineField({
                   name: "variant",
                   type: "string",
                   options: {
