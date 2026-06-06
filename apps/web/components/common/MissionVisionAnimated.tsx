@@ -13,7 +13,7 @@ export default function MissionVisionAnimated({
   missionVision = DEFAULT_HOME_PAGE.missionVision,
 }: MissionVisionAnimatedProps) {
   return (
-    <section className="bg-[#EBF5F8] py-16 md:py-24 overflow-hidden">
+    <section className="relative z-0 overflow-hidden bg-[#EBF5F8] py-16 md:py-24">
       <div className="mx-auto max-w-[1440px] px-5 md:px-10 lg:px-20">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           <div className="w-full lg:w-1/2 flex justify-center">
@@ -38,7 +38,7 @@ export default function MissionVisionAnimated({
               transition={{ duration: 1, delay: 0.6, ease: "easeInOut" }}
             />
 
-            <div className="flex flex-col relative z-10">
+            <div className="relative flex flex-col">
               <motion.div
                 className="flex items-start gap-6 md:gap-8 pb-12"
                 initial={{ opacity: 0, y: 30 }}

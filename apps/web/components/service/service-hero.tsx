@@ -36,7 +36,7 @@ export function ServiceHero({
           services={services}
         />
 
-        <div className="relative z-10 flex flex-1 w-full">
+        <div className="relative z-10">
           <HeroLayout hero={hero} serviceTitle={service.title} />
         </div>
       </div>

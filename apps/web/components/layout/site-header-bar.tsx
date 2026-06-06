@@ -39,13 +39,7 @@ export function SiteHeaderBar({
 
   return (
     <>
-      <div
-        className={`fixed inset-x-0 top-0 z-[200] px-5 py-3 text-white transition-all duration-300 md:px-10 ${
-          isScrolled
-            ? "bg-[#0a1620]/95 shadow-[0_10px_30px_rgba(0,0,0,0.3)] backdrop-blur-md"
-            : "bg-transparent shadow-none"
-        }`}
-      >
+      <div className="fixed inset-x-0 top-0 z-[200] bg-[#0a1620]/45 px-5 py-3 text-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] backdrop-blur-md md:px-10">
         <div className="mx-auto flex max-w-[1440px] min-w-0 items-center justify-between gap-2 sm:gap-4">
           <Link
             href="/"
