@@ -8,9 +8,21 @@ SERVICE_NAME="${SERVICE_NAME:-zenvara-web}"
 INTERNAL_PORT="${INTERNAL_PORT:-3001}"
 PUBLIC_PORT="${PUBLIC_PORT:-8004}"
 SERVER_NAME="${SERVER_NAME:-$REMOTE_HOST}"
+SERVER_NAMES="${SERVER_NAMES:-$SERVER_NAME}"
 NODE_MAJOR="${NODE_MAJOR:-22}"
 CLIENT_MAX_BODY_SIZE="${CLIENT_MAX_BODY_SIZE:-10M}"
 BUILD_FILTER="${BUILD_FILTER:-web}"
+SSH_CONFIG="${SSH_CONFIG:-}"
+SSH_CONNECT_TIMEOUT="${SSH_CONNECT_TIMEOUT:-}"
+
+PRIMARY_SERVER_NAME="${SERVER_NAME%% *}"
+if [[ -n "${PUBLIC_URL:-}" ]]; then
+  DEPLOY_PUBLIC_URL="$PUBLIC_URL"
+elif [[ "$PUBLIC_PORT" == "80" ]]; then
+  DEPLOY_PUBLIC_URL="http://${PRIMARY_SERVER_NAME}"
+else
+  DEPLOY_PUBLIC_URL="http://${PRIMARY_SERVER_NAME}:${PUBLIC_PORT}"
+fi
 
 REMOTE="${REMOTE_USER}@${REMOTE_HOST}"
 ARCHIVE_NAME="zenvara-runtime.tar.gz"
@@ -47,6 +59,19 @@ require_cmd tar
 require_cmd node
 require_cmd corepack
 
+SSH_ARGS=()
+SCP_ARGS=()
+
+if [[ -n "$SSH_CONFIG" ]]; then
+  SSH_ARGS+=("-F" "$SSH_CONFIG")
+  SCP_ARGS+=("-F" "$SSH_CONFIG")
+fi
+
+if [[ -n "$SSH_CONNECT_TIMEOUT" ]]; then
+  SSH_ARGS+=("-o" "ConnectTimeout=$SSH_CONNECT_TIMEOUT")
+  SCP_ARGS+=("-o" "ConnectTimeout=$SSH_CONNECT_TIMEOUT")
+fi
+
 if [[ ! -f "$APP_ENV_FILE" ]]; then
   echo "Missing production env file: $APP_ENV_FILE" >&2
   exit 1
@@ -60,7 +85,7 @@ echo "Installing dependencies"
 pnpm install --frozen-lockfile --filter "${BUILD_FILTER}..."
 
 echo "Configuring Sanity CMS (CORS + optional seed)"
-SERVER_NAME="$SERVER_NAME" PUBLIC_PORT="$PUBLIC_PORT" APP_ENV_FILE="$APP_ENV_FILE" \
+SERVER_NAME="$SERVER_NAME" PUBLIC_PORT="$PUBLIC_PORT" PUBLIC_URL="$DEPLOY_PUBLIC_URL" APP_ENV_FILE="$APP_ENV_FILE" \
   CMS_SKIP="${CMS_SKIP:-0}" CMS_SEED="${CMS_SEED:-1}" \
   bash "$ROOT_DIR/scripts/setup-sanity-cms.sh" || {
   echo "Sanity CMS setup had warnings; continuing deploy" >&2
@@ -89,11 +114,11 @@ tar \
   apps/web/.next/standalone
 
 echo "Uploading runtime bundle to $REMOTE:$REMOTE_ARCHIVE"
-scp "$LOCAL_ARCHIVE" "$REMOTE:$REMOTE_ARCHIVE"
+scp "${SCP_ARGS[@]}" "$LOCAL_ARCHIVE" "$REMOTE:$REMOTE_ARCHIVE"
 
 echo "Deploying runtime bundle on $REMOTE"
-ssh "$REMOTE" \
-  "APP_DIR=$(quote_remote "$APP_DIR") SERVICE_NAME=$(quote_remote "$SERVICE_NAME") INTERNAL_PORT=$(quote_remote "$INTERNAL_PORT") PUBLIC_PORT=$(quote_remote "$PUBLIC_PORT") SERVER_NAME=$(quote_remote "$SERVER_NAME") NODE_MAJOR=$(quote_remote "$NODE_MAJOR") CLIENT_MAX_BODY_SIZE=$(quote_remote "$CLIENT_MAX_BODY_SIZE") REMOTE_ARCHIVE=$(quote_remote "$REMOTE_ARCHIVE") bash -s" <<'REMOTE_SCRIPT'
+ssh "${SSH_ARGS[@]}" "$REMOTE" \
+  "APP_DIR=$(quote_remote "$APP_DIR") SERVICE_NAME=$(quote_remote "$SERVICE_NAME") INTERNAL_PORT=$(quote_remote "$INTERNAL_PORT") PUBLIC_PORT=$(quote_remote "$PUBLIC_PORT") SERVER_NAMES=$(quote_remote "$SERVER_NAMES") NODE_MAJOR=$(quote_remote "$NODE_MAJOR") CLIENT_MAX_BODY_SIZE=$(quote_remote "$CLIENT_MAX_BODY_SIZE") REMOTE_ARCHIVE=$(quote_remote "$REMOTE_ARCHIVE") DEPLOY_PUBLIC_URL=$(quote_remote "$DEPLOY_PUBLIC_URL") bash -s" <<'REMOTE_SCRIPT'
 set -Eeuo pipefail
 
 if [[ "$(id -u)" -eq 0 ]]; then
@@ -185,7 +210,7 @@ $SUDO tee "/etc/nginx/sites-available/${SERVICE_NAME}" >/dev/null <<EOF
 server {
     listen $PUBLIC_PORT;
     listen [::]:$PUBLIC_PORT;
-    server_name $SERVER_NAME _;
+    server_name $SERVER_NAMES;
 
     client_max_body_size $CLIENT_MAX_BODY_SIZE;
 
@@ -226,18 +251,18 @@ curl -fsSI "http://127.0.0.1:$PUBLIC_PORT/studio" >/dev/null || echo "Warning: /
 systemctl is-active --quiet "$SERVICE_NAME"
 systemctl is-active --quiet nginx
 
-echo "Deployment complete: http://$SERVER_NAME:$PUBLIC_PORT"
-echo "Admin studio: http://$SERVER_NAME:$PUBLIC_PORT/studio"
+echo "Deployment complete: $DEPLOY_PUBLIC_URL"
+echo "Admin studio: $DEPLOY_PUBLIC_URL/studio"
 REMOTE_SCRIPT
 
-echo "Checking public URL: http://${SERVER_NAME}:${PUBLIC_PORT}"
+echo "Checking public URL: $DEPLOY_PUBLIC_URL"
 if command -v curl >/dev/null 2>&1; then
-  if curl -fsSI "http://${SERVER_NAME}:${PUBLIC_PORT}" >/dev/null; then
+  if curl -fsSI "$DEPLOY_PUBLIC_URL" >/dev/null; then
     echo "Public URL responded successfully"
   else
     echo "Public URL check failed; deployment on the server completed, but DNS/firewall may need attention" >&2
   fi
 fi
 
-echo "Done: http://${SERVER_NAME}:${PUBLIC_PORT}"
-echo "Admin studio: http://${SERVER_NAME}:${PUBLIC_PORT}/studio"
+echo "Done: $DEPLOY_PUBLIC_URL"
+echo "Admin studio: $DEPLOY_PUBLIC_URL/studio"

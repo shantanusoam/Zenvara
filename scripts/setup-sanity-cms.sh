@@ -7,6 +7,8 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 APP_ENV_FILE="${APP_ENV_FILE:-$ROOT_DIR/apps/web/.env.production}"
 SERVER_NAME="${SERVER_NAME:-168.144.92.215}"
 PUBLIC_PORT="${PUBLIC_PORT:-8004}"
+PUBLIC_URL="${PUBLIC_URL:-}"
+EXTRA_CORS_ORIGINS="${EXTRA_CORS_ORIGINS:-}"
 CMS_SKIP="${CMS_SKIP:-0}"
 CMS_SEED="${CMS_SEED:-1}"
 
@@ -54,7 +56,14 @@ cd "$ROOT_DIR"
 corepack enable >/dev/null 2>&1 || true
 corepack prepare "pnpm@9.15.9" --activate >/dev/null 2>&1 || true
 
-PRODUCTION_URL="http://${SERVER_NAME}:${PUBLIC_PORT}"
+PRIMARY_SERVER_NAME="${SERVER_NAME%% *}"
+if [[ -n "$PUBLIC_URL" ]]; then
+  PRODUCTION_URL="$PUBLIC_URL"
+elif [[ "$PUBLIC_PORT" == "80" ]]; then
+  PRODUCTION_URL="http://${PRIMARY_SERVER_NAME}"
+else
+  PRODUCTION_URL="http://${PRIMARY_SERVER_NAME}:${PUBLIC_PORT}"
+fi
 
 add_cors_origin() {
   local origin="$1"
@@ -70,6 +79,12 @@ echo "Configuring Sanity CMS for project $PROJECT_ID"
 add_cors_origin "http://localhost:3000"
 add_cors_origin "http://127.0.0.1:3000"
 add_cors_origin "$PRODUCTION_URL"
+if [[ "$PRODUCTION_URL" == http://* && "$PUBLIC_PORT" == "80" ]]; then
+  add_cors_origin "https://${PRIMARY_SERVER_NAME}"
+fi
+for origin in $EXTRA_CORS_ORIGINS; do
+  add_cors_origin "$origin"
+done
 
 has_sanity_auth() {
   if [[ -n "${SANITY_AUTH_TOKEN:-}" ]]; then
