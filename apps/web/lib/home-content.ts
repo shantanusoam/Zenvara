@@ -31,7 +31,7 @@ We design, assemble, and supply high-cycle-life LFP battery packs for electric v
 } as const
 
 export const FOUNDER_MESSAGE = {
-  title: "Our Founder’s Message",
+  title: "Founder’s Message",
   body: `When the lights stay on through a power cut, when an electric vehicle finishes its last route, when a factory runs on stored sunshine instead of diesel — there's a battery doing quiet, invisible work behind it. We started Zenvara Energy because that quiet work deserves to be done well.
 
 India is building one of the largest energy transitions in human history, and battery storage is its foundation. Yet too much of what reaches the field is mismatched, poorly graded, and assembled in a hurry. A pack is only as strong as its weakest cell — and we refuse to let that weakest cell be ours.
