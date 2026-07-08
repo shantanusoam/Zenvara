@@ -425,7 +425,17 @@ export function resolveServiceContent(
     specs: {
       ...fallback.specs,
       ...value.specs,
-      specs: arrayOrFallback(value.specs?.specs, fallback.specs.specs),
+      display:
+        value.specs?.display === "hidden" ||
+        value.specs?.display === "table" ||
+        value.specs?.display === "metrics"
+          ? value.specs.display
+          : fallback.specs.display ?? "metrics",
+      specs: arrayOrFallback(value.specs?.specs, fallback.specs.specs ?? []),
+      tableRows: arrayOrFallback(
+        value.specs?.tableRows,
+        fallback.specs.tableRows ?? []
+      ),
     },
     faqs: {
       ...fallback.faqs,

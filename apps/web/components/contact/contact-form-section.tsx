@@ -1,6 +1,6 @@
 "use client"
 
-import { MapPin, Mail, Phone, Clock } from "lucide-react"
+import { MapPin, Mail, Phone } from "lucide-react"
 import type { ContactPageContent } from "@/lib/content-types"
 import { DEFAULT_CONTACT_PAGE } from "@/lib/default-content"
 import { AnimatedCtaButton } from "../layout/animated-cta-button"
@@ -58,14 +58,6 @@ export function ContactFormSection({
                 >
                   {contactInfo.phone}
                 </a>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <Clock className="text-[var(--zen-accent)] w-6 h-6 shrink-0 mt-1" />
-              <div>
-                <h3 className="font-semibold text-lg mb-1">Working Hours</h3>
-                <p className="text-gray-300 text-sm md:text-base">{contactInfo.hours}</p>
               </div>
             </div>
           </div>

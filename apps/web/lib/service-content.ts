@@ -17,6 +17,7 @@ export const SERVICE_INTRO = {
 } as const
 
 export const SERVICE_SPECS = {
+  display: "metrics" as const,
   eyebrow: "Technical Specifications",
   title: "Detailed Performance Metrics",
   specs: [
@@ -32,6 +33,33 @@ export const SERVICE_SPECS = {
     { label: "Certification", value: "CE, UN38.3, ROHS" },
   ],
 } as const
+
+export const SERVICE_SPEC_TABLE_ROWS = [
+  {
+    batteryType: "LFP",
+    modelNo: "ZV-2W-48-30",
+    batteryCapacity: "30 Ah",
+    range: "60–80 km",
+  },
+  {
+    batteryType: "LFP",
+    modelNo: "ZV-2W-48-40",
+    batteryCapacity: "40 Ah",
+    range: "80–100 km",
+  },
+  {
+    batteryType: "LFP",
+    modelNo: "ZV-2W-60-45",
+    batteryCapacity: "45 Ah",
+    range: "90–110 km",
+  },
+  {
+    batteryType: "LFP",
+    modelNo: "ZV-2W-60-55",
+    batteryCapacity: "55 Ah",
+    range: "110–130 km",
+  },
+] as const
 
 export const SERVICE_FAQS = {
   eyebrow: "FAQ's",

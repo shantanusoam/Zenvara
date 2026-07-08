@@ -9,7 +9,7 @@ export const ABOUT_INTRO = {
   title: "Powering India’s",
   title2: "Energy ",
   title3: "Transition",
-  body: `Zenvara Energy is a Delhi-NCR based lithium-ion battery company built to power India’s clean energy transition.
+  body: `Zenvara Energy is a lithium-ion battery company built to power India’s clean energy transition.
 
 We design, assemble, and supply high-cycle-life LFP battery packs for electric mobility, backup power, telecom infrastructure, and large-scale energy storage — engineered for safety, reliability, and consistent real-world performance.`,
   cta: "Our Services",
@@ -65,6 +65,17 @@ export const TEAM = {
       name: "Shivansh Gupta",
       role: "Founder & CEO",
       image: "/assets/expert2.jpg",
+      socials: [
+        { kind: "instagram", href: "#" },
+        { kind: "twitter", href: "#" },
+        { kind: "linkedin", href: "#" },
+        { kind: "facebook", href: "#" },
+      ],
+    },
+    {
+      name: "Amit Gupta",
+      role: "Founder & CEO",
+      image: "/assets/expert1.jpg",
       socials: [
         { kind: "instagram", href: "#" },
         { kind: "twitter", href: "#" },

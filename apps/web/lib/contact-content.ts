@@ -11,7 +11,6 @@ export const CONTACT_PAGE = {
     location: "JU/901 Supertech, Sample Address",
     email: "info@zenvaraenergy.com",
     phone: "+91 98765 43210",
-    hours: "Mon-Sat 10am-7pm",
   },
   form: {
     eyebrow: "Contact Our Team",

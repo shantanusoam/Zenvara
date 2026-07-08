@@ -74,9 +74,13 @@ export function MeetOurTeamSection({
         </Reveal>
 
         {/* Right Side: Team Cards */}
-        <div className="flex w-full flex-1 flex-col gap-8 sm:flex-row sm:justify-center lg:justify-end">
+        <div className="flex w-full flex-1 flex-col gap-8 sm:flex-row sm:flex-wrap sm:justify-center lg:justify-end">
           {team.members.map((member, i) => (
-            <Reveal key={member.name} delay={i * 0.06} className="w-full sm:w-[calc(50%-16px)] max-w-[420px]">
+            <Reveal
+              key={member.name}
+              delay={i * 0.06}
+              className="w-full sm:w-[calc(50%-16px)] lg:w-[min(100%,calc(33.333%-1.5rem))] max-w-[420px]"
+            >
               <motion.article
                 className="relative w-full"
                 whileHover={reduce ? undefined : { y: -6 }}

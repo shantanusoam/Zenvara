@@ -8,6 +8,7 @@ import {
   SERVICE_HERO,
   SERVICE_INTRO,
   SERVICE_SPECS,
+  SERVICE_SPEC_TABLE_ROWS,
 } from "@/lib/service-content"
 import type { ServiceContent } from "@/lib/content-types"
 
@@ -17,7 +18,8 @@ function cardFromProduct(
   index: number,
   slug: string,
   heroOverrides?: Partial<ServiceContent["hero"]>,
-  introOverrides?: Partial<ServiceContent["intro"]>
+  introOverrides?: Partial<ServiceContent["intro"]>,
+  specsOverrides?: Partial<ServiceContent["specs"]>
 ): ServiceContent {
   const card = PRODUCTS.cards[index]!
   const cardImage = PRODUCT_CARD_BACKGROUNDS[index]!
@@ -46,9 +48,11 @@ function cardFromProduct(
       ...introOverrides,
     },
     specs: {
+      display: SERVICE_SPECS.display,
       eyebrow: SERVICE_SPECS.eyebrow,
       title: SERVICE_SPECS.title,
       specs: [...SERVICE_SPECS.specs],
+      ...specsOverrides,
     },
     faqs: {
       eyebrow: SERVICE_FAQS.eyebrow,
@@ -70,14 +74,22 @@ export const DEFAULT_SERVICES: ServiceContent[] = [
     title: SERVICE_HERO.title,
     description: SERVICE_HERO.description,
     image: "/assets/scooter.jpg",
+  }, undefined, {
+    display: "table",
+    tableRows: [...SERVICE_SPEC_TABLE_ROWS],
   }),
-  cardFromProduct(1, "3-wheeler", { image: bg3w }),
+  cardFromProduct(1, "3-wheeler", { image: bg3w }, undefined, {
+    display: "table",
+    tableRows: [...SERVICE_SPEC_TABLE_ROWS],
+  }),
   cardFromProduct(2, "inverter-ups", { image: bgInv }),
   cardFromProduct(3, "solar", { image: bgSolar }),
   cardFromProduct(4, "telecom-batteries", { image: bgTelecom }),
   cardFromProduct(5, "ess", {
     title: "Energy Storage\nSystems (ESS)",
     image: bgEss,
+  }, undefined, {
+    display: "hidden",
   }),
 ]
 

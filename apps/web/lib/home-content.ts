@@ -13,8 +13,9 @@ export const NAV = [
 ] as const
 
 export const HERO = {
-  tagline: "Engineered Energy. Built for India.",
-  headline: "Engineered Energy. Built for India.",
+  tagline: "",
+  headline: "Precision-Engineered",
+  headline2: "Batteries & Storage Systems",
   primaryCta: "Explore More",
   secondaryCta: "Get in Touch",
   videoNote:
@@ -32,22 +33,22 @@ We design, assemble, and supply high-cycle-life LFP battery packs for electric v
 
 export const FOUNDER_MESSAGE = {
   title: "Founder’s Message",
-  body: `When the lights stay on through a power cut, when an electric vehicle finishes its last route, when a factory runs on stored sunshine instead of diesel — there's a battery doing quiet, invisible work behind it. We started Zenvara Energy because that quiet work deserves to be done well.
+  body: `When the lights stay on through a power cut, when an electric vehicle finishes its last route, when a factory runs on stored sunshine instead of diesel, there's a battery doing quiet, invisible work behind it. We started Zenvara Energy because that quiet work deserves to be done well.
 
-India is building one of the largest energy transitions in human history, and battery storage is its foundation. Yet too much of what reaches the field is mismatched, poorly graded, and assembled in a hurry. A pack is only as strong as its weakest cell — and we refuse to let that weakest cell be ours.
+India is building one of the largest energy transitions in human history, and battery storage is its foundation. Yet too much of what reaches the field is mismatched, poorly graded, and assembled in a hurry. A pack is only as strong as its weakest cell, and we refuse to let that weakest cell be ours.
 
-The name Zenvara is built on a single idea: balance. And that's exactly how we work — patiently and precisely. It's also the heart of our craft.`,
+The name Zenvara is built on a single idea: balance. And that's exactly how we work, patiently and precisely. It's also the heart of our craft.`,
   cta: "About Us",
 } as const
 
 export const MISSION_VISION = {
   vision: {
     title: "Every era is defined by how it moves its energy.",
-    body: "Zenvara exists to engineer the lithium-ion systems that will carry a new India forward — quietly, dependably, and at the scale a billion lives will demand.",
+    body: "Zenvara exists to engineer the lithium-ion systems that will carry a new India forward, quietly, dependably, and at the scale a billion lives will demand.",
   },
   mission: {
-    title: "We were founded on a simple conviction:",
-    body: "that India’s energy future deserves to be engineered at home, for the conditions of home. From the three-wheelers earning a living on our streets, to the homes that refuse to go dark, to the warehouses, telecom towers, and rural grids that will hold up tomorrow's economy — Zenvara builds lithium-ion battery systems tuned for Indian roads, Indian climates, and Indian load patterns. Cell by cell, pack by pack, we are assembling the energy backbone of a self-reliant Bharat.",
+    title: "We were founded on a simple conviction",
+    body: "India’s energy future deserves to be engineered at home, for the conditions of home. From the three-wheelers earning a living on our streets, to the homes that refuse to go dark, to the warehouses, telecom towers, and rural grids that will hold up tomorrow's economy, ZEN-VARA builds lithium-ion battery systems tuned for Indian roads, Indian climates, and Indian load patterns. Cell by cell, pack by pack, we are assembling the energy backbone of a self-reliant Bharat.",
   },
 } as const
 
@@ -88,7 +89,7 @@ export const WHY_ZENVARA = {
       title: "3,000+ Cycle Life",
       body: "Our packs are rated for over 3,000 charge-",
       bodyExpanded:
-        "Our packs are rated for over 3,000 charge-discharge cycles at 80% depth of discharge, delivering years of dependable service.",
+        "Our packs are rated for over 3,000 charge-discharge cycles at 80% depth of discharge.",
       icon: "/assets/3000+cycle.svg",
       variant: "dark" as const,
     },
@@ -110,9 +111,9 @@ export const WHY_ZENVARA = {
     },
     {
       title: "Scalable for Business",
-      body: "From a single prototype pack to 1,000 units a ",
+      body: "Scale production with repeatable assembly and ",
       bodyExpanded:
-        "From a single prototype pack to 1,000 units a month, we scale production with repeatable assembly and testing so your roadmap stays on track as demand grows.",
+        "Scale production with repeatable assembly and testing so your roadmap stays on track as demand grows.",
       icon: "/assets/scalable.png",
       variant: "light" as const,
     },
@@ -281,7 +282,7 @@ export const BLOG = {
 
 export const FOOTER = {
   blurb:
-    "Compact, lightweight lithium-ion packs designed for India’s fast-growing electric ",
+    "Compact, lightweight lithium-ion packs designed for India's fast-growing electrical demand.",
   copyright: "Zenvara Energy Power Limited © 2026. Engineered Energy. Built for India.",
   quickLinks: ["Home", "About Us", "Products", "Blog", "Contact"],
   productLinks: [

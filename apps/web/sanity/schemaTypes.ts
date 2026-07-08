@@ -217,6 +217,11 @@ const homePage = defineType({
           validation: (rule) => rule.required(),
         }),
         defineField({
+          name: "headline2",
+          title: "Headline line 2",
+          type: "string",
+        }),
+        defineField({
           name: "primaryCta",
           title: "Primary CTA",
           type: "string",
@@ -688,6 +693,38 @@ const serviceSpecItem = defineType({
   ],
 })
 
+const serviceSpecTableRow = defineType({
+  name: "serviceSpecTableRow",
+  title: "Specification table row",
+  type: "object",
+  fields: [
+    defineField({
+      name: "batteryType",
+      title: "Battery type",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "modelNo",
+      title: "Model No.",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "batteryCapacity",
+      title: "Battery Capacity",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "range",
+      title: "Range",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+  ],
+})
+
 const serviceFaqItem = defineType({
   name: "serviceFaqItem",
   title: "FAQ item",
@@ -779,12 +816,35 @@ const service = defineType({
       title: "Technical specifications",
       type: "object",
       fields: [
+        defineField({
+          name: "display",
+          title: "Display mode",
+          type: "string",
+          options: {
+            list: [
+              { title: "Metrics grid", value: "metrics" },
+              { title: "Table", value: "table" },
+              { title: "Hidden", value: "hidden" },
+            ],
+            layout: "radio",
+          },
+          initialValue: "metrics",
+        }),
         defineField({ name: "eyebrow", type: "string" }),
         defineField({ name: "title", type: "string" }),
         defineField({
           name: "specs",
+          title: "Metrics",
           type: "array",
           of: [defineArrayMember({ type: "serviceSpecItem" })],
+          hidden: ({ parent }) => parent?.display === "hidden" || parent?.display === "table",
+        }),
+        defineField({
+          name: "tableRows",
+          title: "Table rows",
+          type: "array",
+          of: [defineArrayMember({ type: "serviceSpecTableRow" })],
+          hidden: ({ parent }) => parent?.display !== "table",
         }),
       ],
     }),
@@ -858,6 +918,7 @@ export const schemaTypes = [
   missionVision,
   teamSocial,
   serviceSpecItem,
+  serviceSpecTableRow,
   serviceFaqItem,
   siteSettings,
   homePage,

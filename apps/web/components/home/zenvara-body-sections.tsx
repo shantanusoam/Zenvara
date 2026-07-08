@@ -166,9 +166,9 @@ export function ZenvaraBodySections({
 
       <section id="products" className="overflow-hidden pt-4 pb-10 md:pb-16">
         <div className="mx-auto max-w-[1440px] px-5 md:px-10 lg:px-20">
-          <div className="flex w-full flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="flex w-full flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <Reveal className="lg:max-w-[220px]">
-              <p className="text-lg lg:mr-24 flex-3 font-medium text-[#0b1f2a] lg:pt-2 lg:min-w-[180px] lg:max-w-[220px]">
+              <p className="text-lg lg:mr-24 flex-3 font-medium text-[#0b1f2a] lg:min-w-[180px] lg:max-w-[220px]">
                 {products.eyebrow}
               </p>
             </Reveal>

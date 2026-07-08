@@ -14,7 +14,7 @@ describe("about-content", () => {
   })
 
   it("includes intro copy and CTA", () => {
-    expect(ABOUT_INTRO.body).toContain("Delhi-NCR")
+    expect(ABOUT_INTRO.body).toContain("lithium-ion battery company")
     expect(ABOUT_INTRO.cta).toBe("Our Services")
   })
 
@@ -24,7 +24,7 @@ describe("about-content", () => {
 
   it("returns team size equal to member list length", () => {
     expect(teamMemberCount()).toBe(TEAM.members.length)
-    expect(TEAM.members.length).toBeGreaterThanOrEqual(2)
+    expect(TEAM.members.length).toBeGreaterThanOrEqual(3)
   })
 
   it("lists four social slots per member for the Meet Our Team row", () => {

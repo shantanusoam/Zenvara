@@ -40,13 +40,13 @@ export function SiteHeaderBar({
   return (
     <>
       <div
-        className={`fixed inset-x-0 top-0 z-[200] px-5 py-3 text-white transition-all duration-300 md:px-10 ${
+        className={`fixed inset-x-0 top-0 z-[200] px-5 py-3 transition-all duration-300 md:px-10 lg:px-16 xl:px-20 ${
           isScrolled
-            ? "bg-[#0a1620]/95 shadow-[0_10px_30px_rgba(0,0,0,0.3)] backdrop-blur-md"
-            : "bg-transparent shadow-none"
+            ? "bg-white text-[#0a0a0a] shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+            : "bg-transparent text-white shadow-none"
         }`}
       >
-        <div className="mx-auto flex max-w-[1440px] min-w-0 items-center justify-between gap-2 sm:gap-4">
+        <div className="flex w-full min-w-0 items-center justify-between gap-2 sm:gap-4">
           <Link
             href="/"
             className="relative z-20 block max-w-[min(52vw,148px)] shrink-0 sm:max-w-[180px] md:max-w-none"
@@ -56,7 +56,9 @@ export function SiteHeaderBar({
               alt="Zenvara Energy"
               width={180}
               height={48}
-              className="h-12 w-auto sm:h-14 md:h-16 lg:h-20"
+              className={`h-12 w-auto transition-[filter] duration-300 sm:h-14 md:h-16 lg:h-20 ${
+                isScrolled ? "brightness-0" : ""
+              }`}
               priority
               sizes="(max-width: 640px) 148px, 180px"
             />
@@ -68,7 +70,9 @@ export function SiteHeaderBar({
                 const navClass = `flex items-center gap-1.5 transition-colors ${
                   isActive
                     ? "text-[var(--zen-accent)]"
-                    : "text-white/90 hover:text-[var(--zen-accent)]"
+                    : isScrolled
+                      ? "text-[#0a0a0a]/85 hover:text-[var(--zen-accent)]"
+                      : "text-white/90 hover:text-[var(--zen-accent)]"
                 }`
 
                 if (item.label === "Products") {
@@ -87,12 +91,22 @@ export function SiteHeaderBar({
                         role="menu"
                         aria-label="Products menu"
                       >
-                        <div className="translate-y-2 rounded-[24px] border border-white/10 bg-[#0b1f2a]/95 p-2 shadow-[0_24px_64px_rgba(0,0,0,0.35)] backdrop-blur-md transition-transform duration-200 group-hover:translate-y-0 group-focus-within:translate-y-0">
+                        <div
+                          className={`translate-y-2 rounded-[24px] border p-2 shadow-[0_24px_64px_rgba(0,0,0,0.12)] backdrop-blur-md transition-transform duration-200 group-hover:translate-y-0 group-focus-within:translate-y-0 ${
+                            isScrolled
+                              ? "border-[#0a0a0a]/10 bg-white/95"
+                              : "border-white/10 bg-[#0b1f2a]/95 shadow-[0_24px_64px_rgba(0,0,0,0.35)]"
+                          }`}
+                        >
                           {services.map((service) => (
                             <Link
                               key={service.slug}
                               href={`/service/${service.slug}`}
-                              className="flex rounded-[18px] px-4 py-3 text-sm font-medium text-white/85 transition-colors hover:bg-white/8 hover:text-[var(--zen-accent)] focus:bg-white/8 focus:text-[var(--zen-accent)] focus:outline-none"
+                              className={`flex rounded-[18px] px-4 py-3 text-sm font-medium transition-colors hover:text-[var(--zen-accent)] focus:text-[var(--zen-accent)] focus:outline-none ${
+                                isScrolled
+                                  ? "text-[#0a0a0a]/85 hover:bg-[#0a0a0a]/5 focus:bg-[#0a0a0a]/5"
+                                  : "text-white/85 hover:bg-white/8 focus:bg-white/8"
+                              }`}
                               role="menuitem"
                             >
                               {service.title}

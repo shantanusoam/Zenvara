@@ -22,7 +22,10 @@ export function ZenvaraHeaderHero({
 }: ZenvaraHeaderHeroProps) {
   const reduce = useReducedMotion()
   const tagline = hero.tagline || siteSettings.tagline
-  const showTagline = tagline.trim().length > 0 && tagline !== hero.headline
+  const showTagline =
+    tagline.trim().length > 0 &&
+    tagline !== hero.headline &&
+    tagline !== hero.headline2
 
   return (
     <header className="relative min-h-[min(100svh,880px)] overflow-hidden bg-[#0a1620] text-white">
@@ -53,7 +56,7 @@ export function ZenvaraHeaderHero({
         <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/50 to-transparent" />
       </div>
 
-      <div className="relative mx-auto flex min-h-[min(100svh,880px)] max-w-[1440px] flex-col px-5 pt-6 pb-10 md:px-10">
+      <div className="relative flex min-h-[min(100svh,880px)] w-full flex-col px-5 pt-6 pb-10 md:px-10 lg:px-16 xl:px-20">
         <SiteHeaderBar
           active="Home"
           ctaLabel={hero.secondaryCta}
@@ -62,7 +65,7 @@ export function ZenvaraHeaderHero({
           services={services}
         />
 
-        <div className="relative z-10 mt-auto flex max-w-2xl flex-col gap-8 pt-24 pb-16 md:pt-32">
+        <div className="relative z-10 mt-auto flex w-full max-w-2xl flex-col gap-8 pt-24 pb-16 md:max-w-3xl md:pt-32 lg:max-w-4xl">
           {showTagline ? (
             <motion.p
               className="text-base font-semibold uppercase tracking-[0.16em] text-[var(--zen-accent)] md:text-lg"
@@ -79,7 +82,10 @@ export function ZenvaraHeaderHero({
             animate={reduce ? false : revealVisible(1)}
             transition={{ ease: EASE_PREMIUM }}
           >
-            {hero.headline}
+            <span className="block">{hero.headline}</span>
+            {hero.headline2 ? (
+              <span className="mt-1 block text-[var(--zen-accent)]">{hero.headline2}</span>
+            ) : null}
           </motion.h1>
           <AnimatedCtaButton href="/#products" revealDelay={0.2}>
             {hero.primaryCta}

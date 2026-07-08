@@ -93,7 +93,7 @@ export function ZenvaraLowerSections({
             <h2 className="text-4xl font-semibold leading-tight text-balance text-[#0a0a0a] md:text-5xl lg:text-[56px] lg:leading-[1.1]">
               {sustainability.title}
             </h2>
-            <p className="mt-2 text-lg font-medium text-[var(--zen-accent)] md:mt-3 md:text-xl">
+            <p className="mt-2 text-xl font-medium text-[var(--zen-accent)] md:mt-3 md:text-2xl lg:text-3xl">
               {sustainability.eyebrow}
             </p>
           </Reveal>

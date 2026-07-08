@@ -52,6 +52,7 @@ export type HomePageContent = {
   hero: {
     tagline: string
     headline: string
+    headline2?: string
     primaryCta: string
     secondaryCta: string
     videoNote: string
@@ -178,6 +179,15 @@ export type ServiceSpecItem = {
   value: string
 }
 
+export type ServiceSpecTableRow = {
+  batteryType: string
+  modelNo: string
+  batteryCapacity: string
+  range: string
+}
+
+export type ServiceSpecsDisplay = "metrics" | "table" | "hidden"
+
 export type ServiceFaqItem = {
   question: string
   answer: string
@@ -204,9 +214,11 @@ export type ServiceContent = {
     image?: string
   }
   specs: {
+    display?: ServiceSpecsDisplay
     eyebrow: string
     title: string
-    specs: ServiceSpecItem[]
+    specs?: ServiceSpecItem[]
+    tableRows?: ServiceSpecTableRow[]
   }
   faqs: {
     eyebrow: string
@@ -261,7 +273,7 @@ export type ContactPageContent = {
     location: string
     email: string
     phone: string
-    hours: string
+    hours?: string
   }
   form: {
     eyebrow: string

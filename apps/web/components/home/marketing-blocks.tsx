@@ -66,16 +66,26 @@ export function MarketingImpact({
           <Reveal className="mt-16 lg:mt-32">
             <ul className="space-y-4">
               {impact.words.map((w, i) => (
-                <li key={w} className="border-b  border-white/20 pb-4">
+                <li key={w} className="border-b border-white/20 pb-4">
                   <button
                     type="button"
                     onClick={() => setActiveImpact(i)}
-                    className={`text-left cursor-pointer text-4xl font-semibold transition-colors md:text-[56px] md:leading-tight ${activeImpact === i
+                    aria-expanded={activeImpact === i}
+                    className={`flex w-full cursor-pointer items-center justify-between gap-4 text-left text-4xl font-semibold transition-colors group md:text-[56px] md:leading-tight ${
+                      activeImpact === i
                         ? "text-[var(--zen-accent)]"
                         : "text-white/90 hover:text-white"
-                      }`}
+                    }`}
                   >
-                    {w}
+                    <span>{w}</span>
+                    <ChevronRight
+                      className={`h-8 w-8 shrink-0 transition-all duration-300 md:h-10 md:w-10 ${
+                        activeImpact === i
+                          ? "rotate-90 text-[var(--zen-accent)]"
+                          : "text-white/45 group-hover:text-white/70"
+                      }`}
+                      aria-hidden
+                    />
                   </button>
                 </li>
               ))}

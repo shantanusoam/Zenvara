@@ -28,7 +28,7 @@ export const siteSettingsQuery = groq`
 
 export const homePageQuery = groq`
   *[_type == "homePage"][0]{
-    hero{tagline, headline, primaryCta, secondaryCta, videoNote},
+    hero{tagline, headline, headline2, primaryCta, secondaryCta, videoNote},
     whoWeAre{eyebrow, title, body, cta},
     missionVision{
       mission{title, body},
@@ -116,9 +116,11 @@ const serviceProjection = groq`
     "image": image.asset->url
   },
   specs{
+    display,
     eyebrow,
     title,
-    specs[]{label, value}
+    specs[]{label, value},
+    tableRows[]{batteryType, modelNo, batteryCapacity, range}
   },
   faqs{
     eyebrow,
