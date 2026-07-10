@@ -1,8 +1,17 @@
+import type { Metadata } from "next"
 import { Geist, Geist_Mono, Inter, Open_Sans } from "next/font/google"
 
 import "@workspace/ui/styles/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@workspace/ui/lib/utils"
+
+export const metadata: Metadata = {
+  icons: {
+    icon: "/assets/Zenvara%20Favicon.png",
+    shortcut: "/assets/Zenvara%20Favicon.png",
+    apple: "/assets/Zenvara%20Favicon.png",
+  },
+}
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 

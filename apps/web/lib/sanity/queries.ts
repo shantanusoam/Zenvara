@@ -30,6 +30,7 @@ export const homePageQuery = groq`
   *[_type == "homePage"][0]{
     hero{tagline, headline, headline2, primaryCta, secondaryCta, videoNote},
     whoWeAre{eyebrow, title, body, cta},
+    founderMessage{title, body, cta},
     missionVision{
       mission{title, body},
       vision{title, body}
@@ -86,6 +87,7 @@ export const homePageQuery = groq`
     "images": {
       "heroImage": images.heroImage.asset->url,
       "aboutImage": images.aboutImage.asset->url,
+      "founderImage": images.founderImage.asset->url,
       "productBackgrounds": images.productBackgrounds[].asset->url,
       "impactImage": images.impactImage.asset->url,
       "testimonialImage": images.testimonialImage.asset->url,

@@ -254,7 +254,7 @@ export const SUSTAINABILITY_PILLAR_ICONS_FALLBACK = [
 
 export const CTA = {
   title: "Let’s Build India’s Energy Future Together.",
-  body: "Whether you’re an EV manufacturer scaling production, an inverter brand going lithium, or a distributor building a new product line — we’re ready to talk.",
+  body: "Whether you’re an EV manufacturer scaling production, an inverter brand going lithium, or a distributor building a new product line we’re ready to talk.",
   button: "Enquire Now",
 } as const
 

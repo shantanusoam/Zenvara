@@ -245,6 +245,16 @@ const homePage = defineType({
         defineField({ name: "cta", title: "CTA", type: "string" }),
       ],
     }),
+    defineField({
+      name: "founderMessage",
+      title: "Founder's message",
+      type: "object",
+      fields: [
+        defineField({ name: "title", type: "string" }),
+        defineField({ name: "body", type: "text", rows: 8 }),
+        defineField({ name: "cta", title: "CTA label", type: "string" }),
+      ],
+    }),
     defineField({ name: "missionVision", type: "missionVision" }),
     defineField({
       name: "statStrip",
@@ -522,6 +532,12 @@ const homePage = defineType({
         }),
         defineField({
           name: "sustainabilityImage",
+          type: "image",
+          options: { hotspot: true },
+        }),
+        defineField({
+          name: "founderImage",
+          title: "Founder image",
           type: "image",
           options: { hotspot: true },
         }),

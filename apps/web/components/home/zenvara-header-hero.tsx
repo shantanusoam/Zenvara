@@ -65,17 +65,18 @@ export function ZenvaraHeaderHero({
           services={services}
         />
 
+        {showTagline ? (
+          <motion.p
+            className="relative z-10 ml-auto mt-6 max-w-xs text-right text-sm font-semibold uppercase tracking-[0.16em] text-white md:mt-8 md:text-base lg:max-w-sm lg:text-lg"
+            initial={reduce ? false : revealHidden}
+            animate={reduce ? false : revealVisible(0.85)}
+            transition={{ ease: EASE_PREMIUM }}
+          >
+            {tagline}
+          </motion.p>
+        ) : null}
+
         <div className="relative z-10 mt-auto flex w-full max-w-2xl flex-col gap-8 pt-24 pb-16 md:max-w-3xl md:pt-32 lg:max-w-4xl">
-          {showTagline ? (
-            <motion.p
-              className="text-base font-semibold uppercase tracking-[0.16em] text-[var(--zen-accent)] md:text-lg"
-              initial={reduce ? false : revealHidden}
-              animate={reduce ? false : revealVisible(0.85)}
-              transition={{ ease: EASE_PREMIUM }}
-            >
-              {tagline}
-            </motion.p>
-          ) : null}
           <motion.h1
             className="text-4xl leading-tight font-semibold tracking-tight text-balance md:text-5xl lg:text-[56px] lg:leading-[1.15]"
             initial={reduce ? false : revealHidden}

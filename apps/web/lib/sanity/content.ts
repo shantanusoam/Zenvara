@@ -100,6 +100,7 @@ export function resolveHomePageContent(
     ...value,
     hero: { ...DEFAULT_HOME_PAGE.hero, ...value.hero },
     whoWeAre: { ...DEFAULT_HOME_PAGE.whoWeAre, ...value.whoWeAre },
+    founderMessage: { ...DEFAULT_HOME_PAGE.founderMessage, ...value.founderMessage },
     missionVision: {
       mission: {
         ...DEFAULT_HOME_PAGE.missionVision.mission,

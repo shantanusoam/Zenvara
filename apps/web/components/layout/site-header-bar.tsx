@@ -52,13 +52,15 @@ export function SiteHeaderBar({
             className="relative z-20 block max-w-[min(52vw,148px)] shrink-0 sm:max-w-[180px] md:max-w-none"
           >
             <Image
-              src="/assets/zenvara-logo.svg"
+              src={
+                isScrolled
+                  ? "/assets/zenvara%20black.svg"
+                  : "/assets/zenvara%20white.svg"
+              }
               alt="Zenvara Energy"
               width={180}
               height={48}
-              className={`h-12 w-auto transition-[filter] duration-300 sm:h-14 md:h-16 lg:h-20 ${
-                isScrolled ? "brightness-0" : ""
-              }`}
+              className="h-12 w-auto transition-opacity duration-300 sm:h-14 md:h-16 lg:h-20"
               priority
               sizes="(max-width: 640px) 148px, 180px"
             />
