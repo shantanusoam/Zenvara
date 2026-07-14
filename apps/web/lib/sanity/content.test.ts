@@ -178,6 +178,65 @@ describe("sanity content resolvers", () => {
     ).toBeNull()
   })
 
+  it("respects CMS specs display hidden and table rows", () => {
+    const fallback = DEFAULT_SERVICES[0]!
+
+    expect(
+      resolveServiceContent(
+        { slug: "2-wheeler", specs: { display: "hidden", eyebrow: "X", title: "Y" } },
+        fallback
+      ).specs.display
+    ).toBe("hidden")
+
+    const withTable = resolveServiceContent(
+      {
+        slug: "2-wheeler",
+        specs: {
+          display: "table",
+          eyebrow: "Specs",
+          title: "Table",
+          tableRows: [
+            {
+              batteryType: "LFP",
+              modelNo: "ZV-CMS-1",
+              batteryCapacity: "50 Ah",
+              range: "100 km",
+            },
+          ],
+        },
+      },
+      fallback
+    )
+    expect(withTable.specs.display).toBe("table")
+    expect(withTable.specs.tableRows).toEqual([
+      {
+        batteryType: "LFP",
+        modelNo: "ZV-CMS-1",
+        batteryCapacity: "50 Ah",
+        range: "100 km",
+      },
+    ])
+  })
+
+  it("does not reinstate fallback table rows when CMS table is empty", () => {
+    const fallback = DEFAULT_SERVICES[0]!
+    const resolved = resolveServiceContent(
+      {
+        slug: "2-wheeler",
+        specs: {
+          display: "table",
+          eyebrow: "Specs",
+          title: "Table",
+          tableRows: [],
+        },
+      },
+      fallback
+    )
+
+    expect(resolved.specs.display).toBe("table")
+    expect(resolved.specs.tableRows).toEqual([])
+  })
+
   it("sorts and resolves CMS service lists without requiring default slugs", () => {
     const services = resolveServicesList([
       {

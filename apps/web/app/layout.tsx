@@ -7,9 +7,12 @@ import { cn } from "@workspace/ui/lib/utils"
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/assets/Zenvara%20Favicon.png",
-    shortcut: "/assets/Zenvara%20Favicon.png",
-    apple: "/assets/Zenvara%20Favicon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png", sizes: "375x375" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [{ url: "/favicon.png", sizes: "375x375", type: "image/png" }],
   },
 }
 

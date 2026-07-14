@@ -77,6 +77,19 @@ After deploy or `pnpm --filter web cms:seed`:
 4. Add or delete a service document → publish → confirm `/`, `/service`, and `/service/<slug>` reflect the change
 5. If seed skipped, run `npx sanity login` or set `SANITY_AUTH_TOKEN` in `apps/web/.env.production`, then redeploy
 
+### Edit or hide Technical Specifications (per product)
+
+In `/studio` → **Service / Product** → open a product (e.g. 2-Wheeler):
+
+1. Scroll to **Technical specifications**
+2. Set **Section visibility**:
+   - **Show as specification table** — edit **Specification table rows** (Battery type, Model No., Capacity, Range)
+   - **Show as metrics cards** — edit label/value metrics
+   - **Hide section (not shown on this product)** — removes the entire specs block from that product page
+3. Publish, then reload `/service/<slug>`
+
+Re-seed (`pnpm --filter web cms:seed` or redeploy without `CMS_SEED=0`) if older service documents are missing `display` / `tableRows` fields.
+
 ## Deploy to DigitalOcean
 
 Run from the monorepo root:

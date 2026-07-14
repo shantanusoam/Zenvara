@@ -433,10 +433,14 @@ export function resolveServiceContent(
           ? value.specs.display
           : fallback.specs.display ?? "metrics",
       specs: arrayOrFallback(value.specs?.specs, fallback.specs.specs ?? []),
-      tableRows: arrayOrFallback(
-        value.specs?.tableRows,
-        fallback.specs.tableRows ?? []
-      ),
+      // Reason: when CMS chooses table mode, respect its row list (including empty) so Studio edits stick.
+      tableRows:
+        value.specs?.display === "table" && Array.isArray(value.specs.tableRows)
+          ? value.specs.tableRows
+          : arrayOrFallback(
+              value.specs?.tableRows,
+              fallback.specs.tableRows ?? []
+            ),
     },
     faqs: {
       ...fallback.faqs,

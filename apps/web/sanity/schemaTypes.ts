@@ -739,6 +739,18 @@ const serviceSpecTableRow = defineType({
       validation: (rule) => rule.required(),
     }),
   ],
+  preview: {
+    select: {
+      title: "modelNo",
+      subtitle: "batteryCapacity",
+      batteryType: "batteryType",
+      range: "range",
+    },
+    prepare: ({ title, subtitle, batteryType, range }) => ({
+      title: title || "Untitled model",
+      subtitle: [batteryType, subtitle, range].filter(Boolean).join(" · "),
+    }),
+  },
 })
 
 const serviceFaqItem = defineType({
@@ -830,37 +842,68 @@ const service = defineType({
     defineField({
       name: "specs",
       title: "Technical specifications",
+      description:
+        "Controls the Technical Specifications section on this product page. Set visibility to Hidden to remove the section entirely for products that should not show specs.",
       type: "object",
       fields: [
         defineField({
           name: "display",
-          title: "Display mode",
+          title: "Section visibility",
+          description:
+            "Hidden removes the whole section from this product. Table uses the editable rows below. Metrics uses the label/value cards.",
           type: "string",
           options: {
             list: [
-              { title: "Metrics grid", value: "metrics" },
-              { title: "Table", value: "table" },
-              { title: "Hidden", value: "hidden" },
+              {
+                title: "Show as metrics cards",
+                value: "metrics",
+              },
+              {
+                title: "Show as specification table",
+                value: "table",
+              },
+              {
+                title: "Hide section (not shown on this product)",
+                value: "hidden",
+              },
             ],
             layout: "radio",
           },
           initialValue: "metrics",
+          validation: (rule) => rule.required(),
         }),
-        defineField({ name: "eyebrow", type: "string" }),
-        defineField({ name: "title", type: "string" }),
+        defineField({
+          name: "eyebrow",
+          title: "Eyebrow",
+          type: "string",
+          hidden: ({ parent }) => parent?.display === "hidden",
+        }),
+        defineField({
+          name: "title",
+          title: "Title",
+          type: "string",
+          hidden: ({ parent }) => parent?.display === "hidden",
+        }),
         defineField({
           name: "specs",
-          title: "Metrics",
+          title: "Metrics cards",
+          description: "Label / value pairs shown when Section visibility is “Show as metrics cards”.",
           type: "array",
           of: [defineArrayMember({ type: "serviceSpecItem" })],
-          hidden: ({ parent }) => parent?.display === "hidden" || parent?.display === "table",
+          // Reason: keep metrics editable unless explicitly table/hidden so older docs without display still work.
+          hidden: ({ parent }) =>
+            parent?.display === "hidden" || parent?.display === "table",
         }),
         defineField({
           name: "tableRows",
-          title: "Table rows",
+          title: "Specification table rows",
+          description:
+            "Edit Battery type, Model No., Capacity, and Range. Shown when Section visibility is “Show as specification table”. If the site still shows a table but this list is empty, set visibility to Table and add rows here.",
           type: "array",
           of: [defineArrayMember({ type: "serviceSpecTableRow" })],
-          hidden: ({ parent }) => parent?.display !== "table",
+          // Reason: show for "table" and unset/legacy docs so editors can always reach table editing.
+          hidden: ({ parent }) =>
+            parent?.display === "metrics" || parent?.display === "hidden",
         }),
       ],
     }),

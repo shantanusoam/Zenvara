@@ -211,7 +211,19 @@ async function buildServices(): Promise<SeedDocument[]> {
         description: service.intro.description,
         image: await uploadPublicImage(client, service.intro.image),
       },
-      specs: service.specs,
+      specs: {
+        display: service.specs.display ?? "metrics",
+        eyebrow: service.specs.eyebrow,
+        title: service.specs.title,
+        specs: (service.specs.specs ?? []).map((row, index) => ({
+          _key: `metric-${service.slug}-${index}`,
+          ...row,
+        })),
+        tableRows: (service.specs.tableRows ?? []).map((row, index) => ({
+          _key: `row-${service.slug}-${index}`,
+          ...row,
+        })),
+      },
       faqs: service.faqs,
       cta: service.cta,
       seo: service.seo,
